@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Lista de Candidatos
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='list'>
+	{% if student_list|length > 0 %}
+		<div class='list-container'>
+			<div class='list-search'>
+				<input type='text' class='search-input' placeholder='Pesquise por nível escolar...'>
+				<button class='search-button' type='button' onclick='pesquisaCandidato()'>
+					<i class='fa fa-search'></i>
+				</button>
+			</div>
+		</div>
+		<div class='list-table'>
+				<table class='content-table'>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>Instituições de Ensino</th>
+							<th>Empresas</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for student in student_list %}
+							<tr>
+								<td>{{ student.nome }}</td>
+								<td>{{ student.email }}</td>
+								<td>{{ student.intituicao_ensino }}</td>
+								<td>{{ student.empresa }}</td>
+								<td>
+									<div class='dropdown'>
+										<button class='dropdown-button'>
+											Lista de opções
+										</button>
+										<div class='dropdown-content'>
+											<a href="{% url 'student-read' student.id %}">Visualizar</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+	{% else %}
+		<div class='alert-container'>
+			<div class='alert'>
+		  		<strong>Aviso!</strong> 
+		  		<small>
+		  			Ainda não existe cadastrado candidatos para consultar
+		  		</small>
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

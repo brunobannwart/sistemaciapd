@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Cadastro de Video-aula
+</h3>
+{% endblock %}
+
+{% block content %}
+{% if error is not None %}
+	<div class='error-overlay'>
+		<div class='error-popup' onclick="this.parentElement.style.display='none'">
+			<h2>Aviso</h2>
+			<a class='error-close'>&times;</a>
+			<div class='error-content'>
+				<p>{{ error }}</p>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+<div class='form'>
+	<div class='form-button-return'>
+		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'videolesson-list' %}`"></i>
+	</div>
+	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
+		{% csrf_token  %}
+		<div class='form-file-block'>
+			<div class='preview'>
+				{% if videolesson.arquivo %}
+					<img src='{{ videolesson.arquivo.url }}' alt='Prévia' id='preview_image' style='display: block;'>
+					<span id='preview_icon' style='display: none;'>
+						<i class='far fa-play-circle'></i>
+					</span>
+				{% else %}
+					<img src='' alt='Prévia' id='preview_image'>
+					<span id='preview_icon'>
+						<i class='far fa-play-circle'></i>
+					</span>
+				{% endif %}
+			</div>
+
+			{% if videolesson.arquivo %}
+				<input type='file' accept='image/*' name='arquivo' id='arquivo' />
+			{% else %}
+				<input type='file' accept='image/*' name='arquivo' id='arquivo' required />
+			{% endif %}
+			<label title='Preencha esse campo' for='arquivo' style='width: 195px;'>Logo da Video-Aula</label>
+		</div>
+		
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='titulo'>Titulo *</label>
+				<input 
+					type='text' 
+					name='titulo' 
+					required 
+					placeholder='Preencha com o titulo'
+					maxlength='45' 
+					value='{{ videolesson.titulo }}'
+				>
+			</div>
+			<div class='form-block'>
+				<label for='url'>URL *</label>
+				<input
+					type='url'
+					name='url'
+					maxlength='100'
+					required
+					placeholder='Preencha com a URL'
+					value='{{ videolesson.url }}'
+					title='Preencha campo com o formato padrão de URL' 
+				>
+			</div>
+		</div>
+
+		<div class='form-block' style='margin-top: 15px'>
+			<label for='descricao'>Descrição *</label>
+			<textarea name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required>{{ videolesson.descricao }}</textarea>
+		</div>
+		
+		<button type='submit'>Salvar</button>
+	</form>
+</div>
+<script>
+	const input = document.getElementById('arquivo');
+	const imagem = document.getElementById('preview_image')
+	const icone = document.getElementById('preview_icon');
+
+	input.addEventListener('change', function() {
+		const arquivo = this.files[0];
+
+		if (arquivo) {
+			const leitor = new FileReader();
+
+			icone.style.display = 'none';
+			imagem.style.display = 'flex';
+
+			leitor.addEventListener('load', function() {
+				imagem.setAttribute('src', this.result);	
+			});
+
+			leitor.readAsDataURL(arquivo);
+		}
+	});
+</script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Lista de Jogos
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='list'>
+	<button class='create' onclick="window.location.href= `{% url 'game-form' %}`">
+		<p>Novo</p>
+	</button>
+
+	{% if game_list|length > 0 %}
+		<div class='list-container'>
+			<div class='list-search'>
+				<input type='text' class='search-input' placeholder='Pesquise por título...'>
+				<button class='search-button' type='button' onclick='pesquisaJogo()'>
+					<i class='fa fa-search'></i>
+				</button>
+			</div>
+
+			<div class='list-table'>
+				<table class='content-table'>
+					<thead>
+						<tr>
+							<th>Titulo</th>
+							<th>URL</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for game in game_list %}
+							<tr>
+								<td>{{ game.titulo }}</td>
+								<td>{{ game.url }}</td>
+								<td>
+									<div class='dropdown'>
+										<button class='dropdown-button'>
+											Lista de opções
+										</button>
+										<div class='dropdown-content'>
+											<a href="{% url 'game-edit' game.id %}">Editar</a>
+											<a href="{% url 'game-delete' game.id %}">Remover</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% else %}
+		<div class='alert-container'>
+			<div class='alert' onclick="window.location.href = `{% url 'game-form' %}`" style='cursor: pointer;'>
+		  		<strong>Aviso!</strong>
+		  		<small>
+		  			Você ainda não possui jogos cadastrados
+				</small>
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

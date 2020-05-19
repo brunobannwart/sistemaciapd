@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class='content'>
+		<div class='list'>
+			<div class='list-content'>
+				<ul>
+					{% for event in event_list %}
+						<li class='list-item'>
+							<div class='list-item-img'>
+								<img src='{{ event.arquivo.url }}' alt='Imagem' />
+							</div>
+							<div class='list-item-container'>
+								<header>
+									<strong>{{ event.titulo }}</strong>
+									<strong>{{ event.data_exp }}</strong>
+								</header>
+								<div class='list-item-container-content'>
+									<p>{{ event.descricao }}</p>
+									<button class='list-item-button' onclick="window.location.href=`{% url 'event' event.id %}`">
+										Acessar
+									</button>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

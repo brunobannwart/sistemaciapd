@@ -1,0 +1,108 @@
+from django.shortcuts import render, redirect
+import os, requests, json
+from .models import Administrador
+from .forms import AdministradorForm, AdministradorEditForm
+
+# Create your views here.
+def admin_list_view(request):
+	admin_list = Administrador.objects.all() 
+	context = {
+		'admin_list': admin_list
+	}
+	return render(request, 'administrator/list.html', context)
+
+def admin_form_view(request, id=0):
+	os.environ['NO_PROXY'] = '127.0.0.1'
+	
+	if request.method == 'POST':
+
+		if id == 0:
+			form = AdministradorForm(request.POST, request.FILES)
+			read = False
+		else:
+			form = AdministradorEditForm(request.POST, request.FILES or None)
+			read = True
+
+		if form.is_valid():
+			data = form.clean_form()
+
+			if id == 0:
+				if Administrador.objects.filter(email=data['email']) | Administrador.objects.filter(rf=data['rf']):
+					if Administrador.objects.filter(email=data['email']):
+						administrator = request.POST
+						error = 'Já existe administrador com esse e-mail cadastrado'
+					else:
+						administrator = request.POST
+						error = 'Já existe administrador com esse RF'
+				else:
+					try:
+						#response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'administrador'}, files={ 'file': data['foto'] })
+					
+						create_admin = 	Administrador.objects.create(foto=data['foto'], nome=data['nome'], rf=data['rf'], 
+											email=data['email'], senha=data['senha'], 
+											comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])	
+						create_admin.save()
+
+					finally:	
+						form = AdministradorForm()
+						error = None
+						return redirect('/administradores/')
+			else:
+				try:
+					update_admin = Administrador.objects.get(id=id)
+
+					if request.FILES.get('foto', False):
+						update_admin.foto = data['foto']
+					
+					update_admin.nome = data['nome']
+					update_admin.comando_voz = data['comando_voz']
+					update_admin.ajuda_voz = data['ajuda_voz']
+					update_admin.nvda = data['nvda']
+					update_admin.save()
+
+				finally:
+					form = AdministradorForm()
+					error = None
+					return redirect('/administradores/')	
+		else:
+			administrator = request.POST
+			error = 'Alguns campos não foram preenchidos corretamente'
+
+	else:
+		form = AdministradorForm()
+		error = None
+
+		if id == 0:
+			administrator = {
+				'foto': None,
+				'nome': '',
+				'rf': '',
+				'email': '',
+				'senha': '',
+				'comando_voz': 'nao',
+				'ajuda_voz': 'nao',
+				'nvda': 'nao',
+			}
+
+			read = False
+		else:
+			try:
+				administrator = Administrador.objects.get(id=id)
+				read = True
+			except:
+				return redirect('/administradores/')
+			
+	context = {
+		'administrator': administrator,
+		'error': error,
+		'read': read
+	}
+
+	return render(request, 'administrator/form.html', context)
+
+def admin_delete_view(request, id=0):
+	try:
+		administrator = Administrador.objects.get(id=id)
+		administrator.delete()
+	finally:
+		return redirect('/administradores/')

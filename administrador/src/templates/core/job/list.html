@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Lista de Vagas
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='list'>
+	{% if job_list|length > 0 %}
+		<div class='list-container'>
+			<div class='list-search'>
+				<input type='text' class='search-input' placeholder='Pesquise por título...'>
+				<button class='search-button' type='button' onclick='pesquisaVaga()'>
+					<i class='fa fa-search'></i>
+				</button>
+			</div>
+
+			<div class='list-table'>
+				<table class='content-table'>
+					<thead>
+						<tr>
+							<th>Titulo</th>
+							<th>Data de Expiração</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for job in job_list %}
+							<tr>
+								<td>{{ job.titulo }}</td>
+								<td>{{ job.data_exp }}</td>
+								<td>
+									<div class='dropdown'>
+										<button class='dropdown-button'>
+											Lista de opções
+										</button>
+										<div class='dropdown-content'>
+											<a href="{% url 'job-read' job.id %}">Visualizar</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% else %}
+		<div class='alert-container'>
+			<div class='alert'>
+		  		<strong>Aviso!</strong> 
+		  		<small>
+		  			Ainda não existe cadastrado vagas de emprego
+		  		</small>
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

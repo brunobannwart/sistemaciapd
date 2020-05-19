@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Lista de Eventos
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='list'>
+	<button class='create' onclick="window.location.href= `{% url 'event-form' %}`">
+		<p>Novo</p>
+	</button>
+
+	{% if event_list|length > 0 %}
+		<div class='list-container'>
+			<div class='list-search'>
+				<input type='text' class='search-input' placeholder='Pesquise por título...'>
+				<button class='search-button' type='button' onclick='pesquisaEvento()'>
+					<i class='fa fa-search'></i>
+				</button>
+			</div>
+
+			<div class='list-table'>
+				<table class='content-table'>
+					<thead>
+						<tr>
+							<th>Titulo</th>
+							<th>Data de Expiração</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for event in event_list %}
+							<tr>
+								<td>{{ event.titulo }}</td>
+								<td>{{ event.data_exp }}</td>
+								<td>
+									<div class='dropdown'>
+										<button class='dropdown-button'>
+											Lista de opções
+										</button>
+										<div class='dropdown-content'>
+											<a href="{% url 'event-edit' event.id %}">Editar</a>
+											<a href="{% url 'event-delete' event.id %}">Remover</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% else %}
+		<div class='alert-container'>
+			<div class='alert' onclick="window.location.href = `{% url 'event-form' %}`" style='cursor: pointer;'>
+		  		<strong>Aviso!</strong>
+		  		<small>
+		  			Você ainda não possui eventos cadastrados
+				</small>
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

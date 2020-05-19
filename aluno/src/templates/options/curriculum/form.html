@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if error is not None %}
+	<div class='error-overlay'>
+		<div class='error-popup' onclick="this.parentElement.style.display='none'">
+			<h2>Aviso</h2>
+			<a class='error-close'>&times;</a>
+			<div class='error-content'>
+				<p>{{ error }}</p>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+<div class='form'>
+	<div class='form-button-return'>
+		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'home' %}`"></i>
+	</div>
+	<form autocomplete='off' method='post' action='.'>
+		{% csrf_token %}
+		<div class='form-block'>
+			<label for='intituicao_ensino'>Instituições de ensino</label>
+			<textarea name='intituicao_ensino' required placeholder='Preencha com as instituições de ensino frequentadas'>{{ curriculum.intituicao_ensino }}</textarea>
+		</div>
+
+		<div class='form-block'>
+			<label for='curso_extra'>Cursos extras</label>
+			<textarea name='curso_extra' required placeholder='Preencha com cursos realizados'>{{ curriculum.curso_extra }}</textarea>
+		</div>
+
+		<div class='form-block'>
+			<label for='empresa'>Empresas trabalhadas</label>
+			<textarea name='empresa' required placeholder='Preencha com as empresas trabalhadas'>{{ curriculum.empresa }}</textarea>
+		</div>
+		
+		<div class='form-block'>
+			<label for='cargo'>Cargos ocupados</label>
+			<textarea name='cargo' required placeholder='Preencha com os cargos ocupados'>{{ curriculum.cargo }}</textarea>
+		</div>
+
+		<button type='submit'>Salvar</button>
+	</form>
+</div>
+{% endblock %}

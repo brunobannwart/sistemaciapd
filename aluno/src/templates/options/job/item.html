@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class='item'>
+		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'job-list' %}`"></i>
+		<header>
+			<strong>{{ job.titulo }}</strong>
+		</header>
+		<div class='item-image'>
+			<img src='{{ job.arquivo.url }}'/>
+		</div>
+		<div class='item-content'>
+			<p>{{ job.descricao }}</p>
+		</div>
+	</div>
+{% endblock %}

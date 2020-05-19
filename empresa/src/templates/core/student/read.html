@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	{{ student.nome }}
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='form'>
+	<div class='form-button-return'>
+		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'student-list' %}`"></i>
+	</div>
+	<form>
+		<div class='form-file-block'>
+			<div class='preview'>
+				<img src='{{ student.foto.url }}' alt='Imagem' style='display: block;'>
+			</div>
+		</div>
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='nome'>Nome</label>
+				<input 
+					type='text' 
+					name='nome' 
+					value='{{ student.nome }}' 
+					readonly 
+				>
+			</div>
+			<div class='form-block'>
+				<label for='data_nasc'>Data de nascimento</label>
+				<input
+					type='date'
+					name='data_nasc'
+					readonly
+					value='{{ student.data_nasc }}'
+				>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='email'>E-mail</label>
+				<input 
+					type='email' 
+					name='email' 
+					value='{{ student.email }}' 
+					readonly 
+				>
+			</div>
+			<div class='form-block'>
+				<label for='cpf'>CPF</label>
+				<input 
+					type='text' 
+					name='cpf' 
+					value='{{ student.cpf }}' 
+					readonly
+				>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='cep'>CEP</label>
+				<input 
+					type='text' 
+					name='cep' 
+					value='{{ student.cep }}' 
+					readonly 
+				>
+			</div>
+			<div class='form-block'>
+				<label for='numero'>Número</label>
+				<input 
+					type='text' 
+					name='numero'
+					readonly 
+					value='{{ student.numero }}' 
+				>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='intituicao_ensino'>Instituições de ensino</label>
+				<textarea name='intituicao_ensino' readonly>{{ student.intituicao_ensino }}</textarea>
+			</div>
+			<div class='form-block'>
+				<label for='curso_extra'>Cursos extras</label>
+				<textarea name='curso_extra' readonly>{{ student.curso_extra }}</textarea>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='empresa'>Empresas</label>
+				<textarea name='empresa' readonly>{{ student.empresa }}</textarea>
+			</div>
+			<div class='form-block'>
+				<label for='cargo'>Cargos ocupados</label>
+				<textarea name='cargo' readonly>{{ student.cargo }}</textarea>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='cid'>CID</label>
+				<textarea name='cid' readonly>{{ student.cid }}</textarea>
+			</div>
+			<div class='form-block'>
+				<label for='outra_info'>Outras informações</label>
+				<textarea name='outra_info' readonly>{{ student.outra_info }}</textarea>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}

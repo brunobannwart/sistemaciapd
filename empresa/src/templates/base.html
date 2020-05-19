@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <script src='https://kit.fontawesome.com/50797efa34.js'></script>
+    <link rel='shortcut icon' href="{% static 'assets/favicon.ico' %}" />
+    <link rel='stylesheet' type='text/css' href="{% static '/css/base.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static '/css/list.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static '/css/form.css' %}">
+    <script type='text/javascript' src="{% static '/javascript/search.js' %}"></script>
+    <title>CIAPD - Empresa</title>
+</head>
+<body>
+    <div class='header'>
+            <header>
+                <div class='company-info'>
+                    <i class='fas fa-bell'></i>
+                </div>
+                <div class='page-info'>
+                    {% block header %}
+                    {% endblock %}
+                </div>
+            </header>
+    </div>
+    <div class='container'>
+        <div class='navbar'>
+            <div class='container-home'>
+                <img 
+                    src="{% static 'assets/ciapdwhite.svg' %}" 
+                    alt='CIAPD' 
+                />
+                <ul>
+                    <li>
+                        <i class='fas fa-home'>
+                            Empresarial
+                        </i>
+                    </li>
+                </ul>
+            </div>
+            <div class='container-options'>
+                <br/><strong>Opções</strong>
+                <ul>
+                    <li>
+                        <a href="{% url 'job-list' %}">
+                            <i class='fas fa-briefcase'>
+                                Vagas disponíveis
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'student-list' %}">
+                            <i class='fas fa-search'>
+                                Consultar candidatos
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+            </div>    
+            <div class='container-actions'>
+                <ul>
+                    <li>
+                        <a href="{% url 'changepassword' %}">
+                            <i class='fas fa-key'>
+                                Trocar Senha
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <i class='fas fa-sign-out-alt'>
+                                Sair
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class='main'>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

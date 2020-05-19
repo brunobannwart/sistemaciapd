@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class='content'>
+		<div class='list'>
+			<div class='list-content'>
+				<ul>
+					{% for job in job_list %}
+						<li class='list-item'>
+							<div class='list-item-img'>
+								<img src='{{ job.arquivo.url }}' alt='Imagem' />
+							</div>
+							<div class='list-item-container'>
+								<header>
+									<strong>{{ job.titulo }}</strong>
+									<strong>{{ job.data_exp }}</strong>
+								</header>
+								<div class='list-item-container-content'>
+									<p>{{ job.descricao }}</p>
+									<button class='list-item-button' onclick="window.location.href=`{% url 'job' job.id %}`">
+										Acessar
+									</button>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

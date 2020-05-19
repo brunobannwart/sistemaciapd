@@ -1,0 +1,30 @@
+{% extends 'login/index.html' %}
+{% load static %}
+
+{% block login-header %}
+    <img src="{% static 'assets/ciapd.svg' %}" alt='CIAPD' />
+    <strong>Novo acesso</strong>
+    <p>Como posso conseguir uma conta?</p>
+{% endblock %}
+
+{% block login-content %}
+    <div class='content-readmore'>
+        <img src="{% static 'assets/newuser.svg' %}" alt='Novo usuario' />
+        <p>
+            O acesso ao sistema só é permitido aos alunos e colaboradores do CIAPD. 
+            Se deseja acessar o sistema entre em contato com o 
+            <a 
+                href='https://www.puc-campinas.edu.br/ciapd-da-puc-campinas-prepara-pessoas-com-deficiencia-para-o-mercado-de-trabalho/' 
+                target="_blank"
+            >
+               órgão responsável
+            </a>
+        </p>
+        <button 
+            class='login-admin' 
+            onclick="window.location.href=`{% url 'login' %}`" 
+        >
+            Voltar
+        </button>
+    </div>
+{% endblock %}

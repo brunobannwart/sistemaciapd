@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body, input, button {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.background {
+    background: #000 url('../assets/background.jpg');
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+.login-error-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+}
+
+.login-error-overlay .login-error-popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+  z-index: 2;
+}
+
+.login-error-overlay .login-error-popup h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.login-error-overlay .login-error-popup .login-error-close {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.login-error-overlay .login-error-popup .login-error-close:hover {
+  color: #06D85F;
+}
+
+.login-error-overlay .login-error-popup .login-error-content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+.login-error-overlay .login-error-popup .login-error-content p {
+    font-size: 1em;
+    color: #666;
+    text-align: center;
+}
+
+.container {
+    margin: 0% auto 0;
+    padding-top: 3%;
+    max-width: 450px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+    background: #FFF;
+    margin-top: 50px;
+    border-radius: 4px;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header > img {
+    width: 35%;
+    height: 35%;
+}
+
+.header > strong {
+    font-size: 20px;
+    line-height: 30px;
+    margin-top: 20px;
+}
+
+.header > p {
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 30px;
+}
+
+.content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.content form label {
+    font-size: 14px;
+    color: #444;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.content form input {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    height: 45px;
+    padding: 0 15px;
+    font-size: 16px;
+}
+
+.content button.login-company {
+    border: 0;
+    border-radius: 2px;
+    width: 100%;
+    height: 42px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #db0000;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.content button.login-company:hover {
+    background: #e70000;
+}
+
+.content .help {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.content .help small {
+    margin-top: -20px;
+    color: #666;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.content .help p {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 5px;
+}
+
+.content .help a{
+    margin: 10px 0;
+    font-size: 14px;
+    text-decoration: none;
+    color: #0047c1;
+}
+
+.content .help a:hover{
+    text-decoration: underline;
+}
+
+.content-readmore {
+    text-align: center;
+}
+
+.content-readmore > img {
+    width: 35%;
+    height: 35%;
+}
+
+.content-readmore > p {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.content-readmore a {
+    margin: 10px 0;
+    font-size: 14px;
+    text-decoration: none;
+    color: #0047c1;
+}
+
+.content-readmore a:hover {
+    text-decoration: underline;
+}
+
+.content-forgot {
+    text-align: center;
+}
+
+.content-forgot > img {
+    width: 35%;
+    height: 35%;
+}
+
+.content-forgot > p {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+form.webcam .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

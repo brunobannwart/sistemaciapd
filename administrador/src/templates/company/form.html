@@ -1,0 +1,375 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Cadastro de Empresa
+</h3>
+{% endblock %}
+
+{% block content %}
+{% if error is not None %}
+	<div class='error-overlay'>
+		<div class='error-popup' onclick="this.parentElement.style.display='none'">
+			<h2>Aviso</h2>
+			<a class='error-close'>&times;</a>
+			<div class='error-content'>
+				<p>{{ error }}</p>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+<div id='container' class='message-overlay' style='display: none;'>
+	<div class='message-popup' onclick="this.parentElement.style.display='none'">
+		<h2 id='title'></h2>
+		<a class='message-close'>&times;</a>
+		<div class='message-content'>
+			<p id='address'></p>
+			<p id='district'></p>
+			<p id='city'></p>
+			<p id='uf'></p>
+			<p id='error'></p>		
+		</div>
+	</div>
+</div>
+
+<div id='container_document' class='message-overlay' style='display: none;'>
+	<div class='message-popup' onclick="this.parentElement.style.display='none'">
+		<h2 id='title_document'></h2>
+		<a class='message-close'>&times;</a>
+		<div class='message-content'>
+			<p id='message_document'></p>		
+		</div>
+	</div>
+</div>
+
+<div class='form' style='overflow-y: hidden;'>
+	<div class='form-button-return'>
+		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'company-list' %}`"></i>
+	</div>
+	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
+		{% csrf_token  %}
+		<div class='form-group'>
+			<div class='form-file-block' style='padding-left: 40px;'>
+				<div class='preview'>
+					{% if company.logo %}
+						<img src='{{ company.logo.url }}' alt='Prévia' id='preview_logo' style='display: block;'>
+						<span id='preview_icon_logo' style='display: none;'>
+							<i class='far fa-building'></i>
+						</span>
+					{% else %}
+						<img src='' alt='Prévia' id='preview_logo'>
+						<span id='preview_icon_logo'>
+							<i class='far fa-building'></i>
+						</span>
+					{% endif %}
+				</div>
+
+				{% if company.logo %}
+					<input type='file' accept='image/*' name='logo' id='logo' />
+				{% else %}
+					<input type='file' accept='image/*' name='logo' id='logo' required />
+				{% endif %}
+				<label title='Preencha esse campo' for='logo'>Logo da Empresa</label>
+			</div>
+
+			<div class='form-file-block'>
+				<div class='preview'>
+					{% if company.foto %}
+						<img src='{{ company.foto.url }}' alt='Prévia' id='preview_image' style='display: block;'>
+						<span id='preview_icon' style='display: none;'>
+							<i class='fab fa-black-tie'></i>
+						</span>
+					{% else %}
+						<img src='' alt='Prévia' id='preview_image'>
+						<span id='preview_icon'>
+							<i class='fab fa-black-tie'></i>
+						</span>
+					{% endif %}
+				</div>
+
+				{% if company.foto %}
+					<input type='file' accept='image/*' name='foto' id='foto' />
+				{% else %}
+					<input type='file' accept='image/*' name='foto' id='foto' required />
+				{% endif %}
+				<label title='Preencha esse campo' for='foto'>Foto do Contato</label>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='razao_social'>Razão social *</label>
+				<input 
+					type='text' 
+					name='razao_social' 
+					required
+					placeholder='Preencha com a razão social' 
+					maxlength='45'
+					value='{{ company.razao_social }}' 
+				>
+			</div>
+			<div class='form-block'>
+				<label for='cnpj'>CNPJ *</label>
+				{% if read is True %}
+					<input 
+						type='text' 
+						name='cnpj' 
+						required 
+						placeholder='Preencha com o CNPJ'
+						maxlength='18'
+						pattern='[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[-][0-9]{2}'
+						title='Preencha campo com o formato padrão de CNPJ'  
+						onkeypress="mascaraCNPJ(this)" 
+						onblur="validarCNPJ(this)"
+						value='{{ company.cnpj }}' 
+					>
+				{% else %}
+					<input 
+						type='text' 
+						name='cnpj' 
+						required 
+						placeholder='Preencha com o CNPJ'
+						maxlength='18'
+						pattern='[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[-][0-9]{2}'
+						title='Preencha campo com o formato padrão de CNPJ'  
+						onkeypress="mascaraCNPJ(this)" 
+						onblur="validarCNPJ(this)"
+						value='{{ company.cnpj }}' 
+					>
+
+				{% endif %}
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='nome_contato'>Nome do contato *</label>
+				<input 
+					type='text' 
+					name='nome_contato' 
+					required 
+					pattern='[a-zA-Zà-úÀ-Ú][a-zA-Zà-úÀ-Ú\s]*' 
+					placeholder='Preencha com o nome'
+					title='Preencha campo com apenas caracters alfabéticos' 
+					maxlength='45'
+					value='{{ company.nome_contato }}' 
+				>
+			</div>
+			<div class='form-block'>
+				<label for='telefone'>Telefone *</label>
+				<input 
+					type='text' 
+					name='telefone'
+					required
+					placeholder='Preencha com o número de telefone'
+					maxlength='14'
+					pattern='[\(][0-9]{2}[\)][\s]{1}[0-9]{4}[-][0-9]{4}' 
+					title='Preencha campo com o formato padrão de telefone' 
+					onkeypress="mascaraTelefone(this)"
+					value='{{ company.telefone }}' 
+				>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='email'>E-mail *</label>
+				{% if read is True %}
+					<input 
+						type='email' 
+						name='email' 
+						required
+						maxlength='45' 
+						placeholder='Preencha com o e-mail'
+						title='Preencha campo com o formato padrão de e-mail'
+						value='{{ company.email }}'
+						readonly 
+					>
+				{% else %}
+					<input 
+						type='email' 
+						name='email' 
+						required
+						maxlength='45' 
+						placeholder='Preencha com o e-mail'
+						title='Preencha campo com o formato padrão de e-mail'
+						value='{{ company.email }}' 
+					>
+				{% endif %}
+			</div>
+			<div class='form-block'>
+				<label for='senha'>Senha *</label>
+				{% if read is True %}
+					<input 
+						type='password' 
+						name='senha'
+						minlength='6' 
+						maxlength='64' 
+						pattern='.{6,}' 
+						required 
+						placeholder='Preencha com a senha'
+						title='Preencha campo com no mínimo seis caracteres'
+						value='{{ company.senha }}'
+						readonly 
+					>
+				{% else %}
+					<input 
+						type='password' 
+						name='senha'
+						minlength='6' 
+						maxlength='64' 
+						pattern='.{6,}' 
+						required 
+						placeholder='Preencha com a senha'
+						title='Preencha campo com no mínimo seis caracteres'
+						value='{{ company.senha }}' 
+					>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='cep'>CEP *</label>
+				<input 
+					type='text' 
+					name='cep' 
+					required 
+					placeholder='Preencha com o CEP'
+					maxlength='10'
+					title='Preencha campo com o formato padrão de CEP' 
+					pattern='[0-9]{2}[\.][0-9]{3}[-][0-9]{3}' 
+					onkeypress="mascaraCEP(this)" 
+					onblur="validarCEP(this)" 
+					value='{{ company.cep }}' 
+				>
+			</div>
+			<div class='form-block'>
+				<label for='numero'>Número *</label>
+				<input 
+					type='text' 
+					name='numero'
+					pattern='[0-9]*' 
+					required 
+					placeholder='Preencha com o número da residência'
+					title='Preencha campo com apenas caracteres númericos' 
+					maxlength='5'
+					value='{{ company.numero }}' 
+				>
+			</div>
+		</div>
+
+		<div class='form-group-checkbox'>
+			<div class='form-block-checkbox'>
+				<label for='comando_voz' class='checkbox-label'>Comando por voz
+					{% if company.comando_voz == 'sim' %}
+						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' checked onclick='selecionarComando()'>
+						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz' disabled>
+					{% else %}
+						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' onclick='selecionarComando()'>
+						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz'>
+					{% endif %}
+  					<span class='checkmark'></span>
+				</label>
+			</div>
+			<div class='form-block-checkbox'>
+				<label for='ajuda_voz' class='checkbox-label'>Ajuda por voz
+					{% if company.ajuda_voz == 'sim' %}
+						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
+						<input id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz' disabled>
+					{% else %}
+						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' onclick='selecionarAjuda()'>
+						<input id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz'>
+					{% endif %}
+  					<span class='checkmark'></span>
+				</label>
+
+			</div>
+			<div class='form-block-checkbox'>
+				<label for='nvda' class='checkbox-label'>NVDA
+					{% if company.nvda == 'sim' %}
+						<input type='checkbox' id='nvda' name='nvda' value='sim' checked onclick='selecionarNVDA()'>
+						<input id='nvda_hidden' type='hidden' value='nao' name='nvda' disabled>
+					{% else %}
+						<input type='checkbox' id='nvda' name='nvda' value='sim' onclick='selecionarNVDA()'>
+						<input id='nvda_hidden' type='hidden' value='nao' name='nvda'>
+					{% endif %}
+  					<span class='checkmark'></span>
+				</label>
+			</div>
+		</div>
+
+		<button type='submit'>Salvar</button>
+	</form>
+</div>
+<script>
+	const input = document.getElementById('foto');
+	const imagem = document.getElementById('preview_image')
+	const icone = document.getElementById('preview_icon');
+
+	input.addEventListener('change', function() {
+		const arquivo = this.files[0];
+
+		if (arquivo) {
+			const leitor = new FileReader();
+
+			icone.style.display = 'none';
+			imagem.style.display = 'flex';
+
+			leitor.addEventListener('load', function() {
+				imagem.setAttribute('src', this.result);	
+			});
+
+			leitor.readAsDataURL(arquivo);
+		}
+	});
+
+	const seletor = document.getElementById('logo');
+	const imagem_logo = document.getElementById('preview_logo')
+	const icone_logo = document.getElementById('preview_icon_logo');
+
+	seletor.addEventListener('change', function() {
+		const arquivo = this.files[0];
+
+		if (arquivo) {
+			const leitor = new FileReader();
+
+			icone_logo.style.display = 'none';
+			imagem_logo.style.display = 'flex';
+
+			leitor.addEventListener('load', function() {
+				imagem_logo.setAttribute('src', this.result);	
+			});
+
+			leitor.readAsDataURL(arquivo);
+		}
+	});
+
+
+	function selecionarComando() {
+		if(document.getElementById('comando_voz').checked) {
+    		document.getElementById('comando_hidden').disabled = true;
+		} else {
+			document.getElementById('comando_hidden').disabled = false;
+		}
+	}
+
+
+	function selecionarAjuda() {
+		if(document.getElementById('ajuda_voz').checked) {
+    		document.getElementById('ajuda_hidden').disabled = true;
+		} else {
+			document.getElementById('ajuda_hidden').disabled = false;
+		}
+	}
+
+	function selecionarNVDA() {
+		if(document.getElementById('nvda').checked) {
+    		document.getElementById('nvda_hidden').disabled = true;
+		} else {
+			document.getElementById('nvda_hidden').disabled = false;
+		}
+	}
+</script>
+{% endblock %}

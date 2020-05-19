@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Currículo {{ curriculum.id }}
+</h3>
+{% endblock %}
+
+{% block content %}
+	<div class='form'>
+		<div class='form-button-return'>
+			<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'curriculum-list' %}`"></i>
+		</div>
+		<form autocomplete='off' method='post' action='.'>
+			{% csrf_token %}
+			<div class='form-group' style='margin-top: 30px;'>
+				<div class='form-block'>
+					<label for='id'>ID</label>
+					<input type='text' name='id' readonly value='{{ curriculum.id }}'>
+				</div>
+				<div class='form-block'>
+					<label for='email'>Email</label>
+					<input type='text' name='email' readonly value='{{ curriculum.email }}'>
+				</div>
+			</div>
+
+			<div class='form-group'>
+				<div class='form-block'>
+					<label for='nivel_escolar'>Nível escolar</label>
+					<input type='text' name='nivel_escolar' readonly value='{{ curriculum.nivel_escolar }}'>
+				</div>
+				<div class='form-block'>
+					<label for='desc_escolar'>Informações escolares</label>
+					<textarea name='desc_escolar' readonly>{{ curriculum.desc_escolar }}</textarea>
+				</div>
+			</div>
+
+			<div class='form-group'>
+				<div class='form-block'>
+					<label for='exp_trabalho'>Experiencia profissional</label>
+					<input type='text' name='exp_trabalho' readonly value='{{ curriculum.exp_trabalho }}'>
+				</div>
+				<div class='form-block'>
+					<label for='desc_trabalho'>Informações profissionais</label>
+					<textarea name='desc_trabalho' readonly>{{ curriculum.desc_trabalho }}</textarea>
+				</div>
+			</div>
+
+			<button type='submit'>Aprovar</button>
+		</form>
+	</div>
+{% endblock %}

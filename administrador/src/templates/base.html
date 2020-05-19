@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <script src='https://kit.fontawesome.com/50797efa34.js'></script>
+    <link rel='shortcut icon' href="{% static 'assets/favicon.ico' %}" />
+    <link rel='stylesheet' type='text/css' href="{% static '/css/base.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static '/css/list.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static '/css/form.css' %}">
+    <script src='https://kit.fontawesome.com/50797efa34.js'></script>
+    <script type='text/javascript' src="{% static '/javascript/search.js' %}"></script>
+    <script type='text/javascript' src="{% static '/javascript/mask.js' %}"></script>
+    <script type='text/javascript' src="{% static '/javascript/validate.js' %}"></script>
+    <title>CIAPD - Administrativo</title>
+</head>
+<body>
+    <div class='header'>
+        <header>
+            <div class='admin-info'>
+                <i class='fas fa-bell'></i>
+            </div>
+            <div class='page-info'>
+               {% block header %}
+               {% endblock %}
+            </div>
+        </header>
+    </div>
+    <div class='container'>
+        <div class='navbar'>
+            <div class='container-home'>
+                <img 
+                    src="{% static 'assets/ciapdwhite.svg' %}" 
+                    alt='CIAPD' 
+                />
+                <ul>
+                    <li>
+                        <i class='fas fa-home'>
+                            Administrativo
+                        </i>
+                    </li>
+                </ul>
+            </div>
+            <div class='container-accounts'>
+                <br/><strong>Contas</strong>
+                <ul>
+                    <li>
+                        <a href="{% url 'admin-list' %}">
+                            <i class='fas fa-user-shield'>
+                                Administradores
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'student-list' %}">
+                            <i class='fas fa-user-graduate'>
+                                Alunos
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'company-list' %}">
+                            <i class='fas fa-user-tie'>
+                                Empresas
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class='container-content'>
+                <br/><strong>Contéudo</strong>
+                <ul>
+                    <li>
+                        <a href="{% url 'curriculum-list' %}">
+                            <i class='fas fa-sticky-note'>
+                                Currículos
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'course-list' %}">
+                            <i class='fas fa-book'>
+                                Cursos
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'event-list' %}">
+                            <i class='fas fa-palette'>
+                                Eventos culturais
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'game-list' %}">
+                            <i class='fas fa-gamepad'>
+                                Jogos
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'job-list' %}">
+                            <i class='fas fa-briefcase'>
+                                Vagas de emprego
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'videolesson-list' %}">
+                            <i class='fab fa-youtube'>
+                                Video-aulas
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class='container-actions'>
+                <ul>
+                    <li>
+                        <a href="{% url 'changepassword' %}">
+                            <i class='fas fa-key'>
+                                Trocar Senha
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <i class='fas fa-sign-out-alt'>
+                                Sair
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class='main'>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

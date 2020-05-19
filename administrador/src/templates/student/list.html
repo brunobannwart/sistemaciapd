@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Lista de Alunos
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='list'>
+	<button class='create' onclick="window.location.href= `{% url 'student-form' %}`">
+		<p>Novo</p>
+	</button>
+
+	{% if student_list|length > 0  %}
+		<div class='list-container'>
+			<div class='list-search'>
+				<input type='text' class='search-input' placeholder='Pesquise por nome...'>
+				<button class='search-button' type='button' onclick='pesquisaAluno()'>
+					<i class='fa fa-search'></i>
+				</button>
+			</div>
+
+			<div class='list-table'>
+				<table class='content-table'>
+					<thead>
+						<tr>
+							<th>Foto</th>
+							<th>Nome</th>
+							<th>E-mail</th>
+							<th>Data de nascimento</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for student in student_list %}
+							<tr>
+								<td>
+									<img src='{{ student.foto.url }}'>
+								</td>
+								<td>{{ student.nome }}</td>
+								<td>{{ student.email }}</td>
+								<td>{{ student.data_nasc }}</td>
+								<td>
+									<div class='dropdown'>
+										<button class='dropdown-button'>
+											Lista de opções
+										</button>
+										<div class='dropdown-content'>
+											<a href="{% url 'student-edit' student.id %}">Editar</a>
+											<a href="{% url 'student-delete' student.id %}">Remover</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% else %}
+		<div class='alert-container'>
+			<div class='alert' onclick="window.location.href = `{% url 'student-form' %}`" style='cursor: pointer;'>
+		  		<strong>Aviso!</strong>
+		  		<small>
+		  			Você ainda não possui alunos cadastrados
+				</small>
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

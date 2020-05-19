@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Lista de Empresas
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='list'>
+	<button class='create' onclick="window.location.href= `{% url 'company-form' %}`">
+		<p>Novo</p>
+	</button>
+
+	{% if company_list|length > 0 %}
+		<div class='list-container'>
+			<div class='list-search'>
+				<input type='text' class='search-input' placeholder='Pesquise por razão social...'>
+				<button class='search-button' type='button' onclick='pesquisaEmpresa()'>
+					<i class='fa fa-search'></i>
+				</button>
+			</div>
+
+			<div class='list-table'>
+				<table class='content-table'>
+					<thead>
+						<tr>
+							<th>Logo</th>
+							<th>Razão Social</th>
+							<th>CNPJ</th>
+							<th>E-mail</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for company in company_list %}
+							<tr>
+								<td>
+									<img src='{{ company.logo.url }}'>
+								</td>
+								<td>{{ company.razao_social }}</td>
+								<td>{{ company.cnpj }}</td>
+								<td>{{ company.email }}</td>
+								<td>
+									<div class='dropdown'>
+										<button class='dropdown-button'>
+											Lista de opções
+										</button>
+										<div class='dropdown-content'>
+											<a href="{% url 'company-edit' company.id %}">Editar</a>
+											<a href="{% url 'company-delete' company.id %}">Remover</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% else %}
+		<div class='alert-container'>
+			<div class='alert' onclick="window.location.href = `{% url 'company-form' %}`" style='cursor: pointer;'>
+		  		<strong>Aviso!</strong> 
+		  		<small>
+		  			Você ainda não possui empresas cadastradas
+		  		</small>
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

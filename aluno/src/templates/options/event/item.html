@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+	<div class='item'>
+		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'event-list' %}`"></i>
+		<header>
+			<strong>{{ event.titulo }}</strong>
+		</header>
+		<div class='item-image'>
+			<img src='{{ event.arquivo.url }}'/>
+		</div>
+		<div class='item-content'>
+			<p>{{ event.descricao }}</p>
+		</div>
+	</div>
+{% endblock %}

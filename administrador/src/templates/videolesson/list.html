@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Lista de Video-aulas
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='list'>
+	<button class='create' onclick="window.location.href= `{% url 'videolesson-form' %}`">
+		<p>Novo</p>
+	</button>
+
+	{% if videolesson_list|length > 0 %}
+		<div class='list-container'>
+			<div class='list-search'>
+				<input type='text' class='search-input' placeholder='Pesquise por título...'>
+				<button class='search-button' type='button' onclick='pesquisaVideoaula()'>
+					<i class='fa fa-search'></i>
+				</button>
+			</div>
+
+			<div class='list-table'>
+				<table class='content-table'>
+					<thead>
+						<tr>
+							<th>Titulo</th>
+							<th>URL</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for videolesson in videolesson_list %}
+							<tr>
+								<td>{{ videolesson.titulo }}</td>
+								<td>{{ videolesson.url }}</td>
+								<td>
+									<div class='dropdown'>
+										<button class='dropdown-button'>
+											Lista de opções
+										</button>
+										<div class='dropdown-content'>
+											<a href="{% url 'videolesson-edit' videolesson.id %}">Editar</a>
+											<a href="{% url 'videolesson-delete' videolesson.id %}">Remover</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% else %}
+		<div class='alert-container'>
+			<div class='alert' onclick="window.location.href = `{% url 'videolesson-form' %}`" style='cursor: pointer;'>
+		  		<strong>Aviso!</strong>
+		  		<small>
+		  			Você ainda não possui video-aulas cadastradas
+				</small>
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

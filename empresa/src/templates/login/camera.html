@@ -1,0 +1,69 @@
+{% extends 'login/index.html' %}
+
+{% block login-content %}
+<form name='webcam' action='.' method='post'>
+	{% csrf_token %}
+	<video width='512' height='512' autoplay style='display: none;'></video>
+	
+	<div class='container'>
+		<h3> Sorria para a camêra </h3>
+		<h1>
+			<span role='img' alt='Emoji' aria-label='Emoji'> 😝 </span>
+		</h1>
+	</div>
+
+	<canvas style='display: none;'></canvas>
+    <input type='hidden' name='url' value=''>
+
+	<button style='margin-top: 2em;' class='login-company' type='button' onclick="window.location.href=`{% url 'login' %}`" >
+		Voltar
+	</button>
+</form>
+
+<script>
+	let video = document.getElementsByTagName('video')[0];
+	let canvas = document.getElementsByTagName('canvas')[0];
+	let captura;
+
+	(function() {
+		navigator.getMedia = 	navigator.getUserMedia || 
+								navigator.webkitGetUserMedia || 
+								navigator.mozGetUserMedia || 
+								navigator.mzGetUserMedia;
+
+		navigator.getMedia({ video:true, audio:false }, (stream) => exibirStream(stream), (error) => erroStream(error));
+	})();
+
+	function exibirStream(stream) {
+		video.srcObject = stream;
+		captura = new ImageCapture(stream.getVideoTracks()[0]);
+		window.setTimeout(capturarTela(), 20000);
+	}
+
+	function erroStream(error) {
+		window.location.href = '/';
+	}
+
+	function capturarTela() {
+		captura.takePhoto()
+				.then(blob => createImageBitmap(blob))
+				.then(imagemBitMap => {
+					capturarFrame(imagemBitMap);
+				});
+	}
+
+	function capturarFrame (imagem) {
+		const form = document.getElementsByTagName('form')[0];
+		let input_url = document.getElementsByTagName('input')[1];
+		
+		canvas.width = 512;
+		canvas.height = 512;
+
+		canvas.getContext('2d').drawImage(imagem, 0, 0, canvas.width, canvas.height);
+		let url = canvas.toDataURL('image/png');
+
+		input_url.value = url;
+		form.submit();
+	}
+</script>
+{% endblock %}

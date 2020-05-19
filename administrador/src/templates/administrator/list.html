@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h3>
+	Lista de Administradores
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class='list'>
+	<button class='create' onclick="window.location.href= `{% url 'admin-form' %}`">
+		<p>Novo</p>
+	</button>
+
+	{% if admin_list|length > 0 %}
+		<div class='list-container'>
+			<div class='list-search'>
+				<input type='text' class='search-input' placeholder='Pesquise por nome...'>
+				<button class='search-button' type='button' onclick='pesquisaAdmin()'>
+					<i class='fa fa-search'></i>
+				</button>
+			</div>
+
+			<div class='list-table'>
+				<table class='content-table'>
+					<thead>
+						<tr>
+							<th>Foto</th>
+							<th>Nome</th>
+							<th>RF</th>
+							<th>E-mail</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for admin in admin_list %}
+							<tr>
+								<td>
+									<img src='{{ admin.foto.url }}'>
+								</td>
+								<td>{{ admin.nome }}</td>
+								<td>{{ admin.rf }}</td>
+								<td>{{ admin.email }}</td>
+								<td>
+									<div class='dropdown'>
+										<button class='dropdown-button'>
+											Lista de opções
+										</button>
+										<div class='dropdown-content'>
+											<a href="{% url 'admin-edit' admin.id %}">Editar</a>
+											<a href="{% url 'admin-delete' admin.id %}">Remover</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% else %}
+		<div class='alert-container'>
+			<div class='alert' onclick="window.location.href = `{% url 'admin-form' %}`" style='cursor: pointer;'>
+		  		<strong>Aviso!</strong> 
+		  		<small>
+		  			Você ainda não possui administradores cadastrados
+		  		</small>
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

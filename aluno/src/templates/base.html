@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <link rel='shortcut icon' href="{% static 'assets/favicon.ico' %}" />
+    <link rel='stylesheet' type='text/css' href="{% static '/css/base.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static '/css/form.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static '/css/list.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static '/css/item.css' %}">
+    <script src='https://kit.fontawesome.com/50797efa34.js'></script>
+    <title>CIAPD - Portal do Aluno</title>
+</head>
+<body>
+    <div class='header'>
+        <header>
+            <div class='header-options'>
+                <ul>
+                    <li>
+                        <a href="{% url 'curriculum-form' %}">Curriculo</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'job-list' %">Empregos</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'course-list' %}">Cursos</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'event-list' %}">Eventos</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'game-list' %}">
+                            Jogos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'videolesson-list' %}">
+                            Video-aulas
+                        </a>
+                    </li>
+                    <button class='header-button' onclick="window.location.href=`{% url 'logout' %}`">
+                        Sair
+                    </button>
+                </ul>
+            </div>
+        </header>
+    </div>
+    <div class='main'>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
