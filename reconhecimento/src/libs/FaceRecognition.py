@@ -29,6 +29,10 @@ class FaceRecognition:
 	#		face = {
 	#			'id': row[0],
 	#			'filename': row[1],
+	#			'location': row[2],
+	#			'landmarks': row[3],
+	#			'encodings': row[4],
+	#			'group': row[5]
 	#		}
 	#
 	#		face_bundle = parseJSON(face)
@@ -40,9 +44,9 @@ class FaceRecognition:
 	#	self.db.commit()
 	#	return self.cursor.lastrowid 
 
-	#def __deleteFace(self, id):
-	#	self.cursor.execute('DELETE FROM face WHERE id=%s', (id))
-	#	self.db.commit()
+	def __deleteFace(self, id):
+		self.cursor.execute('DELETE FROM face WHERE id=%s', [id])
+		self.db.commit()
 
 	def __parseFaces(self, filePath) -> list:
 		faces: list = []
@@ -80,25 +84,25 @@ class FaceRecognition:
 				
 		return bundles[0]
 
-	#def removeKnownFace(self, faceID):
-	#	count = 0;
-	#
-	#	for knownFace in self.known:
-	#		if knownFace.getFaceID() == faceID:
-	#			break
-	#		count += 1
-	#
-	#	self.known.pop(count)
-	# 	self.__deleteFace(faceID)
+	def removeKnownFace(self, faceID):
+		count = 0;
+	
+		for knownFace in self.known:
+			if knownFace.getFaceID() == parseInt(faceID):
+				break
+			count += 1
+	
+		self.known.pop(count)
+		self.__deleteFace(faceID)
 
-	def findMatches(self, filePath) -> list: # add fileGroup
+	def findMatches(self, filePath, fileGroup) -> list:
 		faces: list = []
 		knownEncodings = []
 		bundles = self.__parseFaces(filePath)
 
 		for knownFace in self.known:
-			#if knownFace.getGroup() == fileGroup:
-			knownEncodings.append(knownFace.getEncodings())
+			if knownFace.getGroup() == fileGroup:
+				knownEncodings.append(knownFace.getEncodings())
 
 		for bundle in bundles:
 			matches = self.__hasMatch(knownEncodings, bundle)

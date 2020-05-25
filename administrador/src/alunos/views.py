@@ -43,7 +43,7 @@ def student_form_view(request, id=0):
 
 							create_student = Aluno.objects.create(foto=data['foto'], nome=data['nome'], data_nasc=data['data_nasc'], email=data['email'], 
 												senha=data['senha'], cpf=data['cpf'], celular=data['celular'],
-												cep=data['cep'],numero=data['numero'], comando_voz=data['comando_voz'], cod_treino=responseJSON['treinoID'],
+												cep=data['cep'],numero=data['numero'], comando_voz=data['comando_voz'], cod_treino=responseJSON['treino'],
 												ajuda_voz=data['ajuda_voz'], nvda=data['nvda'], outra_info=data['outra_info'])
 							create_student.save()
 

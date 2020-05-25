@@ -44,7 +44,7 @@ def company_form_view(request, id=0):
 												razao_social=data['razao_social'], cnpj=data['cnpj'], 
 												nome_contato=data['nome_contato'], email=data['email'], 
 												senha=data['senha'], telefone=data['telefone'], 
-												cep=data['cep'], numero=data['numero'], cod_treino=responseJSON['treinoID'],
+												cep=data['cep'], numero=data['numero'], cod_treino=responseJSON['treino'],
 												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])		
 							create_company.save()
 						else:

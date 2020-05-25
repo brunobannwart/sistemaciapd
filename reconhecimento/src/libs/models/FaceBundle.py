@@ -1,7 +1,7 @@
 import numpy as np
 
 class FaceBundle:
-	faceID = ''
+	faceID = 0
 	filename = ''
 	location = []
 	encodings = []

@@ -59,7 +59,7 @@ def camera_view(request):
 		img.save(photo, 'png')
 		photo.seek(0)
 
-		#response = requests.post('http://127.0.0.1:5000/api/recognize', files={ 'file': ('photo.png', photo, 'image/png') })
+		#response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'administrador'}, files={ 'file': ('photo.png', photo, 'image/png') })
 
 		response = {
 			'status_code': 200

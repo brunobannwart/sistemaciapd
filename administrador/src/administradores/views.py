@@ -42,7 +42,7 @@ def admin_form_view(request, id=0):
 							responseJSON = response.json()			
 							
 							create_admin = 	Administrador.objects.create(foto=data['foto'], nome=data['nome'], rf=data['rf'], 
-												email=data['email'], senha=data['senha'], cod_treino=responseJSON['treinoID'],
+												email=data['email'], senha=data['senha'], cod_treino=responseJSON['treino'],
 												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])	
 							create_admin.save()
 							
