@@ -36,14 +36,25 @@ def admin_form_view(request, id=0):
 						error = 'Já existe administrador com esse RF'
 				else:
 					try:
-						#response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'administrador'}, files={ 'file': data['foto'] })
-					
-						create_admin = 	Administrador.objects.create(foto=data['foto'], nome=data['nome'], rf=data['rf'], 
-											email=data['email'], senha=data['senha'], 
-											comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])	
-						create_admin.save()
+						response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'administrador'}, files={ 'file': data['foto'] })
 
-					finally:	
+						if response.status_code == 200:	
+							responseJSON = response.json()			
+							
+							create_admin = 	Administrador.objects.create(foto=data['foto'], nome=data['nome'], rf=data['rf'], 
+												email=data['email'], senha=data['senha'], cod_treino=responseJSON['treinoID'],
+												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])	
+							create_admin.save()
+							
+							form = AdministradorForm()
+							error = None
+							return redirect('/administradores/')
+
+						else:
+							administrator = request.POST
+							error = 'Foto inválida'
+
+					except:	
 						form = AdministradorForm()
 						error = None
 						return redirect('/administradores/')

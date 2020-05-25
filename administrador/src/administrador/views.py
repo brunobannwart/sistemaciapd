@@ -66,6 +66,7 @@ def camera_view(request):
 		}
 
 		if response.status_code == 200:
+			#responseJSON = response.json()
 			return redirect('/administradores/')
 		else:
 			return redirect('login')

@@ -24,7 +24,6 @@ def company_form_view(request, id=0):
 
 		if form.is_valid():
 			data = form.clean_form()
-			logo = request.FILES['logo']
 			
 			if id == 0:
 				if Empresa.objects.filter(email=data['email']) | Empresa.objects.filter(cnpj=data['cnpj']):
@@ -36,17 +35,23 @@ def company_form_view(request, id=0):
 						error = 'Já existe empresa com esse CNPJ'
 				else:
 					try:
-						#response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'empresa'}, files={ 'file': data['foto'] })
+						response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'empresa'}, files={ 'file': data['foto'] })
 
-						create_company = Empresa.objects.create(foto=data['foto'], logo=data['logo'], 
-											razao_social=data['razao_social'], cnpj=data['cnpj'], 
-											nome_contato=data['nome_contato'], email=data['email'], 
-											senha=data['senha'], telefone=data['telefone'], 
-											cep=data['cep'], numero=data['numero'], 
-											comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])		
-						create_company.save()
+						if response.status_code == 200:
+							responseJSON = response.json()
 
-					finally:
+							create_company = Empresa.objects.create(foto=data['foto'], logo=data['logo'], 
+												razao_social=data['razao_social'], cnpj=data['cnpj'], 
+												nome_contato=data['nome_contato'], email=data['email'], 
+												senha=data['senha'], telefone=data['telefone'], 
+												cep=data['cep'], numero=data['numero'], cod_treino=responseJSON['treinoID'],
+												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])		
+							create_company.save()
+						else:
+							company = request.POST
+							error = 'Foto inválida'
+
+					except:
 						form = EmpresaForm()
 						error = None
 						return redirect('/empresas/')			

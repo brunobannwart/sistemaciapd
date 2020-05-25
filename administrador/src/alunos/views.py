@@ -36,15 +36,25 @@ def student_form_view(request, id=0):
 						error = 'Já existe estudante com esse CPF'
 				else:
 					try:
-						#response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'aluno'}, files={ 'file': data['foto'] })
+						response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'aluno'}, files={ 'file': data['foto'] })
 						
-						create_student = Aluno.objects.create(foto=data['foto'], nome=data['nome'], data_nasc=data['data_nasc'], email=data['email'], 
-											senha=data['senha'], cpf=data['cpf'], celular=data['celular'],
-											cep=data['cep'],numero=data['numero'], comando_voz=data['comando_voz'], 
-											ajuda_voz=data['ajuda_voz'], nvda=data['nvda'], outra_info=data['outra_info'])
-						create_student.save()
+						if response.status_code == 200:
+							responseJSON = response.json()
 
-					finally:
+							create_student = Aluno.objects.create(foto=data['foto'], nome=data['nome'], data_nasc=data['data_nasc'], email=data['email'], 
+												senha=data['senha'], cpf=data['cpf'], celular=data['celular'],
+												cep=data['cep'],numero=data['numero'], comando_voz=data['comando_voz'], cod_treino=responseJSON['treinoID'],
+												ajuda_voz=data['ajuda_voz'], nvda=data['nvda'], outra_info=data['outra_info'])
+							create_student.save()
+
+							form = AlunoForm()
+							error = None
+							return redirect('/alunos/')
+						else:
+							student = request.POST
+							error = 'Foto inválida'
+
+					except:
 						form = AlunoForm()
 						error = None
 						return redirect('/alunos/')

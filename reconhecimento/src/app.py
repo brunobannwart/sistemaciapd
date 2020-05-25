@@ -23,7 +23,6 @@ def allowed_file(filename):
 # Treinamento de Face
 @app.route('/api/train', methods=['POST'])
 def train_face():
-	output = json.dumps({ 'success': True })
 	face_group = request.form['group']
 
 	if 'file' not in request.files:
@@ -43,8 +42,9 @@ def train_face():
 			
 			bundle = app.face.addKnownFace(file_path, face_group)
 			remove(file_path)
-			
-	return handle_sucess(output)
+
+			output = json.dumps({ 'treinoID': bundle.getFaceID() })
+			return handle_sucess(output)
 
 # Reconhecimento de Face
 @app.route('/api/recognize', methods=['POST'])
