@@ -6,7 +6,6 @@ class FaceBundle:
 	location = []
 	encodings = []
 	landmarks = []
-	known = False
 	group = ''
 
 	def __init__(self, filename):
@@ -21,9 +20,6 @@ class FaceBundle:
 
 	def setEncodings(self, encodings):
 		self.encodings = encodings
-
-	def setKnownFace(self, value):
-		self.known = value
 
 	def setLandMarks(self, landmarks):
 		self.landmarks = landmarks
@@ -41,9 +37,6 @@ class FaceBundle:
 	def getEncodings(self):
 		return self.encodings
 
-	def getKnownFace(self):
-		return self.known
-
 	def getLandMarks(self):
 		return self.landmarks
 
@@ -56,7 +49,6 @@ class FaceBundle:
 		data = {
 			'faceID': self.faceID,
 			'filename':	self.filename,
-			'known': self.known,
 			'location': self.location,
 			'encoding': self.encodings.tolist(),
 			'landmark':	self.landmarks,

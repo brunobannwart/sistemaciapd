@@ -1,24 +1,27 @@
 import cv2, face_recognition, os, pickle
-import mysql.connector
+import mysql.connector as mysql
 import numpy as np
 from .models.FaceBundle import FaceBundle
 
 class FaceRecognition:
 	def __init__(self, tolerance=0.6):
 		self.tolerance = tolerance
-		self.known = []	
-		#self.db = mysql.connector.connect(host='localhost', user='ciapd_recognition', passwd='ciapd$recognition', database='ciapd')
-		#self.cursor = self.db.cursor()
-		#self.__getFacesDatabase()
+		self.known = []
+
+		self.db = mysql.connect(host='localhost', user='ciapd_recognition', password='ciapd$recognition', 
+					database='ciapd', auth_plugin='mysql_native_password')
+
+		self.cursor = self.db.cursor()
+		self.__getFacesSaved()
 
 	# Metodos privados	
+	def __createFaceTable(self):
+		self.cursor.execute("CREATE TABLE IF NOT EXISTS `face` (`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT, `filename` VARCHAR(100), "
+			+ "`location` LONGTEXT, `landmarks` LONGTEXT, `encodings` LONGTEXT, `group` VARCHAR(13)) ENGINE=InnoDB"
+		)
 
-	#def __createFaceTable(self):
-	#	self.cursor.execute(
-	#		'CREATE TABLE IF NOT EXISTS face (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, filename VARCHAR(100), encodings'
-	#	)
-
-	#def __getFacesSaved(self):
+	def __getFacesSaved(self):
+		self.__createFaceTable()
 	#	self.cursor.execute('SELECT * FROM face')
 	#	results = self.cursor.fetchall()
 	#
@@ -32,8 +35,8 @@ class FaceRecognition:
 	#		self.known.append(face_bundle)
 	
 	#def __saveFace(self, bundle):
-	#	face = bundle.parseData()
-	#	self.cursor.execute('INSERT INTO face(filename, encodings, group) VALUES (%s, %s, %s)', ())
+	#	bundleJSON = bundle.parseData()
+	#	self.cursor.execute('INSERT INTO face(filename, location, landmarks, encodings, group) VALUES (%s, %s, %s, %s, %s)', [])
 	#	self.db.commit()
 	#	return self.cursor.lastrowid 
 
@@ -66,7 +69,6 @@ class FaceRecognition:
 		return matches
 
 	# Metodos publicos
-
 	def addKnownFace(self, filePath, faceGroup) -> FaceBundle:
 		bundles = self.__parseFaces(filePath)
 		
@@ -101,7 +103,6 @@ class FaceRecognition:
 		for bundle in bundles:
 			matches = self.__hasMatch(knownEncodings, bundle)
 			if True in matches:
-				bundle.setKnownFace(True)
-			faces.append(bundle.parseData())
+				faces.append(bundle.parseData())
 
 		return faces
