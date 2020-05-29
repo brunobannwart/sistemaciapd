@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from administrador.views import login_view, camera_view, readmore_view, forgot_view, logout_view
-from core.views import changepassword_view, job_list_view, job_read_view, curriculum_list_view, curriculum_read_view
+from core.views import job_list_view, job_read_view, curriculum_list_view, curriculum_read_view
 
 from administradores.views import admin_list_view, admin_form_view, admin_delete_view
 from alunos.views import student_list_view, student_form_view, student_delete_view
@@ -41,7 +41,6 @@ urlpatterns = [
 	path('saibamais/', readmore_view, name='readmore'),
 	path('esquecidados/', forgot_view, name='forgot'),
 	path('sair/', logout_view, name='logout'),
-	path('trocarsenha/', changepassword_view, name='changepassword'),
 
 	path('administradores/', admin_list_view, name='admin-list'),
 	path('administradores/formulario/', admin_form_view, name='admin-form'),

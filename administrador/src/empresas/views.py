@@ -17,10 +17,10 @@ def company_form_view(request, id=0):
 	if request.method == 'POST':
 		if id == 0:
 			form = EmpresaForm(request.POST, request.FILES)
-			read = False
+			edit = False
 		else:
 			form = EmpresaEditForm(request.POST, request.FILES or None)
-			read = True
+			edit = True
 
 		if form.is_valid():
 			data = form.clean_form()
@@ -36,14 +36,14 @@ def company_form_view(request, id=0):
 				else:
 					try:
 						response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'empresa'}, files={ 'file': data['foto'] })
-
+						
 						if response.status_code == 200:
 							responseJSON = response.json()
 
 							create_company = Empresa.objects.create(foto=data['foto'], logo=data['logo'], 
 												razao_social=data['razao_social'], cnpj=data['cnpj'], 
 												nome_contato=data['nome_contato'], email=data['email'], 
-												senha=data['senha'], telefone=data['telefone'], 
+												senha_hash=data['senha'], telefone=data['telefone'], 
 												cep=data['cep'], numero=data['numero'], cod_treino=responseJSON['treino'],
 												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])		
 							create_company.save()
@@ -64,6 +64,9 @@ def company_form_view(request, id=0):
 				
 					if request.FILES.get('logo', False):
 						update_company.logo = data['logo']
+
+					if request.POST.get('senha') != '':
+						update_company.senha_hash = data['senha']
 				
 					update_company.razao_social = data['razao_social']
 					update_company.nome_contato = data['nome_contato']
@@ -101,18 +104,18 @@ def company_form_view(request, id=0):
 				'ajuda_voz': '',
 				'nvda': '',
 			}
-			read = False
+			edit = False
 		else:
 			try:
 				company = Empresa.objects.get(id=id)
-				read = True
+				edit = True
 			except:
 				return redirect('/empresas/')	
 
 	context = {
 		'company': company,
 		'error': error,
-		'read': read
+		'edit': edit
 	}
 
 	return render(request, 'company/form.html', context)

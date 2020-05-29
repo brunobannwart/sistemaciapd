@@ -6,7 +6,7 @@ class Administrador(models.Model):
 	nome 		= 	models.CharField(verbose_name='Nome', max_length=45)
 	rf	 		=	models.CharField(verbose_name='RF', max_length=8, unique=True)
 	email		=	models.EmailField(verbose_name='Email', unique=True, max_length=45)
-	senha		=	models.CharField(verbose_name='Hash senha', max_length=64)
+	senha_hash	=	models.CharField(verbose_name='Hash senha', max_length=64)
 	
 	comando_voz =	models.CharField(verbose_name='Comando por voz', max_length=3)
 	ajuda_voz	=	models.CharField(verbose_name='Ajuda por voz', max_length=3)

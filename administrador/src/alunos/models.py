@@ -7,7 +7,7 @@ class Aluno(models.Model):
 	data_nasc			=	models.DateField(verbose_name='Data de nascimento')
 	
 	email				=	models.EmailField(verbose_name='E-mail', unique=True)
-	senha				=	models.CharField(verbose_name='Senha', max_length=64)
+	senha_hash			=	models.CharField(verbose_name='Senha', max_length=64)
 	
 	cpf					=	models.CharField(verbose_name='CPF', max_length=14, unique=True)
 	celular				=	models.CharField(verbose_name='Telefone', max_length=15)

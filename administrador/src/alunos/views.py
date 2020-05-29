@@ -18,10 +18,10 @@ def student_form_view(request, id=0):
 	if request.method == 'POST':
 		if id == 0:
 			form = AlunoForm(request.POST, request.FILES)
-			read = False
+			edit = False
 		else:
 			form = AlunoEditForm(request.POST, request.FILES or None)
-			read = True
+			edit = True
 	
 		if form.is_valid():
 			data = form.clean_form()
@@ -42,8 +42,8 @@ def student_form_view(request, id=0):
 							responseJSON = response.json()
 
 							create_student = Aluno.objects.create(foto=data['foto'], nome=data['nome'], data_nasc=data['data_nasc'], email=data['email'], 
-												senha=data['senha'], cpf=data['cpf'], celular=data['celular'],
-												cep=data['cep'],numero=data['numero'], comando_voz=data['comando_voz'], cod_treino=responseJSON['treino'],
+												senha_hash=data['senha'], cpf=data['cpf'], celular=data['celular'], cod_treino=responseJSON['treino'],
+												cep=data['cep'],numero=data['numero'], comando_voz=data['comando_voz'],
 												ajuda_voz=data['ajuda_voz'], nvda=data['nvda'], outra_info=data['outra_info'])
 							create_student.save()
 
@@ -64,6 +64,9 @@ def student_form_view(request, id=0):
 					
 					if request.FILES.get('foto', False):
 						update_student.foto = data['foto']
+
+					if request.POST.get('senha') != '':
+						update_student.senha_hash = data['senha']
 					
 					update_student.nome = data['nome']
 					update_student.data_nasc = data['data_nasc']
@@ -105,18 +108,18 @@ def student_form_view(request, id=0):
 				'outra_info': '',
 			}
 
-			read = False
+			edit = False
 		else:
 			try:
 				student = Aluno.objects.get(id=id)
-				read = True
+				edit = True
 			except:
 				return redirect('/alunos/')
 
 	context = {
 		'student': student,
 		'error': error,
-		'read': read,
+		'edit': edit,
 		#'list_cid': listCid.json(),
 	}
 

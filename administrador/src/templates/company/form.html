@@ -111,7 +111,7 @@
 			</div>
 			<div class='form-block'>
 				<label for='cnpj'>CNPJ *</label>
-				{% if read is True %}
+				{% if edit is True %}
 					<input 
 						type='text' 
 						name='cnpj' 
@@ -175,7 +175,7 @@
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='email'>E-mail *</label>
-				{% if read is True %}
+				{% if edit is True %}
 					<input 
 						type='email' 
 						name='email' 
@@ -200,25 +200,23 @@
 			</div>
 			<div class='form-block'>
 				<label for='senha'>Senha *</label>
-				{% if read is True %}
+				{% if edit is True %}
 					<input 
 						type='password' 
 						name='senha'
 						minlength='6' 
-						maxlength='64' 
-						pattern='.{6,}' 
-						required 
-						placeholder='Preencha com a senha'
+						maxlength='20' 
+						pattern='.{6,}'  
+						placeholder='Preencha com uma nova senha'
 						title='Preencha campo com no mínimo seis caracteres'
-						value='{{ company.senha }}'
-						readonly 
+						value='{{ company.senha }}' 
 					>
 				{% else %}
 					<input 
 						type='password' 
 						name='senha'
 						minlength='6' 
-						maxlength='64' 
+						maxlength='20' 
 						pattern='.{6,}' 
 						required 
 						placeholder='Preencha com a senha'

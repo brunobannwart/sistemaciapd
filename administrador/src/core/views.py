@@ -2,51 +2,9 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 from .forms import ChangePasswordForm
-from administradores.models import Administrador
 from alunos.models import Aluno
 
 # Create your views here.
-def changepassword_view(request):
-	if request.method == 'POST':
-		form = ChangePasswordForm(request.POST)
-
-		if form.is_valid():
-			if form.cleaned_data.get('senha') == form.cleaned_data.get('confirma'):
-				data = form.clean_form()
-				
-				if Administrador.objects.filter(email=data['email']):
-					admin_change = Administrador.objects.get(email=data['email'])
-					admin_change.senha = data['senha']
-					admin_change.save()
-					form = ChangePasswordForm()
-					error = None
-					return redirect('/administradores/')
-				else:
-					change = request.POST
-					error = 'E-mail não cadastrado'	
-			else:
-				change = request.POST
-				error = 'Senhas não conferem'
-		else:
-			change = request.POST
-			error = 'Alguns campos não foram preenchidos corretamente'
-	else:
-		form = ChangePasswordForm()
-
-		change = {
-			'email': '',
-			'senha': '',
-			'confirma': '',
-		}
-
-		error = None
-
-	context = {
-		'change': change,
-		'error': error,
-	}
-	return render(request, 'core/administrator/password.html', context)
-
 def job_list_view(request):
 	job_list = []
 	

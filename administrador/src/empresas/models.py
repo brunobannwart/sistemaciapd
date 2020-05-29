@@ -11,7 +11,7 @@ class Empresa(models.Model):
 	telefone		=	models.CharField(verbose_name='Telefone', max_length=14)
 
 	email			=	models.EmailField(verbose_name='E-mail', unique=True, max_length=45)
-	senha			=	models.CharField(verbose_name='Senha', max_length=64)
+	senha_hash		=	models.CharField(verbose_name='Senha', max_length=64)
 	
 	cep				=	models.CharField(verbose_name='CEP', max_length=10)
 	numero			=	models.CharField(verbose_name='Número', max_length=5)

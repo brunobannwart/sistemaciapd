@@ -18,10 +18,10 @@ def admin_form_view(request, id=0):
 
 		if id == 0:
 			form = AdministradorForm(request.POST, request.FILES)
-			read = False
+			edit = False
 		else:
 			form = AdministradorEditForm(request.POST, request.FILES or None)
-			read = True
+			edit = True
 
 		if form.is_valid():
 			data = form.clean_form()
@@ -42,7 +42,7 @@ def admin_form_view(request, id=0):
 							responseJSON = response.json()			
 							
 							create_admin = 	Administrador.objects.create(foto=data['foto'], nome=data['nome'], rf=data['rf'], 
-												email=data['email'], senha=data['senha'], cod_treino=responseJSON['treino'],
+												email=data['email'], senha_hash=data['senha'], cod_treino=responseJSON['treino'],
 												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])	
 							create_admin.save()
 							
@@ -64,12 +64,16 @@ def admin_form_view(request, id=0):
 
 					if request.FILES.get('foto', False):
 						update_admin.foto = data['foto']
+
+					if request.POST.get('senha') != '':
+						update_admin.senha_hash = data['senha']
 					
 					update_admin.nome = data['nome']
 					update_admin.comando_voz = data['comando_voz']
 					update_admin.ajuda_voz = data['ajuda_voz']
 					update_admin.nvda = data['nvda']
 					update_admin.save()
+
 
 				finally:
 					form = AdministradorForm()
@@ -95,18 +99,18 @@ def admin_form_view(request, id=0):
 				'nvda': 'nao',
 			}
 
-			read = False
+			edit = False
 		else:
 			try:
 				administrator = Administrador.objects.get(id=id)
-				read = True
+				edit = True
 			except:
 				return redirect('/administradores/')
 			
 	context = {
 		'administrator': administrator,
 		'error': error,
-		'read': read
+		'edit': edit
 	}
 
 	return render(request, 'administrator/form.html', context)
