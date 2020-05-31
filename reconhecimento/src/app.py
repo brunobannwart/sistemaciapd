@@ -23,6 +23,7 @@ def allowed_file(filename):
 # Treinamento de Face
 @app.route('/api/train', methods=['POST'])
 def train_face():
+	output = json.dumps({ 'sucess': True })
 	face_group = request.form['group']
 
 	if 'file' not in request.files:
@@ -43,8 +44,11 @@ def train_face():
 			bundle = app.face.addKnownFace(file_path, face_group)
 			remove(file_path)
 
-			output = json.dumps({ 'treino': bundle.getFaceID() })
-			return handle_sucess(output)
+			if bundle != None:
+				#output = json.dumps({ 'treino': bundle.getFaceID() })
+				return handle_sucess(output)
+			else:
+				return handle_error('Nenhuma face encontrada na imagem')
 
 # Reconhecimento de Face
 @app.route('/api/recognize', methods=['POST'])
@@ -72,7 +76,7 @@ def recognize_face():
 
 			if len(matches):
 				faceMatched = matches[0]
-				output = json.dumps({ 'reconhecimento': faceMatched['faceID'] })
+				#output = json.dumps({ 'reconhecimento': faceMatched['faceID'] })
 
 				return handle_sucess(output)
 			else:

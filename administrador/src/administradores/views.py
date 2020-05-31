@@ -118,6 +118,9 @@ def admin_form_view(request, id=0):
 def admin_delete_view(request, id=0):
 	try:
 		administrator = Administrador.objects.get(id=id)
+		#train = administrator.cod_treino
+		#response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': train})
+		#if response.status_code == 200:
 		administrator.delete()
 	finally:
 		return redirect('/administradores/')

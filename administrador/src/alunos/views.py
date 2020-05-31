@@ -128,6 +128,9 @@ def student_form_view(request, id=0):
 def student_delete_view(request, id=0):
 	try:
 		student = Aluno.objects.get(id=id)
+		#treino = student.cod_treino
+		#response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': treino})
+		#if response.status_code == 200:
 		student.delete()
 	finally:
 		return redirect('/alunos/')

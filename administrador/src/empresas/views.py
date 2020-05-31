@@ -123,6 +123,9 @@ def company_form_view(request, id=0):
 def company_delete_view(request, id=0):
 	try:
 		company = Empresa.objects.get(id=id)
+		#train = company.cod_treino
+		#response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': train})
+		#if response.status_code == 200:
 		company.delete()
 	finally:
 		return redirect('/empresas/')

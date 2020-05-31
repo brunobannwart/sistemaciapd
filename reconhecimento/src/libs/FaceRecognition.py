@@ -17,22 +17,31 @@ class FaceRecognition:
 	# Metodos privados	
 	def __createFaceTable(self):
 		self.cursor.execute("CREATE TABLE IF NOT EXISTS `face` (`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT, `filename` VARCHAR(100), "
-			+ "`location` LONGTEXT, `landmarks` LONGTEXT, `encodings` LONGTEXT, `group` VARCHAR(13)) ENGINE=InnoDB"
+			+ "`encodings` TEXT, `group` VARCHAR(13)) ENGINE=InnoDB"
 		)
 
 	def __getFacesSaved(self):
 		self.__createFaceTable()
 	#	self.cursor.execute('SELECT * FROM face')
 	#	results = self.cursor.fetchall()
-	#
+	
 	#	for row in results:
+	#		encodings = []
+	#
+	#		face_id = row[0]
+	#		filename = row[1]
+	#		encoding_list_str = row[2].split(",")
+	#		group = row[3]
+
+	#		for encoding_str in encoding_list_str:
+	#			encoding = float(encoding_str)
+	#			encodings.append(encoding)
+	#
 	#		face = {
-	#			'id': row[0],
-	#			'filename': row[1],
-	#			'location': row[2],
-	#			'landmarks': row[3],
-	#			'encodings': row[4],
-	#			'group': row[5]
+	#			'faceID': face_id,
+	#			'filename': filename,
+	#			'encoding': encodings,
+	#			'group': group
 	#		}
 	#
 	#		face_bundle = parseJSON(face)
@@ -40,13 +49,19 @@ class FaceRecognition:
 	
 	#def __saveFace(self, bundle):
 	#	bundleJSON = bundle.parseData()
-	#	self.cursor.execute('INSERT INTO face(filename, location, landmarks, encodings, group) VALUES (%s, %s, %s, %s, %s)', [])
+	#	filename = bundleJSON['filename']
+	#	encoding = bundleJSON['encoding']
+	#	group = bundleJSON['group']
+	#
+	#	encoding_str = ",".join([str(encode) for encode in encoding])
+	#
+	#	self.cursor.execute('INSERT INTO face(filename, encodings, group) VALUES (%s, %s, %s)', [filename, encoding_str, group])
 	#	self.db.commit()
 	#	return self.cursor.lastrowid 
 
-	def __deleteFace(self, id):
-		self.cursor.execute('DELETE FROM face WHERE id=%s', [id])
-		self.db.commit()
+	#def __deleteFace(self, id):
+	#	self.cursor.execute("DELETE FROM `face` WHERE `id`=%s", [id])
+	#	self.db.commit()
 
 	def __parseFaces(self, filePath) -> list:
 		faces: list = []
@@ -56,13 +71,10 @@ class FaceRecognition:
 		
 		face_locations  = face_recognition.face_locations(img)
 		face_encodings = face_recognition.face_encodings(img, face_locations)
-		face_landmarks = face_recognition.face_landmarks(img)
 
-		for location, encodings, landmarks in zip(face_locations, face_encodings, face_landmarks):
+		for encodings in face_encodings:
 			bundle = FaceBundle(filename)
-			bundle.setLocation(location)
 			bundle.setEncodings(encodings)
-			bundle.setLandMarks(landmarks)
 			faces.append(bundle)
 		
 		return faces
@@ -78,22 +90,23 @@ class FaceRecognition:
 		
 		if len(bundles):
 			bundles[0].setGroup(faceGroup)
-			#faceID = self.__saveFace(bundles[0])
-			#bundles[0].setFaceID(faceID)
+			self.__printFace(bundles[0])
+			faceID = self.__saveFace(bundles[0])
+			bundles[0].setFaceID(faceID)
 			self.known.append(bundles[0])
-				
-		return bundles[0]
+			return bundles[0]
+		else:
+			return None
 
 	def removeKnownFace(self, faceID):
 		count = 0;
 	
 		for knownFace in self.known:
 			if knownFace.getFaceID() == parseInt(faceID):
-				break
-			count += 1
-	
-		self.known.pop(count)
-		self.__deleteFace(faceID)
+				self.known.pop(count)
+				#self.__deleteFace(faceID)
+			else:
+				count += 1
 
 	def findMatches(self, filePath, fileGroup) -> list:
 		faces: list = []
