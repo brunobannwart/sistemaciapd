@@ -15,16 +15,17 @@ def login_view(request):
 			data = form.clean_form()
 
 			with connection.cursor() as cursor:
-				cursor.execute("SELECT id, email, senha FROM aluno WHERE email=%s", [data['email']])  
+				cursor.execute("SELECT id, email, senha_hash FROM aluno WHERE email=%s", [data['email']])  
 				result = cursor.fetchone()
 
-				student = {
+				login_student = {
 					'id': result[0],
 					'email': result[1],
-					'senha': result[2]
+					'senha_hash': result[2]
 				}
 
-				if student.senha == data['senha']:
+				if login_student.senha_hash == data['senha']:
+					#request.session['email'] = login_student.email
 					form = LoginForm()
 					return redirect('/inicio/')
 				else:
@@ -58,20 +59,30 @@ def camera_view(request):
 		encode = subf('^data:image/png;base64,', '', url)
 		decode = urlsafe_b64decode(encode)
 		img = Image.open(io.BytesIO(decode))
-		
 		photo = io.BytesIO()
 		img.save(photo, 'png')
 		photo.seek(0)
 
-		#response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'aluno'} files={ 'file': ('photo.png', photo, 'image/png') })
-
-		response = {
-			'status_code': 200
-		}
+		response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'aluno'} files={ 'file': ('photo.png', photo, 'image/png') })
 
 		if response.status_code == 200:
-			#responseJSON = response.json()
-			return redirect('/inicio/')
+			responseJSON = response.json()
+			student_codigo = responseJSON['reconhecimento']
+
+			with connection.cursor() as cursor:
+				cursor.execute("SELECT id, email FROM aluno WHERE cod_treino=%s", [student_codigo])
+				result = cursor.fetchone()
+
+				if result != None:
+					login_student = {
+						'id': result[0],
+						'email': result[1],
+					}
+
+					#response.session['email'] = login_student.email
+					return redirect('/inicio/')
+				else:
+					return redirect('login')
 		else:
 			return redirect('login')
 

@@ -10,7 +10,7 @@ def curriculum_form_view(request):
 		if form.is_valid():
 			data = form.clean_form()
 			try:
-				#curriculum = Curriculo.objects.create(email_aluno=, intituicao_ensino=data['intituicao_ensino'], curso_extra=data['curso_extra'], 
+				#curriculum = Curriculo.objects.create(email_aluno=, instituicao_ensino=data['instituicao_ensino'], curso_extra=data['curso_extra'], 
 				#				empresa=data['empresa'], cargo=data['cargo'])
 				#curriculum.save()
 				return redirect('/inicio/')
@@ -25,7 +25,7 @@ def curriculum_form_view(request):
 		error = None
 		
 		curriculum = {
-			'intituicao_ensino': '',
+			'instituicao_ensino': '',
 			'curso_extra': '', 
 			'empresa': '',
 			'cargo': '',

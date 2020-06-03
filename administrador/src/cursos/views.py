@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Curso
 from .forms import CursoForm, CursoEditForm
 
 # Create your views here.
+@login_required(login_url='login')
 def course_list_view(request):
 	course_list = Curso.objects.all()
 	context = {
@@ -10,6 +12,7 @@ def course_list_view(request):
 	}
 	return render(request, 'course/list.html', context)
 
+@login_required(login_url='login')
 def course_form_view(request, id=0): 
 	if request.method == 'POST':
 
@@ -74,6 +77,7 @@ def course_form_view(request, id=0):
 
 	return render(request, 'course/form.html', context)
 
+@login_required(login_url='login')
 def course_delete_view(request, id=0):	
 	try:
 		course = Curso.objects.get(id=id)

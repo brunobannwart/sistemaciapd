@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Jogo
 from .forms import JogoForm, JogoEditForm
 
 # Create your views here.
+@login_required(login_url='login')
 def game_list_view(request):
 	game_list = Jogo.objects.all()
 	context = {
@@ -10,6 +12,7 @@ def game_list_view(request):
 	}
 	return render(request, 'game/list.html', context)
 
+@login_required(login_url='login')
 def game_form_view(request, id=0): 
 	if request.method == 'POST':
 		if id == 0:
@@ -71,6 +74,7 @@ def game_form_view(request, id=0):
 
 	return render(request, 'game/form.html', context)
 
+@login_required(login_url='login')
 def game_delete_view(request, id=0):
 	try:
 		game = Jogo.objects.get(id=id)

@@ -11,9 +11,23 @@ def changepassword_view(request):
 		if form.is_valid():
 			if form.cleaned_data.get('senha') == form.cleaned_data.get('confirma'):
 				data = form.clean_form()
-				form = ChangePasswordForm()
-				error = None
-				return redirect('/vagas/')
+
+				with connection.cursor() as cursor:
+					cursor.execute("SELECT id, email FROM empresa WHERE email=%s", [data['email']])
+					result = cursor.fetchone()
+
+					if result != None:
+						company_email = data['email']
+						company_senha_hash = data['senha_hash']
+
+						cursor.execute("UPDATE empresa SET senha_hash=%s WHERE email=%s", [company_senha_hash, company_email])
+						
+						form = ChangePasswordForm()
+						error = None
+						return redirect('/vagas/')
+					else:
+						change = request.POST
+						error = 'Não existe empresa com esse e-mail'
 			else:
 				change = request.POST
 				error = 'Senhas não conferem'
@@ -56,7 +70,7 @@ def student_list_view(request):
 				'numero': row[9],
 				'cid': row[10],
 				'outra_info': row[14],
-				'intituicao_ensino': row[15],
+				'instituicao_ensino': row[15],
 				'curso_extra': row[16],
 				'empresa': row[17],
 				'cargo': row[18],
@@ -70,34 +84,35 @@ def student_list_view(request):
 	return render(request, 'core/student/list.html', context)
 
 def student_read_view(request, id=0):
-	if id != 0:
-		student = None
-		
+	if id != 0:	
 		with connection.cursor() as cursor:
 			cursor.execute("SELECT * FROM aluno WHERE id= %s", [id])
 			result = cursor.fetchone()
 
-			student = {
-				'id': result[0],
-				'foto':	result[1],
-				'nome': result[2],
-				'data_nasc': result[3],
-				'email': result[4],
-				'cpf': result[6],
-				'cep': result[8],
-				'numero': result[9],
-				'cid': result[10],
-				'outra_info': result[14],
-				'intituicao_ensino': row[15],
-				'curso_extra': row[16],
-				'empresa': row[17],
-				'cargo': row[18],
-			}
+			if result != None:
+				student = {
+					'id': result[0],
+					'foto':	result[1],
+					'nome': result[2],
+					'data_nasc': result[3],
+					'email': result[4],
+					'cpf': result[6],
+					'cep': result[8],
+					'numero': result[9],
+					'cid': result[10],
+					'outra_info': result[14],
+					'instituicao_ensino': row[15],
+					'curso_extra': row[16],
+					'empresa': row[17],
+					'cargo': row[18],
+				}
 		
-		context = {
-			'student': student
-		}
+				context = {
+					'student': student
+				}
 
-		return render(request, 'core/student/read.html', context)
+				return render(request, 'core/student/read.html', context)
+			else:
+				return redirect('/candidatos/')
 	else:
 		return redirect('/candidatos/')

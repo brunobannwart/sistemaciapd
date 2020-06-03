@@ -26,27 +26,51 @@
 
 			<div class='form-group'>
 				<div class='form-block'>
-					<label for='nivel_escolar'>Nível escolar</label>
-					<input type='text' name='nivel_escolar' readonly value='{{ curriculum.nivel_escolar }}'>
+					<label for='instituicao_ensino'>Instituições de ensino</label>
+					<textarea name='instituicao_ensino' maxlength='100' required>{{ curriculum.instituicao_ensino }}</textarea>
 				</div>
 				<div class='form-block'>
-					<label for='desc_escolar'>Informações escolares</label>
-					<textarea name='desc_escolar' readonly>{{ curriculum.desc_escolar }}</textarea>
+					<label for='curso_extra'>Cursos extras</label>
+					<textarea name='curso_extra' maxlength='100' required>{{ curriculum.curso_extra }}</textarea>
 				</div>
 			</div>
 
 			<div class='form-group'>
 				<div class='form-block'>
-					<label for='exp_trabalho'>Experiencia profissional</label>
-					<input type='text' name='exp_trabalho' readonly value='{{ curriculum.exp_trabalho }}'>
+					<label for='empresa'>Empresas trabalhadas</label>
+					<textarea name='empresa' maxlength='100' required>{{ curriculum.empresa }}</textarea>
 				</div>
 				<div class='form-block'>
-					<label for='desc_trabalho'>Informações profissionais</label>
-					<textarea name='desc_trabalho' readonly>{{ curriculum.desc_trabalho }}</textarea>
+					<label for='cargo'>Cargos ocupados</label>
+					<textarea name='cargo' maxlength='100' required>{{ curriculum.cargo }}</textarea>
 				</div>
 			</div>
 
-			<button type='submit'>Aprovar</button>
+			<div class='form-group-checkbox'>
+				<div class='form-block-checkbox'>
+					<label for='liberado' class='checkbox-label'>Liberado
+						{% if curriculum.liberado %}
+							<input type='checkbox' id='liberado' name='liberado' value='sim' checked onclick='liberar()'>
+							<input id='liberado_hidden' type='hidden' value='nao' name='liberado' disabled>
+						{% else %}
+							<input type='checkbox' id='liberado' name='liberado' value='sim' onclick='liberar()'>
+							<input id='liberado_hidden' type='hidden' value='nao' name='liberado'>
+						{% endif %}
+						<span class='checkmark'></span>
+					</label>
+				</div>
+			</div>
+
+			<button type='submit'>Salvar alterações</button>
 		</form>
 	</div>
+	<script>
+		function liberar() {
+			if(document.getElementById('liberado').checked) {
+    			document.getElementById('liberado_hidden').disabled = true;
+			} else {
+				document.getElementById('liberado_hidden').disabled = false;
+			}
+		}
+	</script>
 {% endblock %}

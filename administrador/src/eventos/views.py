@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Evento
 from .forms import EventoForm, EventoEditForm
 
 # Create your views here.
+@login_required(login_url='login')
 def event_list_view(request):
 	event_list = Evento.objects.all()
 	context = {
@@ -10,6 +12,7 @@ def event_list_view(request):
 	}
 	return render(request, 'event/list.html', context)
 
+@login_required(login_url='login')
 def event_form_view(request, id=0): 
 	if request.method == 'POST':
 		if id == 0:
@@ -70,6 +73,7 @@ def event_form_view(request, id=0):
 	} 
 	return render(request, 'event/form.html', context)
 
+@login_required(login_url='login')
 def event_delete_view(request, id=0):
 	try:
 		event = Evento.objects.get(id=id)

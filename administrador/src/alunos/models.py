@@ -21,12 +21,14 @@ class Aluno(models.Model):
 	nvda 				=	models.CharField(verbose_name='NVDA', max_length=3)
 	outra_info			=	models.TextField(verbose_name='Outras Informações', blank=True, null=False, max_length=100)
 	
-	intituicao_ensino 	= 	models.TextField(verbose_name='Instituições de ensino', max_length=100, blank=True, null=False)
+	instituicao_ensino 	= 	models.TextField(verbose_name='Instituições de ensino', max_length=100, blank=True, null=False)
 	curso_extra 		=	models.TextField(verbose_name='Cursos extras', max_length=100, blank=True, null=False)
 	empresa 			=	models.TextField(verbose_name='Empresas', max_length=100, blank=True, null=False)
 	cargo				=	models.TextField(verbose_name='Cargos ocupados', max_length=100, blank=True, null=False)
 	
 	cod_treino 			=	models.IntegerField(verbose_name='ID do treino facial', null=True)
+	is_authenticated	=	models.BooleanField(verbose_name='Autenticado', default=False)
+	last_login			=	models.DateTimeField(verbose_name='Último login', blank=True, null=True)
 	created_at			=	models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
 	updated_at			=	models.DateTimeField(verbose_name='Atualizado em', auto_now=True)
 

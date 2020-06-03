@@ -2,16 +2,27 @@ from django import forms
 import hashlib
 
 # Create your form here.
-class ChangePasswordForm(forms.Form):
-	email			=	forms.EmailField(label='Email')
-	senha 			=	forms.CharField(label='Senha', max_length=50, widget=forms.PasswordInput)
-	confirma		=	forms.CharField(label='Confirma senha', max_length=50, widget=forms.PasswordInput)
+class CurriculumForm(forms.Form):
+	email 				=	forms.EmailField(label='Email do aluno')
+	instituicao_ensino 	=	forms.CharField(label='Instituições de ensino', max_length=100)
+	curso_extra 		=	forms.CharField(label='Cursos extras', max_length=100)
+	empresa 			=	forms.CharField(label='Empresas', max_length=100)
+	cargo 				=	forms.CharField(label='Cargos', max_length=100)
+	liberado			=	forms.CharField(label='Liberado', max_length=3) 
 
 	def clean_form(self):
-		email 		=	self.cleaned_data.get('email')
-		senha 		= 	self.cleaned_data.get('senha')
+		email 			=	self.cleaned_data.get('email')
+		instituicao 	= 	self.cleaned_data.get('instituicao_ensino')
+		curso 			=	self.cleaned_data.get('curso_extra')
+		empresas 		=	self.cleaned_data.get('empresa')
+		cargos 			= 	self.cleaned_data.get('cargo')
+		status 			= 	self.cleaned_data.get('liberado')
 
-		hash_bytes = hashlib.sha256(senha.encode())
-		senha_hash = hash_bytes.hexdigest()
-
-		return { 'email': email, 'senha': senha_hash }
+		return {
+			'email': email,
+			'instituicao_ensino': instituicao,
+			'curso_extra': curso,
+			'empresa': empresas,
+			'cargo': cargos,
+			'liberado': status,
+		}

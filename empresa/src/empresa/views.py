@@ -15,21 +15,26 @@ def login_view(request):
 			data = form.clean_form()
 
 			with connection.cursor() as cursor:
-				cursor.execute("SELECT id, email, senha FROM empresa WHERE email=%s", [data['email']])
+				cursor.execute("SELECT id, email, senha_hash FROM empresa WHERE email=%s", [data['email']])
 				result = cursor.fetchone()
 
-				company = {
-					'id': result[0],
-					'email': result[1],
-					'senha': result[2],
-				}
+				if result != None:
+					login_company = {
+						'id': result[0],
+						'email': result[1],
+						'senha': result[2],
+					}
 
-				if company.senha == data['senha']:
-					form = LoginForm()
-					return redirect('/vagas/')
+					if login_company.senha_hash == data['senha']:
+						#request.session['email'] = login_company.email
+						form = LoginForm()
+						return redirect('/vagas/')
+					else:
+						login = request.POST
+						error = 'Senha não confere'
 				else:
 					login = request.POST
-					error = 'Senha não confere'
+					error = 'Não existe empresa com esse e-mail'
 		else:
 			login = request.POST
 			error = 'Preencher campos de login corretamente'
@@ -57,19 +62,30 @@ def camera_view(request):
 		img_encode = subf('^data:image/png;base64,', '', url_img)
 		img_decode = urlsafe_b64decode(img_encode)
 		img = Image.open(io.BytesIO(img_decode))
-		
 		photo = io.BytesIO()
 		img.save(photo, 'png')
 		photo.seek(0)
 
-		#response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'empresa'}, files={ 'file': ('photo.png', photo, 'image/png') })
-		
-		response = {
-			'status_code': 200
-		}
+		response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'empresa'}, files={ 'file': ('photo.png', photo, 'image/png') })
 
 		if response.status_code == 200:
-			#responseJSON = response.json()
+			responseJSON = response.json()
+			company_codigo = responseJSON['reconhecimento']
+
+			with connection.cursor() as cursor:
+				cursor.execute("SELECT id, email FROM empresa WHERE cod_treino=%s", [company_codigo])
+				result = cursor.fetchone()
+
+				if result != None:
+					login_company = {
+						'id': result[0],
+						'email': result[1],
+					}
+					#request.session['email'] = login_company.email
+					return redirect('/vagas/')
+				else:
+					return redirect('login')
+
 			return redirect('/vagas/')
 		else:
 			return redirect('login')
@@ -85,6 +101,5 @@ def forgot_view(request):
 def logout_view (request):
 	try:
 		del request.session['email']
-	except Exception as e:
-		pass
-	return redirect('login')
+	finally:
+		return redirect('login')

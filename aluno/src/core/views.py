@@ -6,20 +6,20 @@ from django.db import connection
 def course_list_view(request):
 	course_list = []
 
-	# with connection.cursor() as cursor:
-	# 	cursor.execute("SELECT * FROM curso")
-	# 	results = cursor.fetchall()
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM curso")
+		results = cursor.fetchall()
 
-	# 	for row in results:
-	# 		course = {
-	# 			'id': row[0],
-	# 			'arquivo': row[1],
-	# 			'titulo': row[2],
-	# 			'data_exp': row[3],
-	# 			'descricao': row[4],
-	# 		}
+		for row in results:
+			course = {
+				'id': row[0],
+				'arquivo': row[1],
+				'titulo': row[2],
+				'data_exp': row[3],
+				'descricao': row[4],
+			}
 
-	# 		course_list.append(course)
+			course_list.append(course)
 
 	context = {
 		'course_list': course_list
@@ -28,45 +28,46 @@ def course_list_view(request):
 
 def course_view(request, id=0):
 	if id != 0:
-		course = None
+		with connection.cursor() as cursor:
+			cursor.execute("SELECT * FROM curso WHERE id=%s", [id]) 
+			result = cursor.fetchone()
 
-		# with connection.cursor() as cursor:
-		# 	cursor.execute("SELECT * FROM curso WHERE id=%s", [id]) 
-		# 	result = cursor.fetchone()
+			if result != None:
+				course = {
+					'id': result[0],
+					'arquivo': result[1],
+					'titulo': result[2],
+					'data_exp': result[3],
+					'descricao': result[4],
+				}
 
-		# 	course = {
-		# 		'id': result[0],
-		# 		'arquivo': result[1],
-		# 		'titulo': result[2],
-		# 		'data_exp': result[3],
-		# 		'descricao': result[4],
-		# 	}
+				context = {
+					'course': course
+				}
 
-		context = {
-			'course': course
-		}
-
-		return render(request, 'options/course/item.html', context)
+				return render(request, 'options/course/item.html', context)
+			else:
+				return redirect('/cursos/')
 	else:
-		return redirect('/cursos')
+		return redirect('/cursos/')
 
 def event_list_view(request):
 	event_list = []
 	
-	# with connection.cursor() as cursor:
-	# 	cursor.execute("SELECT * FROM evento")
-	# 	results = cursor.fetchall()
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM evento")
+		results = cursor.fetchall()
 
-	# 	for row in results:
-	# 		event = {
-	# 			'id': row[0],
-	# 			'arquivo': row[1],
-	# 			'titulo': row[2],
-	# 			'data_exp': row[3],
-	# 			'descricao': row[4],
-	# 		}
+		for row in results:
+			event = {
+				'id': row[0],
+				'arquivo': row[1],
+				'titulo': row[2],
+				'data_exp': row[3],
+				'descricao': row[4],
+			}
 
-	# 		event_list.append(event)
+			event_list.append(event)
 
 	context = {
 		'event_list': event_list
@@ -75,44 +76,45 @@ def event_list_view(request):
 
 def event_view(request, id=0):
 	if id != 0:
-		event = None
-		
-		# with connection.cursor() as cursor:
-		# 	cursor.execute("SELECT * FROM evento WHERE id=%s", [id]) 
-		# 	result = cursor.fetchone()
+		with connection.cursor() as cursor:
+			cursor.execute("SELECT * FROM evento WHERE id=%s", [id]) 
+			result = cursor.fetchone()
 
-		# 	event = {
-		# 		'id': result[0],
-		# 		'arquivo': result[1],
-		# 		'titulo': result[2],
-		# 		'data_exp': result[3],
-		# 		'descricao': result[4],
-		# 	}
+			if result != None:
+				event = {
+					'id': result[0],
+					'arquivo': result[1],
+					'titulo': result[2],
+					'data_exp': result[3],
+					'descricao': result[4],
+				}
 
-		context = {
-			'event': event
-		}
+				context = {
+					'event': event
+				}
 
-		return render(request, 'options/event/item.html', context)
+				return render(request, 'options/event/item.html', context)
+			else:
+				return redirect('/eventos/')
 	else:
 		return redirect('/eventos/')
 
 def game_list_view(request):
 	game_list = []
 	
-	# with connection.cursor() as cursor:
-	# 	cursor.execute("SELECT * FROM jogo")
-	# 	results = cursor.fetchall()
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM jogo")
+		results = cursor.fetchall()
 		
-	# 	for row in results:
-	# 		game = {
-	# 			'id': row[0],
-	# 			'arquivo': row[1],
-	# 			'titulo': row[2],
-	# 			'url': row[3],
-	# 			'descricao': row[4],
-	# 		}
-	# 		game_list.append(game)
+		for row in results:
+			game = {
+				'id': row[0],
+				'arquivo': row[1],
+				'titulo': row[2],
+				'url': row[3],
+				'descricao': row[4],
+			}
+			game_list.append(game)
 
 	context = {
 		'game_list': game_list
@@ -121,44 +123,45 @@ def game_list_view(request):
 
 def game_view(request, id=0):
 	if id != 0:
-		game = None
-		
-		# with connection.cursor() as cursor:
-		# 	cursor.execute("SELECT * FROM jogo WHERE id=%s", [id]) 
-		# 	result = cursor.fetchone()
+		with connection.cursor() as cursor:
+			cursor.execute("SELECT * FROM jogo WHERE id=%s", [id]) 
+			result = cursor.fetchone()
 
-		# 	game = {
-		# 		'id': result[0],
-		# 		'arquivo': result[1],
-		# 		'titulo': result[2],
-		# 		'url': result[3],
-		# 		'descricao': result[4],
-		# 	}
+			if result != None:
+				game = {
+					'id': result[0],
+					'arquivo': result[1],
+					'titulo': result[2],
+					'url': result[3],
+					'descricao': result[4],
+				}
 
-		cotext = {
-			'game': game
-		}
+				context = {
+					'game': game
+				}
 
-		return render(request, 'options/game/item.html', game)
+				return render(request, 'options/game/item.html', context)
+			else:
+				return redirect('/jogos/')
 	else:
 		return redirect('/jogos/')
 
 def job_list_view(request):
 	job_list = []
 
-	# with connection.cursor() as cursor:
-	# 	cursor.execute("SELECT * FROM vaga")
-	# 	results = cursor.fetchall()
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM vaga")
+		results = cursor.fetchall()
 
-	# 	for row in results:
-	# 		job = {
-	# 			'id': row[0],
-	# 			'arquivo': row[1],
-	# 			'titulo': row[2],
-	# 			'data_exp': row[3],
-	# 			'descricao': row[4],
-	# 		}
-	# 		job_list.append(job)
+		for row in results:
+			job = {
+				'id': row[0],
+				'arquivo': row[1],
+				'titulo': row[2],
+				'data_exp': row[3],
+				'descricao': row[4],
+			}
+			job_list.append(job)
 
 	context = {
 		'job_list': job_list
@@ -168,44 +171,45 @@ def job_list_view(request):
 
 def job_view(request, id=0):
 	if id != 0:
-		job = None
-		
-		# with connection.cursor() as cursor:
-		# 	cursor.execute("SELECT * FROM vaga WHERE id=%s", [id]) 
-		# 	result = cursor.fetchone()
+		with connection.cursor() as cursor:
+			cursor.execute("SELECT * FROM vaga WHERE id=%s", [id]) 
+			result = cursor.fetchone()
 
-		# 	job = {
-		# 		'id': result[0],
-		# 		'arquivo': result[1],
-		# 		'titulo': result[2],
-		# 		'data_exp': result[3],
-		# 		'descricao': result[4],
-		# 	}
+			if result != None:
+				job = {
+					'id': result[0],
+					'arquivo': result[1],
+					'titulo': result[2],
+					'data_exp': result[3],
+					'descricao': result[4],
+				}
 
-		cotext = {
-			'job': job
-		}
+				context = {
+					'job': job
+				}
 
-		return render(request, 'options/job/item.html', game)
+				return render(request, 'options/job/item.html', context)
+			else:
+				return redirect('/vagas/')
 	else:
 		return redirect('/vagas/')
 
 def videolesson_list_view(request):
 	videolesson_list = []
 
-	# with connection.cursor() as cursor:
-	# 	cursor.execute("SELECT * FROM videoaula")
-	# 	results = cursor.fetchall()
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM videoaula")
+		results = cursor.fetchall()
 		
-	# 	for row in results:
-	# 		videolesson = {
-	# 			'id': row[0],
-	# 			'arquivo': row[1],
-	# 			'titulo': row[2],
-	# 			'url': row[3],
-	# 			'descricao': row[4],
-	# 		}
-	# 		videolesson_list.append(videolesson)
+		for row in results:
+			videolesson = {
+				'id': row[0],
+				'arquivo': row[1],
+				'titulo': row[2],
+				'url': row[3],
+				'descricao': row[4],
+			}
+			videolesson_list.append(videolesson)
 
 	context = {
 		'videolesson_list': videolesson_list
@@ -215,24 +219,25 @@ def videolesson_list_view(request):
 
 def videolesson_view(request, id=0):
 	if id != 0:
-		videolesson = None
-		
-		# with connection.cursor() as cursor:
-		# 	cursor.execute("SELECT * FROM videoaula WHERE id=%s", [id]) 
-		# 	result = cursor.fetchone()
-			
-		# 	videolesson = {
-		# 		'id': result[0],
-		# 		'arquivo': result[1],
-		# 		'titulo': result[2],
-		# 		'url': result[3],
-		# 		'descricao': result[4],
-		# 	}
+		with connection.cursor() as cursor:
+			cursor.execute("SELECT * FROM videoaula WHERE id=%s", [id]) 
+			result = cursor.fetchone()
 
-		context = {
-			'videolesson': videolesson
-		}
+			if result != None:
+				videolesson = {
+					'id': result[0],
+					'arquivo': result[1],
+					'titulo': result[2],
+					'url': result[3],
+					'descricao': result[4],
+				}
 
-		return render(request, 'options/videolesson/item.html', context)
+				context = {
+					'videolesson': videolesson
+				}
+
+				return render(request, 'options/videolesson/item.html', context)
+			else:
+				return redirect('/videoaulas/')
 	else:
 		return redirect('/videoaulas/')

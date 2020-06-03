@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 import os, requests, json
 from .models import Aluno
 from .forms import AlunoForm, AlunoEditForm
 
 # Create your views here.
+@login_required(login_url='login')
 def student_list_view(request):
 	student_list = Aluno.objects.all()
 	context = {
@@ -11,6 +13,7 @@ def student_list_view(request):
 	}
 	return render(request, 'student/list.html', context)
 
+@login_required(login_url='login')
 def student_form_view(request, id=0):
 	os.environ['NO_PROXY'] = '127.0.0.1'
 	#listCid = requests.get('https://cid10-api.herokuapp.com/cid10')
@@ -125,6 +128,7 @@ def student_form_view(request, id=0):
 
 	return render(request, 'student/form.html', context)
 
+@login_required(login_url='login')
 def student_delete_view(request, id=0):
 	try:
 		student = Aluno.objects.get(id=id)

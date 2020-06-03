@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 import os, requests, json
 from .models import Empresa
 from .forms import EmpresaForm, EmpresaEditForm
 
 # Create your views here.
+@login_required(login_url='login')
 def company_list_view(request):
 	company_list = Empresa.objects.all()
 	context = {
@@ -11,6 +13,7 @@ def company_list_view(request):
 	}
 	return render(request, 'company/list.html', context)
 
+@login_required(login_url='login')
 def company_form_view(request, id=0):
 	os.environ['NO_PROXY'] = '127.0.0.1'
 
@@ -120,6 +123,7 @@ def company_form_view(request, id=0):
 
 	return render(request, 'company/form.html', context)
 
+@login_required(login_url='login')
 def company_delete_view(request, id=0):
 	try:
 		company = Empresa.objects.get(id=id)
