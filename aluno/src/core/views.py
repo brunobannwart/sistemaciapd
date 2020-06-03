@@ -1,8 +1,10 @@
 # from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.db import connection
 
 # Create your views here.
+@login_required(login_url='login')
 def course_list_view(request):
 	course_list = []
 
@@ -26,6 +28,7 @@ def course_list_view(request):
 	}
 	return render(request, 'options/course/list.html', context)
 
+@login_required(login_url='login')
 def course_view(request, id=0):
 	if id != 0:
 		with connection.cursor() as cursor:
@@ -51,6 +54,7 @@ def course_view(request, id=0):
 	else:
 		return redirect('/cursos/')
 
+@login_required(login_url='login')
 def event_list_view(request):
 	event_list = []
 	
@@ -74,6 +78,7 @@ def event_list_view(request):
 	}
 	return render(request, 'options/event/list.html', context)
 
+@login_required(login_url='login')
 def event_view(request, id=0):
 	if id != 0:
 		with connection.cursor() as cursor:
@@ -99,6 +104,7 @@ def event_view(request, id=0):
 	else:
 		return redirect('/eventos/')
 
+@login_required(login_url='login')
 def game_list_view(request):
 	game_list = []
 	
@@ -121,6 +127,7 @@ def game_list_view(request):
 	}
 	return render(request, 'options/game/list.html', context)
 
+@login_required(login_url='login')
 def game_view(request, id=0):
 	if id != 0:
 		with connection.cursor() as cursor:
@@ -146,6 +153,7 @@ def game_view(request, id=0):
 	else:
 		return redirect('/jogos/')
 
+@login_required(login_url='login')
 def job_list_view(request):
 	job_list = []
 
@@ -169,6 +177,7 @@ def job_list_view(request):
 
 	return render(request, 'options/job/list.html', context)
 
+@login_required(login_url='login')
 def job_view(request, id=0):
 	if id != 0:
 		with connection.cursor() as cursor:
@@ -194,6 +203,7 @@ def job_view(request, id=0):
 	else:
 		return redirect('/vagas/')
 
+@login_required(login_url='login')
 def videolesson_list_view(request):
 	videolesson_list = []
 
@@ -217,6 +227,7 @@ def videolesson_list_view(request):
 
 	return render(request, 'options/videolesson/list.html', context)
 
+@login_required(login_url='login')
 def videolesson_view(request, id=0):
 	if id != 0:
 		with connection.cursor() as cursor:
