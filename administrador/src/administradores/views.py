@@ -5,7 +5,6 @@ from .forms import AdministradorForm, AdministradorEditForm
 
 # Create your views here.
 def admin_list_view(request):
-	print(request.user)
 	admin_list = Administrador.objects.all() 
 	context = {
 		'admin_list': admin_list

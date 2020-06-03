@@ -57,7 +57,6 @@ def camera_view(request):
 		encode = subf('^data:image/png;base64,', '', url)
 		decode = urlsafe_b64decode(encode)
 		img = Image.open(io.BytesIO(decode))
-		#img.show(title='Camera')
 		photo = io.BytesIO()
 		img.save(photo, 'png')
 		photo.seek(0)
@@ -73,8 +72,9 @@ def camera_view(request):
 				login_admin = LoginBackend.authenticate(request, admin_train.email, admin_train.senha_hash)
 
 				if login_admin != None and login_admin != False:
-					#request.session['email'] = login_admin.email
-					login(request, login_admin)
+					login_admin.is_authenticated = True
+					login_admin.save()
+					login(request, login_admin, backend='administrador.backend.LoginBackend')
 					return redirect('/administradores/')
 				else:
 					return redirect('login')
@@ -92,5 +92,11 @@ def forgot_view(request):
 	return render(request, 'login/forgot.html', {})
 
 def logout_view (request):
-	logout(request)
-	return redirect('login')
+	try:
+		logout_email = request.user.email
+		logout(request)
+		logout_admin = Administrador.objects.get(email=logout_email)
+		logout_admin.is_authenticated = False
+		logout_admin.save()
+	finally:
+		return redirect('login')
