@@ -9,6 +9,7 @@ from pybase64 import urlsafe_b64decode
 from PIL import Image
 from .forms import LoginForm
 from .backend import LoginBackend
+from core.models import LoginAluno
 
 def login_view(request):
 	if request.method == 'POST':
@@ -19,6 +20,8 @@ def login_view(request):
 			login_student = LoginBackend.authenticate(request, data['email'], data['senha_hash'])
 
 			if login_student != None and login_student != False:
+				login_student.is_authenticated = True
+				login_student.save()
 				form = LoginForm()
 				login(request, login_student, backend='aluno.backend.LoginBackend')
 				return redirect('/inicio/')
@@ -72,15 +75,13 @@ def camera_view(request):
 				result = cursor.fetchone()
 
 				if result != None:
-					data = {
-						'id': result[0],
-						'email': result[1],
-						'senha_hash': result[2],
-					}
-
+					data = { 'id': result[0], 'email': result[1], 'senha_hash': result[2] }
+					
 					login_student = LoginBackend.authenticate(request, data['email'], data['senha_hash'])
 
 					if login_student != None and login_student != False:
+						login_student.is_authenticated = True
+						login_student.save()
 						login(request, login_student, backend='aluno.backend.LoginBackend')
 						return redirect('/inicio/')
 					else:
@@ -100,7 +101,7 @@ def logout_view (request):
 	try:
 		logout_email = request.user.email
 		logout(request)
-		with connection.cursor() as cursor:
-			cursor.execute("UPDATE aluno SET is_authenticated=%s WHERE email=%s", [0, logout_email])
+		student_session = LoginAluno.objects.get(email=logout_email)
+		student_session.delete()
 	finally:
 		return redirect('login')

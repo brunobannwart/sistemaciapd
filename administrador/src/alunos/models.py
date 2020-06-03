@@ -6,7 +6,7 @@ class Aluno(models.Model):
 	nome 				= 	models.CharField(verbose_name='Nome', max_length=45)
 	data_nasc			=	models.DateField(verbose_name='Data de nascimento')
 	
-	email				=	models.EmailField(verbose_name='E-mail', unique=True)
+	email				=	models.EmailField(verbose_name='E-mail', unique=True, max_length=45)
 	senha_hash			=	models.CharField(verbose_name='Senha', max_length=64)
 	
 	cpf					=	models.CharField(verbose_name='CPF', max_length=14, unique=True)
@@ -27,8 +27,6 @@ class Aluno(models.Model):
 	cargo				=	models.TextField(verbose_name='Cargos ocupados', max_length=100, blank=True, null=False)
 	
 	cod_treino 			=	models.IntegerField(verbose_name='ID do treino facial', null=True)
-	is_authenticated	=	models.BooleanField(verbose_name='Autenticado', default=False)
-	last_login			=	models.DateTimeField(verbose_name='Último login', blank=True, null=True)
 	created_at			=	models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
 	updated_at			=	models.DateTimeField(verbose_name='Atualizado em', auto_now=True)
 

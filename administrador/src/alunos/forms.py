@@ -5,7 +5,7 @@ import hashlib
 class AlunoForm(forms.Form):
 	nome 		= 	forms.CharField(label='Nome', max_length=100)
 	data_nasc	=	forms.DateField(label='Data de nascimento')
-	email		=	forms.EmailField(label='Email')
+	email		=	forms.EmailField(label='Email', max_length=45)
 	senha		=	forms.CharField(label='Senha', max_length=20, widget=forms.PasswordInput)
 	cpf			=	forms.CharField(label='CPF', max_length=14)
 	cep			=	forms.CharField(label='CEP', max_length=10)
@@ -57,7 +57,7 @@ class AlunoForm(forms.Form):
 class AlunoEditForm(forms.Form):
 	nome 		= 	forms.CharField(label='Nome', max_length=100)
 	data_nasc	=	forms.DateField(label='Data de nascimento')
-	email		=	forms.EmailField(label='Email')
+	email		=	forms.EmailField(label='Email', max_length=45)
 	senha		=	forms.CharField(label='Senha', max_length=20, widget=forms.PasswordInput, required=False)
 	cpf			=	forms.CharField(label='CPF', max_length=14)
 	cep			=	forms.CharField(label='CEP', max_length=10)

@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Vaga
 from .forms import VagaForm, VagaEditForm
 
 # Create your views here.
+@login_required(login_url='login')
 def job_list_view(request):
-	job_list = Vaga.objects.all()
+	job_list = Vaga.objects.filter(email=request.user.email)
 	context = {
 		'job_list': job_list
 	}
 	return render(request, 'job/list.html', context)
 
+@login_required(login_url='login')
 def job_form_view(request, id=0): 
 	if request.method == 'POST':
 		if id == 0
@@ -22,7 +25,8 @@ def job_form_view(request, id=0):
 						
 			if id == 0:
 				try:
-					create_job = Vaga.objects.create(arquivo=data['arquivo'], titulo=data['titulo'], data_exp=data['data_exp'], descricao=data['descricao'])
+					company_email = request.user.email
+					create_job = Vaga.objects.create(email=company_email, arquivo=data['arquivo'], titulo=data['titulo'], data_exp=data['data_exp'], descricao=data['descricao'])
 					create_event.save()
 				finally:
 					form = VagaForm()
@@ -70,6 +74,7 @@ def job_form_view(request, id=0):
 	} 
 	return render(request, 'job/form.html', context)
 
+@login_required(login_url='login')
 def job_delete_view(request, id=0):
 	try:
 		job = Vaga.objects.get(id=id)

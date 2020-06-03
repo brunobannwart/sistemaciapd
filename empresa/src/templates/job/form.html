@@ -68,7 +68,7 @@
 					name='data_exp'
 					required
 					title='Preencha campo com uma data válida'
-					value='{{ job.data_exp }}' 
+					value='{{ job.data_exp|date:"Y-m-d" }}' 
 				>
 			</div>
 		</div>

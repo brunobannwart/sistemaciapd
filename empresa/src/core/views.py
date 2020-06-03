@@ -1,9 +1,10 @@
-# from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.db import connection
 from .forms import ChangePasswordForm
 
 # Create your views here.
+@login_required(login_url='login')
 def changepassword_view(request):
 	if request.method == 'POST':
 		form = ChangePasswordForm(request.POST)
@@ -51,6 +52,7 @@ def changepassword_view(request):
 
 	return render(request, 'core/company/password.html', context)
 
+@login_required(login_url='login')
 def student_list_view(request):
 	student_list = []
 	
@@ -83,6 +85,7 @@ def student_list_view(request):
 
 	return render(request, 'core/student/list.html', context)
 
+@login_required(login_url='login')
 def student_read_view(request, id=0):
 	if id != 0:	
 		with connection.cursor() as cursor:

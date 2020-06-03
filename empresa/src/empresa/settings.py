@@ -84,16 +84,19 @@ WSGI_APPLICATION = 'empresa.wsgi.application'
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ciapd',
-        'USER': 'ciapd_company',
-        'PASSWORD': 'ciapd$empresa',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': 'ciapd',
+		'USER': 'ciapd_company',
+		'PASSWORD': 'ciapd$empresa',
+		'HOST': 'localhost',
+		'PORT': '3306',
+	}
 }
 
+AUTHENTICATION_BACKENDS = [
+	'empresa.backend.LoginBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

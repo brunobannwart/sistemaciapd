@@ -119,6 +119,8 @@ def curriculum_read_view(request, id=0):
 						"UPDATE curriculo SET instituicao_ensino=%s, curso_extra=%s, empresa=%s, cargo=%s, liberado=%s WHERE id=%s", 
 						[instituicao, curso, empresa, cargo, status_liberado, id]
 					)
+
+					return redirect('/curriculos/')
 			else:
 				curriculum = request.POST
 

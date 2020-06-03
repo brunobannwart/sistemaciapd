@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Vaga(models.Model):
+	email		=	models.EmailField(verbose_name='E-mail', max_length=45)
 	arquivo 	=	models.ImageField(verbose_name='Arquivo', upload_to='logo/vaga', null=False, blank=False)
 	titulo 		= 	models.CharField(verbose_name='Titulo', max_length=45)
 	data_exp	=	models.DateField(verbose_name='Data de expiração')
