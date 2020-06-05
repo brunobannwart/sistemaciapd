@@ -23,7 +23,6 @@ def allowed_file(filename):
 # Treinamento de Face
 @app.route('/api/train', methods=['POST'])
 def train_face():
-	output = json.dumps({ 'sucess': True })
 	face_group = request.form['group']
 
 	if 'file' not in request.files:
@@ -45,7 +44,7 @@ def train_face():
 			remove(file_path)
 
 			if bundle != None:
-				#output = json.dumps({ 'treino': bundle.getFaceID() })
+				output = json.dumps({ 'treino': bundle.getFaceID() })
 				return handle_sucess(output)
 			else:
 				return handle_error('Nenhuma face encontrada na imagem')
@@ -53,7 +52,6 @@ def train_face():
 # Reconhecimento de Face
 @app.route('/api/recognize', methods=['POST'])
 def recognize_face():
-	output = json.dumps({ 'sucess': True })
 	face_group = request.form['group']
 
 	if 'file' not in request.files:
@@ -76,8 +74,7 @@ def recognize_face():
 
 			if len(matches):
 				faceMatched = matches[0]
-				#output = json.dumps({ 'reconhecimento': faceMatched['faceID'] })
-
+				output = json.dumps({ 'reconhecimento': faceMatched['faceID'] })
 				return handle_sucess(output)
 			else:
 				return handle_error('Face não reconhecida na imagem.')
@@ -88,7 +85,11 @@ def delete_face():
 	output = json.dumps({ 'success': True })
 
 	faceid = request.form['faceID']
-	app.face.removeKnownFace(faceid)
-	return handle_sucess(output)
+	has_removed_face = app.face.removeKnownFace(faceid)
+
+	if has_removed_face:
+		return handle_sucess(output)
+	else:
+		return handle_error('Face não removida do banco de dados')
 
 app.run(host=app.config['FLASK_RUN_HOST'], port=app.config['FLASK_RUN_PORT'])

@@ -55,6 +55,8 @@ def company_form_view(request, id=0):
 												cep=data['cep'], numero=data['numero'],
 												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])		
 							create_company.save()
+
+							return redirect('/empresas/')
 						else:
 							company = request.POST
 							error = 'Foto inválida'

@@ -29,19 +29,30 @@
 				>
 			</div>
 			<div class='form-block'>
-				<label for='data'>Data de expiração</label>
-				<input
-					type='date'
-					name='data_exp'
-					value='{{ job.data_exp }}'
+				<label for='email'>E-mail da empresa</label>
+				<input 
+					type='text' 
+					name='email' 
+					value='{{ job.email }}' 
 					readonly
 				>
 			</div>
 		</div>
 
-		<div id='description' class='form-block'>
-			<label for='descricao'>Descrição</label>
-			<textarea name='descricao' readonly>{{ job.descricao }}</textarea>
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='data'>Data de expiração</label>
+				<input
+					type='date'
+					name='data_exp'
+					value='{{ job.data_exp|date:"Y-m-d" }}'
+					readonly
+				>
+			</div>
+			<div class='form-block'>
+				<label for='descricao'>Descrição</label>
+				<textarea name='descricao' readonly>{{ job.descricao }}</textarea>
+			</div>
 		</div>
 	</form>
 </div>

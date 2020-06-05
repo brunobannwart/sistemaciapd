@@ -15,7 +15,7 @@ def job_list_view(request):
 @login_required(login_url='login')
 def job_form_view(request, id=0): 
 	if request.method == 'POST':
-		if id == 0
+		if id == 0:
 			form = VagaForm(request.POST, request.FILES)
 		else:
 			form = VagaEditForm(request.POST, request.FILES or None)

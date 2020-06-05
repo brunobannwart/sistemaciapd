@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 import os, requests, json
 from .models import Administrador
 from .forms import AdministradorForm, AdministradorEditForm
 
 # Create your views here.
+@login_required(login_url='login')
 def admin_list_view(request):
 	admin_list = Administrador.objects.all() 
 	context = {
@@ -120,6 +122,7 @@ def admin_form_view(request, id=0):
 
 	return render(request, 'administrator/form.html', context)
 
+@login_required(login_url='login')
 def admin_delete_view(request, id=0):
 	try:
 		administrator = Administrador.objects.get(id=id)

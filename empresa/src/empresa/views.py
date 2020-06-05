@@ -8,7 +8,7 @@ from pybase64 import urlsafe_b64decode
 from PIL import Image
 from .forms import LoginForm
 from .backend import LoginBackend
-from core.models import LoginEmpresa
+from core_empresa.models import LoginEmpresa
 
 def login_view(request):
 	if request.method == 'POST':

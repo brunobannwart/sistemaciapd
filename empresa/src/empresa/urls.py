@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from empresa.views import login_view, camera_view, readmore_view, forgot_view, logout_view
-from core.views import changepassword_view, student_list_view, student_read_view
+from core_empresa.views import changepassword_view, student_list_view, student_read_view
 from vagas.views import job_list_view, job_form_view, job_delete_view
 
 urlpatterns = [

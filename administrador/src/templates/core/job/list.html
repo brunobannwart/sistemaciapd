@@ -22,6 +22,7 @@
 					<thead>
 						<tr>
 							<th>Titulo</th>
+							<th>E-mail da Empresa</th>
 							<th>Data de Expiração</th>
 							<th>Ações</th>
 						</tr>
@@ -30,6 +31,7 @@
 						{% for job in job_list %}
 							<tr>
 								<td>{{ job.titulo }}</td>
+								<td>{{ job.email }}</td>
 								<td>{{ job.data_exp }}</td>
 								<td>
 									<div class='dropdown'>

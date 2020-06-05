@@ -34,6 +34,12 @@ body {
     flex-direction: row;
 }
 
+.header header .company-info img {
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+}
+
 .header header .company-info i {
     margin-top: 0.75em;
     margin-left: 0.75em;
@@ -46,6 +52,17 @@ body {
 }
 
 .header header .page-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: -255px;
+    color: #FFF;
+    font-size: 1.1em;
+    margin-top: -2em;
+}
+
+.header header .page-info-anonymous {
     display: flex;
     flex-direction: column;
     align-items: center;

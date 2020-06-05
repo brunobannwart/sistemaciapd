@@ -1,25 +1,47 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import connection
+#import os, requests, json
 from .forms import CurriculumForm
 from alunos.models import Aluno
+#from .models import Cid
 
 # Create your views here.
+# @login_required(login_url='login')
+# def cid_list_view(request):
+# 	count = Cid.objects.count()
+
+# 	if count == 0:
+# 		response = requests.get('https://cid10-api.herokuapp.com/cid10')
+# 		list_cid = response.json()
+
+# 		for cid in list_cid:
+# 			cid_codigo = cid['codigo']
+# 			first_character = cid_codigo[0].upper()
+
+# 			if first_character == 'F' or first_character == 'Q':
+# 				cid_nome = cid['nome']
+# 				create_cid = Cid.objects.create(codigo=cid_codigo, descricao=cid_nome)
+# 				create_cid.save()
+
+# 	return redirect('/administradores/')
+
 @login_required(login_url='login')
 def job_list_view(request):
 	job_list = []
 	
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM vaga")
+		cursor.execute("SELECT * FROM vaga WHERE data_exp >= CURDATE()")
 		results = cursor.fetchall()
 
 		for row in results:
 			job = {
 				'id': row[0],
-				'arquivo': row[1],
-				'titulo': row[2],
-				'data_exp': row[3],
-				'descricao': row[4],
+				'email': row[1],
+				'arquivo': row[2],
+				'titulo': row[3],
+				'data_exp': row[4],
+				'descricao': row[5],
 			}
 
 			job_list.append(job)
@@ -40,10 +62,11 @@ def job_read_view(request, id=0):
 			if result != None:
 				job = {
 					'id': row[0],
-					'arquivo': row[1],
-					'titulo': row[2],
-					'data_exp': row[3],
-					'descricao': row[4],
+					'email': row[1],
+					'arquivo': row[2],
+					'titulo': row[3],
+					'data_exp': row[4],
+					'descricao': row[5],
 				}
 
 				context = {
@@ -147,5 +170,15 @@ def curriculum_read_view(request, id=0):
 		}
 
 		return render(request, 'core/curriculum/read.html', context)
+	else:
+		return redirect('/curriculos/')
+
+@login_required(login_url='login')
+def curriculum_delete_view(request, id=0):
+	if id != 0:
+		with connection.cursor() as cursor:
+			cursor.execute("DELETE FROM curriculo WHERE id=%s", [id])
+
+			return redirect('/curriculos/')
 	else:
 		return redirect('/curriculos/')

@@ -104,10 +104,10 @@ def student_read_view(request, id=0):
 					'numero': result[9],
 					'cid': result[10],
 					'outra_info': result[14],
-					'instituicao_ensino': row[15],
-					'curso_extra': row[16],
-					'empresa': row[17],
-					'cargo': row[18],
+					'instituicao_ensino': result[15],
+					'curso_extra': result[16],
+					'empresa': result[17],
+					'cargo': result[18],
 				}
 		
 				context = {

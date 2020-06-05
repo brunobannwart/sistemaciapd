@@ -1,6 +1,6 @@
 from django.contrib.auth.backends import BaseBackend
 from django.db import connection
-from core.models import LoginAluno
+from core_aluno.models import LoginAluno
 
 class LoginBackend(BaseBackend):
 	def authenticate(request, student_email=None, student_senha=None):

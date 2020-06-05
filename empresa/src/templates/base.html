@@ -16,12 +16,23 @@
     <div class='header'>
             <header>
                 <div class='company-info'>
-                    <i class='fas fa-bell'></i>
+                    {% if request.user.is_authenticated %}
+                        <img src='{{ request.user.foto }}'>
+                    {% else %}
+                        <i class='fas fa-user-secret'></i>
+                    {% endif %}
                 </div>
-                <div class='page-info'>
-                    {% block header %}
-                    {% endblock %}
-                </div>
+                {% if request.user.is_authenticated %}
+                    <div class='page-info'>
+                        {% block header %}
+                        {% endblock %}
+                    </div>
+                {% else %}
+                    <div class='page-info-anonymous'>
+                        {% block header %}
+                        {% endblock %}
+                    </div>
+                {% endif %}
             </header>
     </div>
     <div class='container'>

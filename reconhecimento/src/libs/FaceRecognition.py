@@ -22,7 +22,7 @@ class FaceRecognition:
 
 	def __getFacesSaved(self):
 		self.__createFaceTable()
-	#	self.cursor.execute('SELECT * FROM face')
+	#	self.cursor.execute("SELECT * FROM `face`")
 	#	results = self.cursor.fetchall()
 	
 	#	for row in results:
@@ -55,7 +55,7 @@ class FaceRecognition:
 	#
 	#	encoding_str = ",".join([str(encode) for encode in encoding])
 	#
-	#	self.cursor.execute('INSERT INTO face(filename, encodings, group) VALUES (%s, %s, %s)', [filename, encoding_str, group])
+	#	self.cursor.execute("INSERT INTO `face`(`filename`, `encodings`, `group`) VALUES (%s, %s, %s)", [filename, encoding_str, group])
 	#	self.db.commit()
 	#	return self.cursor.lastrowid 
 
@@ -90,9 +90,8 @@ class FaceRecognition:
 		
 		if len(bundles):
 			bundles[0].setGroup(faceGroup)
-			self.__printFace(bundles[0])
-			faceID = self.__saveFace(bundles[0])
-			bundles[0].setFaceID(faceID)
+	#		faceID = self.__saveFace(bundles[0])
+	#		bundles[0].setFaceID(faceID)
 			self.known.append(bundles[0])
 			return bundles[0]
 		else:
@@ -105,16 +104,19 @@ class FaceRecognition:
 			if knownFace.getFaceID() == parseInt(faceID):
 				self.known.pop(count)
 				#self.__deleteFace(faceID)
+				return True
 			else:
 				count += 1
 
-	def findMatches(self, filePath, fileGroup) -> list:
+		return False
+
+	def findMatches(self, filePath, faceGroup) -> list:
 		faces: list = []
 		knownEncodings = []
 		bundles = self.__parseFaces(filePath)
 
 		for knownFace in self.known:
-			if knownFace.getGroup() == fileGroup:
+			if knownFace.getGroup() == faceGroup:
 				knownEncodings.append(knownFace.getEncodings())
 
 		for bundle in bundles:

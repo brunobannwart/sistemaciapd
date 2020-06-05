@@ -19,13 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from aluno.views import login_view, camera_view, home_view, logout_view
-from core.views import course_list_view, course_view
+from core_aluno.views import course_list_view, course_view
 
-from core.views import event_list_view, event_view
-from core.views import game_list_view, game_view 
+from core_aluno.views import event_list_view, event_view
+from core_aluno.views import game_list_view, game_view 
 
-from core.views import job_list_view, job_view
-from core.views import videolesson_list_view, videolesson_view
+from core_aluno.views import job_list_view, job_view
+from core_aluno.views import videolesson_list_view, videolesson_view
 from curriculos.views import curriculum_form_view
 
 urlpatterns = [
