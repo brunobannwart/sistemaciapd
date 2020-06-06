@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h3>
-	Lista de Jogos
-</h3>
+	{% if request.user.is_authenticated %}
+        <div class='page-info'>
+			<h3> Lista de Jogos </h3>
+		</div>
+	{% else %}
+		<div class='page-info-anonymous'>
+			<h3> Lista de Jogos </h3>
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block content %}

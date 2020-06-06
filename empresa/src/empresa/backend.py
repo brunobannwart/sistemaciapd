@@ -21,7 +21,7 @@ class LoginBackend(BaseBackend):
 				}
 
 				try:
-					company = 	LoginEmpresa.objects.create(id=data['id'], foto=data['foto'] razao_social=data['razao_social'], email=data['email'], senha_hash=data['senha_hash'], 
+					company = 	LoginEmpresa.objects.create(id=data['id'], foto=data['foto'], razao_social=data['razao_social'], email=data['email'], senha_hash=data['senha_hash'], 
 									comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])
 
 					if company.senha_hash == company_senha:

@@ -22,17 +22,8 @@
                         <i class='fas fa-user-secret'></i>
                     {% endif %}
                 </div>
-                {% if request.user.is_authenticated %}
-                    <div class='page-info'>
-                        {% block header %}
-                        {% endblock %}
-                    </div>
-                {% else %}
-                    <div class='page-info-anonymous'>
-                        {% block header %}
-                        {% endblock %}
-                    </div>
-                {% endif %}
+                {% block header %}
+                {% endblock %}
             </header>
     </div>
     <div class='container'>
