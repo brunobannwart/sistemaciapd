@@ -15,15 +15,10 @@
 <body>
     <div class='header'>
             <header>
-                <div class='company-info'>
-                    {% if request.user.is_authenticated %}
-                        <img src='{{ request.user.foto }}'>
-                    {% else %}
-                        <i class='fas fa-user-secret'></i>
-                    {% endif %}
+                <div class='page-info-anonymous'>
+                    {% block header %}
+                    {% endblock %}
                 </div>
-                {% block header %}
-                {% endblock %}
             </header>
     </div>
     <div class='container'>

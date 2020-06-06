@@ -103,6 +103,7 @@ DATABASES = {
 
 AUTHENTICATION_BACKENDS = [
     'administrador.backend.LoginBackend',
+	'django.contrib.auth.backends.ModelBackend',
 ]
 
 

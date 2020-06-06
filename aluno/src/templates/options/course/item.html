@@ -5,9 +5,10 @@
 		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'course-list' %}`"></i>
 		<header>
 			<strong>{{ course.titulo }}</strong>
+			<p>Data de expiração: {{ course.data_exp }}</p>
 		</header>
 		<div class='item-image'>
-			<img src='{{ course.arquivo }}' crossorigin/>
+			<img src='{{ MEDIA_URL }}{{ course.arquivo }}' crossorigin/>
 		</div>
 		<div class='item-content'>
 			<p>{{ course.descricao }}</p>

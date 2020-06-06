@@ -1,15 +1,9 @@
 {% extends 'base.html' %}
 
 {% block header %}
-	{% if request.user.is_authenticated %}
-        <div class='page-info'>
-        	<h3> Lista de Candidatos </h3>
-        </div>
-    {% else %}
-        <div class='page-info-anonymous'>
-            <h3> Lista de Candidatos </h3>
-        </div>
-    {% endif %}
+   	<h3> 
+   		Lista de Candidatos
+   	</h3>
 {% endblock %}
 
 {% block content %}

@@ -27,30 +27,6 @@ body {
     top: 0px;
 }
 
-.header header .company-info {
-    margin-top: 1em;
-    margin-left: 1em;
-    display: flex;
-    flex-direction: row;
-}
-
-.header header .company-info img {
-    width: 3.5em;
-    height: 3.5em;
-    border-radius: 50%;
-}
-
-.header header .company-info i {
-    margin-top: 0.75em;
-    margin-left: 0.75em;
-    color: #FFF;
-    font-size: 1.15em;
-}
-
-.header header .company-info i:hover {
-    cursor: pointer;
-}
-
 .header header .page-info {
     display: flex;
     flex-direction: column;

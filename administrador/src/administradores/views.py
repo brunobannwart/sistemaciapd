@@ -13,6 +13,7 @@ def admin_list_view(request):
 	}
 	return render(request, 'administrator/list.html', context)
 
+@login_required(login_url='login')
 def admin_form_view(request, id=0):
 	os.environ['NO_PROXY'] = '127.0.0.1'
 	

@@ -39,6 +39,7 @@ body {
     width: 3.5em;
     height: 3.5em;
     border-radius: 50%;
+    border: 1px solid #FFF;
 }
 
 .header header .admin-info i {
