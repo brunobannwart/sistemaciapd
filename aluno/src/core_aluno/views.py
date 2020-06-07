@@ -164,10 +164,11 @@ def job_list_view(request):
 		for row in results:
 			job = {
 				'id': row[0],
-				'arquivo': row[1],
-				'titulo': row[2],
-				'data_exp': row[3],
-				'descricao': row[4],
+				'email': row[1],
+				'arquivo': row[2],
+				'titulo': row[3],
+				'data_exp': row[4],
+				'descricao': row[5],
 			}
 			job_list.append(job)
 
@@ -187,10 +188,11 @@ def job_view(request, id=0):
 			if result != None:
 				job = {
 					'id': result[0],
-					'arquivo': result[1],
-					'titulo': result[2],
-					'data_exp': result[3],
-					'descricao': result[4],
+					'email': result[1],
+					'arquivo': result[2],
+					'titulo': result[3],
+					'data_exp': result[4],
+					'descricao': result[5],
 				}
 
 				context = {

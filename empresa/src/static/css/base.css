@@ -35,17 +35,7 @@ body {
     margin-left: -255px;
     color: #FFF;
     font-size: 1.1em;
-    margin-top: -2em;
-}
-
-.header header .page-info-anonymous {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-left: -255px;
-    color: #FFF;
-    font-size: 1.1em;
+    margin-top: 1.5em;
 }
 
 /* Navbar Style */

@@ -61,12 +61,12 @@ def job_read_view(request, id=0):
 
 			if result != None:
 				job = {
-					'id': row[0],
-					'email': row[1],
-					'arquivo': row[2],
-					'titulo': row[3],
-					'data_exp': row[4],
-					'descricao': row[5],
+					'id': result[0],
+					'email': result[1],
+					'arquivo': result[2],
+					'titulo': result[3],
+					'data_exp': result[4],
+					'descricao': result[5],
 				}
 
 				context = {

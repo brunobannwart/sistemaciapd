@@ -5,12 +5,12 @@
 		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'event-list' %}`"></i>
 		<header>
 			<strong>{{ event.titulo }}</strong>
-			<p>Data de expiração: {{ event.data_exp }}</p>
 		</header>
 		<div class='item-image'>
 			<img src='{{ MEDIA_URL }}{{ event.arquivo }}' crossorigin/>
 		</div>
 		<div class='item-content'>
+			<p>Data de expiração: {{ event.data_exp }}</p>
 			<p>{{ event.descricao }}</p>
 		</div>
 	</div>
