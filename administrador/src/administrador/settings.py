@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	'core',
 	'administradores',
 	'alunos',
+	'cids',
 	'cursos',
 	'empresas',
 	'eventos',

@@ -21,8 +21,6 @@ class Empresa(models.Model):
 	nvda 				=	models.CharField(verbose_name='NVDA', max_length=3)
 	
 	cod_treino 			=	models.IntegerField(verbose_name='ID do treino facial', null=True)
-	is_authenticated	=	models.BooleanField(verbose_name='Autenticado', default=False)
-	last_login			=	models.DateTimeField(verbose_name='Último login', blank=True, null=True)
 	created_at			=	models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
 	updated_at			=	models.DateTimeField(verbose_name='Atualizado em', auto_now=True)
 

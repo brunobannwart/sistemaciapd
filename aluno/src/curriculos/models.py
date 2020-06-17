@@ -2,7 +2,8 @@ from django.db import models
 
 # Create your models here.
 class Curriculo(models.Model):
-	email_aluno 		=	models.EmailField(verbose_name='Email')
+	nome_aluno			=	models.CharField(verbose_name='Nome', max_length=45)
+	email_aluno 		=	models.EmailField(verbose_name='Email', max_length=45)
 	instituicao_ensino 	= 	models.TextField(verbose_name='Instituições de ensino', max_length=100)
 	curso_extra 		=	models.TextField(verbose_name='Cursos extras', max_length=100)
 	empresa 			=	models.TextField(verbose_name='Empresas', max_length=100)
@@ -18,4 +19,4 @@ class Curriculo(models.Model):
 		db_table = 'curriculo'
 		verbose_name = 'Curriculo'
 		verbose_name_plural = 'Curriculo'
-		ordering = ['email_aluno']
+		ordering = ['nome_aluno']

@@ -28,6 +28,7 @@
 					<thead>
 						<tr>
 							<th>Titulo</th>
+							<th>Razão Social</th>
 							<th>E-mail da Empresa</th>
 							<th>Data de Expiração</th>
 							<th>Ações</th>
@@ -37,6 +38,7 @@
 						{% for job in job_list %}
 							<tr>
 								<td>{{ job.titulo }}</td>
+								<td>{{ job.razao_social }}</td>
 								<td>{{ job.email }}</td>
 								<td>{{ job.data_exp }}</td>
 								<td>

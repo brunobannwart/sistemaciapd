@@ -1,31 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import connection
-#import os, requests, json
 from .forms import CurriculumForm
 from alunos.models import Aluno
-#from .models import Cid
 
 # Create your views here.
-# @login_required(login_url='login')
-# def cid_list_view(request):
-# 	count = Cid.objects.count()
-
-# 	if count == 0:
-# 		response = requests.get('https://cid10-api.herokuapp.com/cid10')
-# 		list_cid = response.json()
-
-# 		for cid in list_cid:
-# 			cid_codigo = cid['codigo']
-# 			first_character = cid_codigo[0].upper()
-
-# 			if first_character == 'F' or first_character == 'Q':
-# 				cid_nome = cid['nome']
-# 				create_cid = Cid.objects.create(codigo=cid_codigo, descricao=cid_nome)
-# 				create_cid.save()
-
-# 	return redirect('/administradores/')
-
 @login_required(login_url='login')
 def job_list_view(request):
 	job_list = []
@@ -37,11 +16,12 @@ def job_list_view(request):
 		for row in results:
 			job = {
 				'id': row[0],
-				'email': row[1],
-				'arquivo': row[2],
-				'titulo': row[3],
-				'data_exp': row[4],
-				'descricao': row[5],
+				'razao_social': row[1],
+				'email': row[2],
+				'arquivo': row[3],
+				'titulo': row[4],
+				'data_exp': row[5],
+				'descricao': row[6],
 			}
 
 			job_list.append(job)
@@ -62,11 +42,12 @@ def job_read_view(request, id=0):
 			if result != None:
 				job = {
 					'id': result[0],
-					'email': result[1],
-					'arquivo': result[2],
-					'titulo': result[3],
-					'data_exp': result[4],
-					'descricao': result[5],
+					'razao_social': result[1],
+					'email': result[2],
+					'arquivo': result[3],
+					'titulo': result[4],
+					'data_exp': result[5],
+					'descricao': result[6],
 				}
 
 				context = {
@@ -90,12 +71,13 @@ def curriculum_list_view(request):
 		for row in results:
 			curriculum = {
 				'id': row[0],
-				'email': row[1],
-				'instituicao_ensino': row[2],
-				'curso_extra': row[3],
-				'empresa': row[4],
-				'cargo': row[5],
-				'liberado': row[6],
+				'nome': row[1],
+				'email': row[2],
+				'instituicao_ensino': row[3],
+				'curso_extra': row[4],
+				'empresa': row[5],
+				'cargo': row[6],
+				'liberado': row[7],
 			}
 
 			curriculum_list.append(curriculum)
@@ -155,12 +137,13 @@ def curriculum_read_view(request, id=0):
 				if result != None:
 					curriculum = {
 						'id': result[0],
-						'email': result[1],
-						'instituicao_ensino': result[2],
-						'curso_extra': result[3],
-						'empresa': result[4],
-						'cargo': result[5],
-						'liberado': result[6],
+						'nome': result[1],
+						'email': result[2],
+						'instituicao_ensino': result[3],
+						'curso_extra': result[4],
+						'empresa': result[5],
+						'cargo': result[6],
+						'liberado': result[7],
 					}
 				else:
 					return redirect('/curriculos/')

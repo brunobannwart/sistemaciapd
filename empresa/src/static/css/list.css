@@ -90,7 +90,7 @@
 }
 
 .list .list-container .list-table table.content-table thead tr {
-	background-color: #0c457d;
+	background-color: #222;
 	color: #FFF;
 	text-align: left;
 	font-weight: bold
@@ -115,7 +115,7 @@
 }
 
 .list .list-container .list-table table.content-table tbody tr:last-of-type {
-	border-bottom: 2px solid #0c457d;
+	border-bottom: 2px solid #222;
 }
 
 .list .list-container .list-table table.content-table tbody tr td img {
