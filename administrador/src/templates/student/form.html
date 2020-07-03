@@ -239,7 +239,11 @@
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='cid'>CID *</label>
-				<textarea name='cid' placeholder='Preencha com as CIDs' title='Campo deve ser preenchido' required>{{ student.cid }}</textarea>
+				<select multiple name='cid' required title='Selecione múltiplos itens'>
+					{% for item in cid_list %}
+						<option value='{{ item.codigo }}'>{{item.codigo}}: {{ item.descricao }}</option>
+					{% endfor %}
+				</select>
 			</div>
 			<div class='form-block'>
 				<label for='outra_info'>Outras informações</label>
@@ -250,7 +254,7 @@
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
 				<label for='comando_voz' class='checkbox-label'>Comando por voz
-					{% if student.comando_voz == 'sim' %}
+					{% if student.comando_voz == True %}
 						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' checked onclick='selecionarComando()'>
 						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz' disabled>
 					{% else %}
@@ -262,7 +266,7 @@
 			</div>
 			<div class='form-block-checkbox'>
 				<label for='ajuda_voz' class='checkbox-label'>Ajuda por voz
-					{% if student.ajuda_voz == 'sim' %}
+					{% if student.ajuda_voz == True %}
 						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
 						<input id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz' disabled>
 					{% else %}
@@ -275,7 +279,7 @@
 			</div>
 			<div class='form-block-checkbox'>
 				<label for='nvda' class='checkbox-label'>NVDA
-					{% if student.nvda == 'sim' %}
+					{% if student.nvda == True %}
 						<input type='checkbox' id='nvda' name='nvda' value='sim' checked onclick='selecionarNVDA()'>
 						<input id='nvda_hidden' type='hidden' value='nao' name='nvda' disabled>
 					{% else %}

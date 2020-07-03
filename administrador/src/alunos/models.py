@@ -1,4 +1,5 @@
 from django.db import models
+from cids.models import Cid
 
 # Create your models here.
 class Aluno(models.Model):
@@ -15,10 +16,11 @@ class Aluno(models.Model):
 	cep					=	models.CharField(verbose_name='CEP', max_length=10)
 	numero				=	models.CharField(verbose_name='Número', max_length=5)
 	cid 				=	models.TextField(verbose_name='CIDs', null=False, blank=False)
+	#cid 				=	models.ManyToManyField(Cid)
 	
-	comando_voz 		=	models.CharField(verbose_name='Comando por voz', max_length=3)
-	ajuda_voz			=	models.CharField(verbose_name='Ajuda por voz', max_length=3)
-	nvda 				=	models.CharField(verbose_name='NVDA', max_length=3)
+	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
+	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)
+	nvda 				=	models.BooleanField(verbose_name='NVDA', default=False)
 	outra_info			=	models.TextField(verbose_name='Outras Informações', blank=True, null=False, max_length=100)
 	
 	instituicao_ensino 	= 	models.TextField(verbose_name='Instituições de ensino', max_length=100, blank=True, null=False)

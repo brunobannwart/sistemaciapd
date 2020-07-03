@@ -22,46 +22,48 @@ class FaceRecognition:
 
 	def __getFacesSaved(self):
 		self.__createFaceTable()
-	#	self.cursor.execute("SELECT * FROM `face`")
-	#	results = self.cursor.fetchall()
+		self.cursor.execute("SELECT * FROM `face`")
+		results = self.cursor.fetchall()
 	
-	#	for row in results:
-	#		encodings = []
-	#
-	#		face_id = row[0]
-	#		filename = row[1]
-	#		encoding_list_str = row[2].split(",")
-	#		group = row[3]
+		for row in results:
+			encodings = []
+			face_id = row[0]
+			filename = row[1]
+			encoding_list_str = row[2].split(",")
+			group = row[3]
 
-	#		for encoding_str in encoding_list_str:
-	#			encoding = float(encoding_str)
-	#			encodings.append(encoding)
-	#
-	#		face = {
-	#			'faceID': face_id,
-	#			'filename': filename,
-	#			'encoding': encodings,
-	#			'group': group
-	#		}
-	#
-	#		face_bundle = parseJSON(face)
-	#		self.known.append(face_bundle)
+			for encoding_str in encoding_list_str:
+				encoding = float(encoding_str)
+				encodings.append(encoding)
 	
-	#def __saveFace(self, bundle):
-	#	bundleJSON = bundle.parseData()
-	#	filename = bundleJSON['filename']
-	#	encoding = bundleJSON['encoding']
-	#	group = bundleJSON['group']
-	#
-	#	encoding_str = ",".join([str(encode) for encode in encoding])
-	#
-	#	self.cursor.execute("INSERT INTO `face`(`filename`, `encodings`, `group`) VALUES (%s, %s, %s)", [filename, encoding_str, group])
-	#	self.db.commit()
-	#	return self.cursor.lastrowid 
+			face = {
+				'faceID': face_id,
+				'filename': filename,
+				'encoding': encodings,
+				'group': group
+			}
+	
+			face_bundle = FaceBundle.parseJSON(self, face)
+			self.known.append(face_bundle)
+	
+	def __saveFace(self, bundle):
+		bundleJSON = bundle.parseData()
+		filename = bundleJSON['filename']
+		encoding = bundleJSON['encoding']
+		group = bundleJSON['group']
+		encoding_str = ",".join([str(encode) for encode in encoding])
+	
+		self.cursor.execute("INSERT INTO `face`(`filename`, `encodings`, `group`) VALUES (%s, %s, %s)", [filename, encoding_str, group])
+		self.db.commit()
+		return self.cursor.lastrowid 
 
-	#def __deleteFace(self, id):
-	#	self.cursor.execute("DELETE FROM `face` WHERE `id`=%s", [id])
-	#	self.db.commit()
+	def __deleteFace(self, id):
+		try:
+			self.cursor.execute("DELETE FROM `face` WHERE `id`=%s", [id])
+			self.db.commit()
+			return True
+		except:
+			return False
 
 	def __parseFaces(self, filePath) -> list:
 		faces: list = []
@@ -90,8 +92,8 @@ class FaceRecognition:
 		
 		if len(bundles):
 			bundles[0].setGroup(faceGroup)
-	#		faceID = self.__saveFace(bundles[0])
-	#		bundles[0].setFaceID(faceID)
+			faceID = self.__saveFace(bundles[0])
+			bundles[0].setFaceID(faceID)
 			self.known.append(bundles[0])
 			return bundles[0]
 		else:
@@ -103,8 +105,10 @@ class FaceRecognition:
 		for knownFace in self.known:
 			if knownFace.getFaceID() == parseInt(faceID):
 				self.known.pop(count)
-				#self.__deleteFace(faceID)
-				return True
+				if self.__deleteFace(faceID):
+					return True
+				else:
+					return False
 			else:
 				count += 1
 

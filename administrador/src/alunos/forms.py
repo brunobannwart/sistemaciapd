@@ -1,4 +1,5 @@
 from django import forms
+from cids.models import Cid
 import hashlib
 
 # Create your form here.
@@ -11,7 +12,7 @@ class AlunoForm(forms.Form):
 	cep			=	forms.CharField(label='CEP', max_length=10)
 	numero		=	forms.CharField(label='Número', max_length=5)
 	celular     =	forms.CharField(label='Celular', max_length=15)
-	cid 		=	forms.CharField(label='CIDs', widget=forms.Textarea, required=True)
+	cid 		=	forms.ModelMultipleChoiceField(label='CIDs', widget=forms.SelectMultiple, queryset=Cid.objects.all(), required=True)
 	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
 	nvda 		=	forms.CharField(label='NVDA', max_length=3)
@@ -31,8 +32,23 @@ class AlunoForm(forms.Form):
 		cid 		=	self.cleaned_data.get('cid')
 		comando		=	self.cleaned_data.get('comando_voz')
 		ajuda		=	self.cleaned_data.get('ajuda_voz')
-		nvda		=	self.cleaned_data.get('nvda')
+		aluno_nvda	=	self.cleaned_data.get('nvda')
 		info		=	self.cleaned_data.get('outra_info')
+
+		if comando == 'sim':
+			comando_voz = True
+		else:
+			comando_voz = False
+
+		if ajuda == 'sim':
+			ajuda_voz = True
+		else:
+			ajuda_voz = False
+
+		if aluno_nvda == 'sim':
+			nvda = True
+		else:
+			nvda = False
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -48,8 +64,8 @@ class AlunoForm(forms.Form):
 			'cep': cep, 
 			'numero': numero, 
 			'cid': cid,
-			'comando_voz': comando, 
-			'ajuda_voz': ajuda, 
+			'comando_voz': comando_voz, 
+			'ajuda_voz': ajuda_voz, 
 			'nvda': nvda, 
 			'outra_info': info 
 		}
@@ -63,7 +79,7 @@ class AlunoEditForm(forms.Form):
 	cep			=	forms.CharField(label='CEP', max_length=10)
 	numero		=	forms.CharField(label='Número', max_length=5)
 	celular     =	forms.CharField(label='Celular', max_length=15)
-	cid 		=	forms.CharField(label='CIDs', widget=forms.Textarea, required=True)
+	cid 		=	forms.ModelMultipleChoiceField(label='CIDs', widget=forms.SelectMultiple, queryset=Cid.objects.all(), required=True)
 	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
 	nvda 		=	forms.CharField(label='NVDA', max_length=3)
@@ -83,8 +99,23 @@ class AlunoEditForm(forms.Form):
 		cid 		=	self.cleaned_data.get('cid')
 		comando		=	self.cleaned_data.get('comando_voz')
 		ajuda		=	self.cleaned_data.get('ajuda_voz')
-		nvda		=	self.cleaned_data.get('nvda')
+		aluno_nvda	=	self.cleaned_data.get('nvda')
 		info		=	self.cleaned_data.get('outra_info')
+
+		if comando == 'sim':
+			comando_voz = True
+		else:
+			comando_voz = False
+
+		if ajuda == 'sim':
+			ajuda_voz = True
+		else:
+			ajuda_voz = False
+
+		if aluno_nvda == 'sim':
+			nvda = True
+		else:
+			nvda = False
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -100,8 +131,8 @@ class AlunoEditForm(forms.Form):
 			'cep': cep, 
 			'numero': numero, 
 			'cid': cid,
-			'comando_voz': comando, 
-			'ajuda_voz': ajuda, 
+			'comando_voz': comando_voz, 
+			'ajuda_voz': ajuda_voz, 
 			'nvda': nvda, 
 			'outra_info': info 
 		}

@@ -183,9 +183,9 @@
 
 .form form .form-block label {
 	color: #999;
-    font-size: 1em;
-    font-weight: bold;
-    display: block;
+  font-size: 1em;
+  font-weight: bold;
+  display: block;
 }
 
 .form form .form-block-checkbox label.checkbox-label {
@@ -260,6 +260,25 @@
 	margin-bottom: 10px;
 	font: 1em Arial, Helvetica, sans-serif;
 	height: 45px;
+}
+
+.form form select[multiple] {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: transparent;
+  margin-bottom: 10px;
+  font: 1em Arial, Helvetica, sans-serif;
+  height: 45px;
+  -moz-appearance: menulist;
+  -webkit-appearance: menulist;
+  appearance: menulist;
 }
 
 .form form input[type='text']:required:valid,

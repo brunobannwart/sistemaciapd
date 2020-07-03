@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 import os, requests, json
 from .models import Aluno
 from .forms import AlunoForm, AlunoEditForm
+from cids.models import Cid
 
 # Create your views here.
 @login_required(login_url='login')
@@ -16,7 +17,6 @@ def student_list_view(request):
 @login_required(login_url='login')
 def student_form_view(request, id=0):
 	os.environ['NO_PROXY'] = '127.0.0.1'
-	#listCid = requests.get('https://cid10-api.herokuapp.com/cid10')
 
 	if request.method == 'POST':
 		if id == 0:
@@ -39,18 +39,13 @@ def student_form_view(request, id=0):
 						error = 'Já existe estudante com esse CPF'
 				else:
 					try:
-						#response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'aluno'}, files={ 'file': data['foto'] })
-
-						response = {
-							'status_code': 200
-						}
-						
-						if response['status_code'] == 200:
-							#responseJSON = response.json()
-							#cod_treino=responseJSON['treino']
+						response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'aluno'}, files={ 'file': data['foto'] })
+	
+						if response.status_code == 200:
+							responseJSON = response.json()
 
 							create_student = Aluno.objects.create(foto=data['foto'], nome=data['nome'], data_nasc=data['data_nasc'], email=data['email'], 
-												senha_hash=data['senha'], cpf=data['cpf'], celular=data['celular'],
+												senha_hash=data['senha'], cpf=data['cpf'], celular=data['celular'], cod_treino=responseJSON['treino'],
 												cep=data['cep'], numero=data['numero'], comando_voz=data['comando_voz'], cid=data['cid'],
 												ajuda_voz=data['ajuda_voz'], nvda=data['nvda'], outra_info=data['outra_info'])
 							create_student.save()
@@ -128,7 +123,7 @@ def student_form_view(request, id=0):
 		'student': student,
 		'error': error,
 		'edit': edit,
-		#'list_cid': listCid.json(),
+		'cid_list': Cid.objects.all(),
 	}
 
 	return render(request, 'student/form.html', context)
@@ -137,9 +132,9 @@ def student_form_view(request, id=0):
 def student_delete_view(request, id=0):
 	try:
 		student = Aluno.objects.get(id=id)
-		#treino = student.cod_treino
-		#response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': treino})
-		#if response.status_code == 200:
-		student.delete()
+		treino = student.cod_treino
+		response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': treino})
+		if response.status_code == 200:
+			student.delete()
 	finally:
 		return redirect('/alunos/')

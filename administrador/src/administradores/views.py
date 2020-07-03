@@ -39,18 +39,13 @@ def admin_form_view(request, id=0):
 						error = 'Já existe administrador com esse RF'
 				else:
 					try:
-						#response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'administrador'}, files={ 'file': data['foto'] })
-
-						response = {
-							'status_code': 200,
-						}
-
-						if response['status_code'] == 200:	
-							#responseJSON = response.json()		
-							#cod_treino=responseJSON['treino']	
+						response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'administrador'}, files={ 'file': data['foto'] })
+						
+						if response.status_code == 200:	
+							responseJSON = response.json()		
 							
 							create_admin = 	Administrador.objects.create(foto=data['foto'], nome=data['nome'], rf=data['rf'], 
-												email=data['email'], senha_hash=data['senha'],
+												email=data['email'], senha_hash=data['senha'], cod_treino=responseJSON['treino'],
 												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])	
 							create_admin.save()
 							
@@ -127,9 +122,9 @@ def admin_form_view(request, id=0):
 def admin_delete_view(request, id=0):
 	try:
 		administrator = Administrador.objects.get(id=id)
-		#train = administrator.cod_treino
-		#response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': train})
-		#if response.status_code == 200:
-		administrator.delete()
+		train = administrator.cod_treino
+		response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': train})
+		if response.status_code == 200:
+			administrator.delete()
 	finally:
 		return redirect('/administradores/')

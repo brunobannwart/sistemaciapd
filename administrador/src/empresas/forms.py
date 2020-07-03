@@ -30,7 +30,22 @@ class EmpresaForm(forms.Form):
 		numero			=	self.cleaned_data.get('numero')
 		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
-		nvda			=	self.cleaned_data.get('nvda')
+		empresa_nvda	=	self.cleaned_data.get('nvda')
+
+		if comando == 'sim':
+			comando_voz = True
+		else:
+			comando_voz = False
+
+		if ajuda == 'sim':
+			ajuda_voz = True
+		else:
+			ajuda_voz = False
+
+		if empresa_nvda == 'sim':
+			nvda = True
+		else:
+			nvda = False
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -46,8 +61,8 @@ class EmpresaForm(forms.Form):
 			'telefone': telefone,
 			'cep': cep,  
 			'numero': numero, 
-			'comando_voz': comando,
-			'ajuda_voz': ajuda,
+			'comando_voz': comando_voz,
+			'ajuda_voz': ajuda_voz,
 			'nvda': nvda
 		}
 
@@ -79,7 +94,22 @@ class EmpresaEditForm(forms.Form):
 		numero			=	self.cleaned_data.get('numero')
 		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
-		nvda			=	self.cleaned_data.get('nvda')
+		empresa_nvda	=	self.cleaned_data.get('nvda')
+
+		if comando == 'sim':
+			comando_voz = True
+		else:
+			comando_voz = False
+
+		if ajuda == 'sim':
+			ajuda_voz = True
+		else:
+			ajuda_voz = False
+
+		if empresa_nvda == 'sim':
+			nvda = True
+		else:
+			nvda = False
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -95,7 +125,7 @@ class EmpresaEditForm(forms.Form):
 			'telefone': telefone,
 			'cep': cep,  
 			'numero': numero, 
-			'comando_voz': comando,
-			'ajuda_voz': ajuda,
+			'comando_voz': comando_voz,
+			'ajuda_voz': ajuda_voz,
 			'nvda': nvda
 		}

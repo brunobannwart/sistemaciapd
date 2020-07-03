@@ -20,7 +20,23 @@ class AdministradorForm(forms.Form):
 		senha			=	self.cleaned_data.get('senha')
 		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
-		nvda 			=	self.cleaned_data.get('nvda')
+		admin_nvda		=	self.cleaned_data.get('nvda')
+
+		if comando == 'sim':
+			comando_voz = True
+		else:
+			comando_voz = False
+
+		if ajuda == 'sim':
+			ajuda_voz = True
+		else:
+			ajuda_voz = False
+
+		if admin_nvda == 'sim':
+			nvda = True
+		else:
+			nvda = False
+
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -31,8 +47,8 @@ class AdministradorForm(forms.Form):
 			'rf': rf, 
 			'email': email, 
 			'senha': senha_hash,  
-			'comando_voz': comando, 
-			'ajuda_voz': ajuda, 
+			'comando_voz': comando_voz, 
+			'ajuda_voz': ajuda_voz, 
 			'nvda': nvda 
 		}
 
@@ -54,7 +70,23 @@ class AdministradorEditForm(forms.Form):
 		senha			=	self.cleaned_data.get('senha')
 		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
-		nvda 			=	self.cleaned_data.get('nvda')
+		admin_nvda		=	self.cleaned_data.get('nvda')
+
+		if comando == 'sim':
+			comando_voz = True
+		else:
+			comando_voz = False
+
+		if ajuda == 'sim':
+			ajuda_voz = True
+		else:
+			ajuda_voz = False
+
+		if admin_nvda == 'sim':
+			nvda = True
+		else:
+			nvda = False
+
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -65,7 +97,7 @@ class AdministradorEditForm(forms.Form):
 			'rf': rf, 
 			'email': email, 
 			'senha': senha_hash,  
-			'comando_voz': comando, 
-			'ajuda_voz': ajuda, 
+			'comando_voz': comando_voz, 
+			'ajuda_voz': ajuda_voz, 
 			'nvda': nvda 
 		}

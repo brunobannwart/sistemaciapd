@@ -21,7 +21,7 @@ def login_view(request):
 				login_admin.save()
 				form = LoginForm()
 				login(request, login_admin, backend='administrador.backend.LoginBackend')
-				return redirect('/curriculos/')
+				return redirect('/cids/')
 			else:
 				if login_admin == False:
 					login_form = request.POST
@@ -75,7 +75,7 @@ def camera_view(request):
 					login_admin.is_authenticated = True
 					login_admin.save()
 					login(request, login_admin, backend='administrador.backend.LoginBackend')
-					return redirect('/curriculos/')
+					return redirect('/cids/')
 				else:
 					return redirect('login')
 			except:

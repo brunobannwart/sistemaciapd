@@ -38,21 +38,16 @@ def company_form_view(request, id=0):
 						error = 'Já existe empresa com esse CNPJ'
 				else:
 					try:
-						#response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'empresa'}, files={ 'file': data['foto'] })
+						response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'empresa'}, files={ 'file': data['foto'] })
 						
-						response = {
-							'status_code': 200
-						}
-
-						if response['status_code'] == 200:
-							#responseJSON = response.json()
-							#cod_treino=responseJSON['treino']
+						if response.status_code == 200:
+							responseJSON = response.json()
 
 							create_company = Empresa.objects.create(foto=data['foto'], logo=data['logo'], 
 												razao_social=data['razao_social'], cnpj=data['cnpj'], 
 												nome_contato=data['nome_contato'], email=data['email'], 
 												senha_hash=data['senha'], telefone=data['telefone'], 
-												cep=data['cep'], numero=data['numero'],
+												cep=data['cep'], numero=data['numero'], cod_treino=responseJSON['treino'],
 												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])		
 							create_company.save()
 
@@ -134,9 +129,9 @@ def company_form_view(request, id=0):
 def company_delete_view(request, id=0):
 	try:
 		company = Empresa.objects.get(id=id)
-		#train = company.cod_treino
-		#response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': train})
-		#if response.status_code == 200:
-		company.delete()
+		train = company.cod_treino
+		response = requests.post('http://127.0.0.1:5000/api/delete', data={'faceID': train})
+		if response.status_code == 200:
+			company.delete()
 	finally:
 		return redirect('/empresas/')

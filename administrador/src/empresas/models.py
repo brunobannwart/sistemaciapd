@@ -16,9 +16,9 @@ class Empresa(models.Model):
 	cep					=	models.CharField(verbose_name='CEP', max_length=10)
 	numero				=	models.CharField(verbose_name='Número', max_length=5)
 	
-	comando_voz			=	models.CharField(verbose_name='Comando por voz', max_length=3)
-	ajuda_voz			=	models.CharField(verbose_name='Ajuda por voz', max_length=3)
-	nvda 				=	models.CharField(verbose_name='NVDA', max_length=3)
+	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
+	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)
+	nvda 				=	models.BooleanField(verbose_name='NVDA', default=False)
 	
 	cod_treino 			=	models.IntegerField(verbose_name='ID do treino facial', null=True)
 	created_at			=	models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
