@@ -46,9 +46,12 @@ def student_form_view(request, id=0):
 
 							create_student = Aluno.objects.create(foto=data['foto'], nome=data['nome'], data_nasc=data['data_nasc'], email=data['email'], 
 												senha_hash=data['senha'], cpf=data['cpf'], celular=data['celular'], cod_treino=responseJSON['treino'],
-												cep=data['cep'], numero=data['numero'], comando_voz=data['comando_voz'], cid=data['cid'],
-												ajuda_voz=data['ajuda_voz'], nvda=data['nvda'], outra_info=data['outra_info'])
+												cep=data['cep'], numero=data['numero'], comando_voz=data['comando_voz'],ajuda_voz=data['ajuda_voz'], 
+												nvda=data['nvda'], outra_info=data['outra_info'])
 							create_student.save()
+
+							for cid in data['cid']:
+								create_student.cid.add(Cid.objects.get(pk=cid.pk))
 
 							form = AlunoForm()
 							error = None
@@ -82,6 +85,12 @@ def student_form_view(request, id=0):
 					update_student.outra_info = data['outra_info']
 					update_student.save()
 
+					if len(data['cid']):
+						update_student.cid.remove(update_student.cid.all())
+
+						for cid in data['cid']:
+							update_student.cid.add(Cid.objects.get(pk=cid.pk))
+
 				finally:
 					form = AlunoForm()
 					error = None
@@ -104,7 +113,6 @@ def student_form_view(request, id=0):
 				'celular': '',
 				'cep': '',
 				'numero': '',
-				'cid': '',
 				'comando_voz': '',
 				'ajuda_voz': '',
 				'nvda': '',

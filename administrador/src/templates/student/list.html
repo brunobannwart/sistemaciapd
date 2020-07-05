@@ -35,6 +35,7 @@
 							<th>Nome</th>
 							<th>E-mail</th>
 							<th>Data de nascimento</th>
+							<th>CIDs</th>
 							<th>Ações</th>
 						</tr>
 					</thead>
@@ -47,6 +48,11 @@
 								<td>{{ student.nome }}</td>
 								<td>{{ student.email }}</td>
 								<td>{{ student.data_nasc }}</td>
+								<td>
+									{% for cid in student.cid.all %}
+										{{ cid.codigo }}
+									{% endfor %}
+								</td>
 								<td>
 									<div class='dropdown'>
 										<button class='dropdown-button'>

@@ -109,7 +109,7 @@
     display: block;
 }
 
-.form form input[type='text'], input[type='date'], input[type='email'], input[type='password'], textarea {
+.form form input[type='text'], input[type='date'], input[type='email'], input[type='password'], textarea, select {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

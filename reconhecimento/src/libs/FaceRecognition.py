@@ -125,7 +125,10 @@ class FaceRecognition:
 
 		for bundle in bundles:
 			matches = self.__hasMatch(knownEncodings, bundle)
-			if True in matches:
-				faces.append(bundle.parseData())
+
+			if len(matches) > 0 and True in matches:
+				first_match_index = matches.index(True)
+				bundle_matched = self.known[first_match_index]
+				faces.append(bundle_matched.parseData())
 
 		return faces

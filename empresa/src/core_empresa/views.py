@@ -68,14 +68,14 @@ def student_list_view(request):
 				'data_nasc': row[3],
 				'email': row[4],
 				'cpf': row[6],
+				'celular': row[7],
 				'cep': row[8],
 				'numero': row[9],
-				'cid': row[10],
-				'outra_info': row[14],
-				'instituicao_ensino': row[15],
-				'curso_extra': row[16],
-				'empresa': row[17],
-				'cargo': row[18],
+				'outra_info': row[13],
+				'instituicao_ensino': row[14],
+				'curso_extra': row[15],
+				'empresa': row[16],
+				'cargo': row[17],
 			}
 			student_list.append(student)
 	
@@ -89,10 +89,29 @@ def student_list_view(request):
 def student_read_view(request, id=0):
 	if id != 0:	
 		with connection.cursor() as cursor:
-			cursor.execute("SELECT * FROM aluno WHERE id= %s", [id])
+			cursor.execute("SELECT * FROM aluno WHERE id=%s", [id])
 			result = cursor.fetchone()
 
 			if result != None:
+				cursor.execute("SELECT * FROM aluno_cid WHERE aluno_id=%s", [id])
+				results_alunos_cids = cursor.fetchall()
+				cids = []
+
+				for result_aluno_cid in results_alunos_cids:
+					cid_id = result_aluno_cid[2]
+
+					cursor.execute("SELECT * FROM cid WHERE id=%s", [cid_id])
+					result_cid = cursor.fetchone()
+
+					if result_cid != None:
+						cid = {
+							'id': result_cid[0],
+							'codigo': result_cid[1],
+							'descricao': result_cid[2],
+						}
+
+						cids.append(cid)
+
 				student = {
 					'id': result[0],
 					'foto':	result[1],
@@ -102,12 +121,12 @@ def student_read_view(request, id=0):
 					'cpf': result[6],
 					'cep': result[8],
 					'numero': result[9],
-					'cid': result[10],
-					'outra_info': result[14],
-					'instituicao_ensino': result[15],
-					'curso_extra': result[16],
-					'empresa': result[17],
-					'cargo': result[18],
+					'cid': cids,
+					'outra_info': result[13],
+					'instituicao_ensino': result[14],
+					'curso_extra': result[15],
+					'empresa': result[16],
+					'cargo': result[17],
 				}
 		
 				context = {

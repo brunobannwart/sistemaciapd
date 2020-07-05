@@ -67,7 +67,7 @@
   	width: 20%;
   	padding: 10px;
   	font-size: 1em;
-  	background-color: #113f54;
+  	background-color: #222;
   	color: #FFF;
   	border: 1px solid #CCC;
   	border-left: none;
@@ -135,7 +135,7 @@
 	color: #333;
 	padding: 10px;
 	font-size: 16px;
-	border: 1px solid #0b399a;
+	border: 1px solid #222;
 	border-radius: 7px;
 	cursor: pointer;
 	width: 100%;
@@ -165,7 +165,6 @@
 .list .list-container .list-table table.content-table tbody tr td .dropdown:hover .dropdown-content {
   	display: block;
 }
-
 
 .list .alert-container {
 	width: 700px;

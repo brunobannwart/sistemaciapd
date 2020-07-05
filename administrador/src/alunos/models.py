@@ -15,8 +15,7 @@ class Aluno(models.Model):
 	
 	cep					=	models.CharField(verbose_name='CEP', max_length=10)
 	numero				=	models.CharField(verbose_name='Número', max_length=5)
-	cid 				=	models.TextField(verbose_name='CIDs', null=False, blank=False)
-	#cid 				=	models.ManyToManyField(Cid)
+	cid 				=	models.ManyToManyField(Cid, related_name='cid')
 	
 	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
 	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)

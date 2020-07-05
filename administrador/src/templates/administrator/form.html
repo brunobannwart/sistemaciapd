@@ -158,7 +158,7 @@
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
 				<label for='comando_voz' class='checkbox-label'>Comando por voz
-					{% if administrator.comando_voz == True %}
+					{% if administrator.comando_voz is True %}
 						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' checked onclick='selecionarComando()'>
 						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz' disabled>
 					{% else %}
@@ -170,7 +170,7 @@
 			</div>
 			<div class='form-block-checkbox'>
 				<label for='ajuda_voz' class='checkbox-label'>Ajuda por voz
-					{% if administrator.ajuda_voz == True %}
+					{% if administrator.ajuda_voz is True %}
 						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
 						<input id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz' disabled>
 					{% else %}
@@ -183,7 +183,7 @@
 			</div>
 			<div class='form-block-checkbox'>
 				<label for='nvda' class='checkbox-label'>NVDA
-					{% if administrator.nvda == True %}
+					{% if administrator.nvda is True %}
 						<input type='checkbox' id='nvda' name='nvda' value='sim' checked onclick='selecionarNVDA()'>
 						<input id='nvda_hidden' type='hidden' value='nao' name='nvda' disabled>
 					{% else %}
