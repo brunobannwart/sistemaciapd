@@ -73,6 +73,12 @@ def student_form_view(request, id=0):
 
 					if request.POST.get('senha') != '':
 						update_student.senha_hash = data['senha']
+
+					if len(data['cid']):
+						update_student.cid.clear()
+
+						for cid in data['cid']:
+							update_student.cid.add(Cid.objects.get(pk=cid.pk))
 					
 					update_student.nome = data['nome']
 					update_student.data_nasc = data['data_nasc']
@@ -84,12 +90,6 @@ def student_form_view(request, id=0):
 					update_student.nvda = data['nvda']
 					update_student.outra_info = data['outra_info']
 					update_student.save()
-
-					if len(data['cid']):
-						update_student.cid.remove(update_student.cid.all())
-
-						for cid in data['cid']:
-							update_student.cid.add(Cid.objects.get(pk=cid.pk))
 
 				finally:
 					form = AlunoForm()

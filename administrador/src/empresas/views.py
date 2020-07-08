@@ -65,7 +65,16 @@ def company_form_view(request, id=0):
 					update_company = Empresa.objects.get(id=id)
 				
 					if request.FILES.get('foto', False):
-						update_company.foto = data['foto']
+						try:
+							response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'empresa'}, files={ 'file': data['foto'] })
+
+							if response.status_code == 200:
+								responseJSON = response.json()
+								update_company.foto = data['foto']
+								update_company.cod_treino = responseJSON['treino']
+								
+						except Exception as e:
+							print(e)
 				
 					if request.FILES.get('logo', False):
 						update_company.logo = data['logo']

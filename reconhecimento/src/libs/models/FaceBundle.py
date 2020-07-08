@@ -44,6 +44,7 @@ class FaceBundle:
 	def parseJSON(self, faceJSON):
 		bundle = FaceBundle(faceJSON['filename'])
 		bundle.setFaceID(faceJSON['faceID'])
-		bundle.setEncodings(np.array(faceJSON['encoding']))
 		bundle.setGroup(faceJSON['group'])
+		enconding_list = np.array(faceJSON['encoding'])
+		bundle.setEncodings(enconding_list.astype(np.float))
 		return bundle

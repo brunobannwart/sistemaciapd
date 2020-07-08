@@ -26,15 +26,10 @@ class FaceRecognition:
 		results = self.cursor.fetchall()
 	
 		for row in results:
-			encodings = []
 			face_id = row[0]
 			filename = row[1]
-			encoding_list_str = row[2].split(",")
+			encodings = row[2].split(",")
 			group = row[3]
-
-			for encoding_str in encoding_list_str:
-				encoding = float(encoding_str)
-				encodings.append(encoding)
 	
 			face = {
 				'faceID': face_id,
@@ -116,19 +111,23 @@ class FaceRecognition:
 
 	def findMatches(self, filePath, faceGroup) -> list:
 		faces: list = []
+		knownGroup = []
 		knownEncodings = []
 		bundles = self.__parseFaces(filePath)
 
 		for knownFace in self.known:
 			if knownFace.getGroup() == faceGroup:
-				knownEncodings.append(knownFace.getEncodings())
+				knownGroup.append(knownFace)
+
+		for knownFaceGroup in knownGroup:
+			knownEncodings.append(knownFaceGroup.getEncodings())
 
 		for bundle in bundles:
 			matches = self.__hasMatch(knownEncodings, bundle)
 
 			if len(matches) > 0 and True in matches:
-				first_match_index = matches.index(True)
-				bundle_matched = self.known[first_match_index]
+				match_index = matches.index(True)
+				bundle_matched = knownGroup[match_index]
 				faces.append(bundle_matched.parseData())
 
 		return faces
