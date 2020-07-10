@@ -23,21 +23,17 @@ from django.conf.urls.static import static
 from administrador.views import login_view, camera_view, readmore_view, forgot_view, logout_view
 from cids.views import cid_list_view
 from core.views import job_list_view, job_read_view
-
 from core.views import curriculum_list_view, curriculum_read_view, curriculum_delete_view
 from administradores.views import admin_list_view, admin_form_view, admin_delete_view
-
 from alunos.views import student_list_view, student_form_view, student_delete_view
 from cursos.views import course_list_view, course_form_view, course_delete_view
-
 from empresas.views import company_list_view, company_form_view, company_delete_view
 from eventos.views import event_list_view, event_form_view, event_delete_view
-
 from jogos.views import game_list_view, game_form_view, game_delete_view
 from videoaulas.views import videolesson_list_view, videolesson_form_view, videolesson_delete_view
 
 urlpatterns = [
-	path('django/admin/', admin.site.urls),
+	path('ciapd/', admin.site.urls),
 
 	path('', login_view, name='login'),
 	path('camera/', camera_view, name='camera'),
