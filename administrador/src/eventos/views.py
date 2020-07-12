@@ -75,8 +75,11 @@ def event_form_view(request, id=0):
 
 @login_required(login_url='login')
 def event_delete_view(request, id=0):
-	try:
-		event = Evento.objects.get(id=id)
-		event.delete()
-	finally:
+	if request.method == 'POST':
+		try:
+			event = Evento.objects.get(id=id)
+			event.delete()
+		finally:
+			return redirect('/eventos/')
+	else:
 		return redirect('/eventos/')

@@ -158,10 +158,13 @@ def curriculum_read_view(request, id=0):
 
 @login_required(login_url='login')
 def curriculum_delete_view(request, id=0):
-	if id != 0:
-		with connection.cursor() as cursor:
-			cursor.execute("DELETE FROM curriculo WHERE id=%s", [id])
+	if request.method == 'POST':
+		if id != 0:
+			with connection.cursor() as cursor:
+				cursor.execute("DELETE FROM curriculo WHERE id=%s", [id])
 
+				return redirect('/curriculos/')
+		else:
 			return redirect('/curriculos/')
 	else:
 		return redirect('/curriculos/')

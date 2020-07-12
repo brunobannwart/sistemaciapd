@@ -76,8 +76,11 @@ def videolesson_form_view(request, id=0):
 
 @login_required(login_url='login')
 def videolesson_delete_view(request, id=0):
-	try:
-		videolesson = Videoaula.objects.get(id=id)
-		videolesson.delete()
-	finally:
+	if request.method == 'POST':
+		try:
+			videolesson = Videoaula.objects.get(id=id)
+			videolesson.delete()
+		finally:
+			return redirect('/videoaulas/')
+	else:
 		return redirect('/videoaulas/')

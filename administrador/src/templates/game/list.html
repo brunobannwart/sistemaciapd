@@ -48,7 +48,10 @@
 										</button>
 										<div class='dropdown-content'>
 											<a href="{% url 'game-edit' game.id %}">Editar</a>
-											<a href="{% url 'game-delete' game.id %}">Remover</a>
+											<form method='post' action="{% url 'game-delete' game.id %}">
+												{% csrf_token %}
+												<button type="submit">Remover</button>
+											</form>
 										</div>
 									</div>
 								</td>

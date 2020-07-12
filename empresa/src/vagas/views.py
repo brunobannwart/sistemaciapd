@@ -78,8 +78,11 @@ def job_form_view(request, id=0):
 
 @login_required(login_url='login')
 def job_delete_view(request, id=0):
-	try:
-		job = Vaga.objects.get(id=id)
-		job.delete()
-	finally:
+	if request.method == 'POST':
+		try:
+			job = Vaga.objects.get(id=id)
+			job.delete()
+		finally:
+			return redirect('/vagas/')
+	else:
 		return redirect('/vagas/')

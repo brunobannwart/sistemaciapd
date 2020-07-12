@@ -34,6 +34,10 @@ class Aluno(models.Model):
 	def __str__(self):
 		return self.nome
 
+	def delete(self, *args, **kwargs):
+		self.foto.delete()
+		super().delete(*args, **kwargs)
+
 	class Meta:
 		db_table = 'aluno'
 		verbose_name = 'Aluno'

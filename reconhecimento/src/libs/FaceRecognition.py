@@ -1,64 +1,32 @@
 import cv2, face_recognition, os, pickle
-import mysql.connector as mysql
 import numpy as np
+from .Database import Database
 from .models.FaceBundle import FaceBundle
 
 class FaceRecognition:
 	def __init__(self, tolerance=0.6):
 		self.tolerance = tolerance
 		self.known = []
+		self.db = Database()
+		self.__loadFaces()
 
-		self.db = mysql.connect(host='localhost', user='ciapd_recognition', password='ciapd$recognition', 
-					database='ciapd', auth_plugin='mysql_native_password')
+	def __loadFaces(self):
+		faces = self.db.getFaces()
 
-		self.cursor = self.db.cursor()
-		self.__getFacesSaved()
+		for face in faces:
+			bundle = FaceBundle.parseJSON(self, face)
+			self.known.append(bundle)
 
-	# Metodos privados	
-	def __createFaceTable(self):
-		self.cursor.execute("CREATE TABLE IF NOT EXISTS `face` (`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT, `filename` VARCHAR(100), "
-			+ "`encodings` TEXT, `group` VARCHAR(13)) ENGINE=InnoDB"
-		)
+	def __newFace(self, bundle):
+		face = bundle.parseData()
 
-	def __getFacesSaved(self):
-		self.__createFaceTable()
-		self.cursor.execute("SELECT * FROM `face`")
-		results = self.cursor.fetchall()
-	
-		for row in results:
-			face_id = row[0]
-			filename = row[1]
-			encodings = row[2].split(",")
-			group = row[3]
-	
-			face = {
-				'faceID': face_id,
-				'filename': filename,
-				'encoding': encodings,
-				'group': group
-			}
-	
-			face_bundle = FaceBundle.parseJSON(self, face)
-			self.known.append(face_bundle)
-	
-	def __saveFace(self, bundle):
-		bundleJSON = bundle.parseData()
-		filename = bundleJSON['filename']
-		encoding = bundleJSON['encoding']
-		group = bundleJSON['group']
-		encoding_str = ",".join([str(encode) for encode in encoding])
-	
-		self.cursor.execute("INSERT INTO `face`(`filename`, `encodings`, `group`) VALUES (%s, %s, %s)", [filename, encoding_str, group])
-		self.db.commit()
-		return self.cursor.lastrowid 
+		filename = face['filename']
+		encoding = face['encoding']
+		group = face['group']
 
-	def __deleteFace(self, id):
-		try:
-			self.cursor.execute("DELETE FROM `face` WHERE `id`=%s", [id])
-			self.db.commit()
-			return True
-		except:
-			return False
+		encodings = ",".join([str(encode) for encode in encoding])
+
+		return self.db.saveFace(filename, encodings, group)
 
 	def __parseFaces(self, filePath) -> list:
 		faces: list = []
@@ -81,13 +49,12 @@ class FaceRecognition:
 		matches = face_recognition.compare_faces(knownEncodings, faceBundle.getEncodings(), tolerance=self.tolerance)
 		return matches
 
-	# Metodos publicos
 	def addKnownFace(self, filePath, faceGroup) -> FaceBundle:
 		bundles = self.__parseFaces(filePath)
 		
 		if len(bundles):
 			bundles[0].setGroup(faceGroup)
-			faceID = self.__saveFace(bundles[0])
+			faceID = self.__newFace(bundles[0])
 			bundles[0].setFaceID(faceID)
 			self.known.append(bundles[0])
 			return bundles[0]
@@ -98,21 +65,21 @@ class FaceRecognition:
 		count = 0;
 	
 		for knownFace in self.known:
-			if knownFace.getFaceID() == parseInt(faceID):
-				self.known.pop(count)
-				if self.__deleteFace(faceID):
+			if knownFace.getFaceID() == int(faceID):
+				if self.db.deleteFace(faceID):
+					self.known.pop(count)
 					return True
 				else:
 					return False
 			else:
 				count += 1
-
 		return False
 
 	def findMatches(self, filePath, faceGroup) -> list:
 		faces: list = []
 		knownGroup = []
 		knownEncodings = []
+		
 		bundles = self.__parseFaces(filePath)
 
 		for knownFace in self.known:

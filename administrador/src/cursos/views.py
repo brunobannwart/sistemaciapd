@@ -35,15 +35,15 @@ def course_form_view(request, id=0):
 					return redirect('/cursos/')
 			else:
 				try:
-			 		update_course = Curso.objects.get(id=id)
-			 	
-			 		if request.FILES.get('arquivo', False):
-			 			update_course.arquivo = data['arquivo']
-			 	
-				 	update_course.titulo = data['titulo']
-				 	update_course.data_exp = data['data_exp']
-				 	update_course.descricao = data['descricao']
-				 	update_course.save()
+					update_course = Curso.objects.get(id=id)
+				
+					if request.FILES.get('arquivo', False):
+						update_course.arquivo = data['arquivo']
+				
+					update_course.titulo = data['titulo']
+					update_course.data_exp = data['data_exp']
+					update_course.descricao = data['descricao']
+					update_course.save()
 
 				finally:
 					form = CursoForm()
@@ -78,9 +78,12 @@ def course_form_view(request, id=0):
 	return render(request, 'course/form.html', context)
 
 @login_required(login_url='login')
-def course_delete_view(request, id=0):	
-	try:
-		course = Curso.objects.get(id=id)
-		course.delete()
-	finally:
+def course_delete_view(request, id=0):
+	if request.method == 'POST':	
+		try:
+			course = Curso.objects.get(id=id)
+			course.delete()
+		finally:
+			return redirect('/cursos/')
+	else:
 		return redirect('/cursos/')

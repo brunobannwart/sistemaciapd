@@ -12,6 +12,10 @@ class Curso(models.Model):
 	def __str__(self):
 		return self.titulo
 
+	def delete(self, *args, **kwargs):
+		self.arquivo.delete()
+		super().delete(*args, **kwargs)
+
 	class Meta:
 		db_table = 'curso'
 		verbose_name = 'Curso'

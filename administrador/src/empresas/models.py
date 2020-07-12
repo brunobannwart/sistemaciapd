@@ -27,6 +27,11 @@ class Empresa(models.Model):
 	def __str__(self):
 		return self.razao_social
 
+	def delete(self, *args, **kwargs):
+		self.foto.delete()
+		self.logo.delete()
+		super().delete(*args, **kwargs)
+
 	class Meta:
 		db_table = 'empresa'
 		verbose_name = 'Empresa'

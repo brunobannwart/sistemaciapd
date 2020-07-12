@@ -76,8 +76,11 @@ def game_form_view(request, id=0):
 
 @login_required(login_url='login')
 def game_delete_view(request, id=0):
-	try:
-		game = Jogo.objects.get(id=id)
-		game.delete()
-	finally:
+	if request.method == 'POST':
+		try:
+			game = Jogo.objects.get(id=id)
+			game.delete()
+		finally:
+			return redirect('/jogos/')
+	else:
 		return redirect('/jogos/')
