@@ -1,9 +1,6 @@
-import numpy as np
-
 class FaceBundle:
 	faceID = 0
 	filename = ''
-	encodings = []
 	group = ''
 
 	def __init__(self, filename):
@@ -13,18 +10,12 @@ class FaceBundle:
 	def setFaceID(self, faceID):
 		self.faceID = faceID
 
-	def setEncodings(self, encodings):
-		self.encodings = encodings
-
 	def setGroup(self, group):
 		self.group = group
 
 	# Metodos get das propriedades
 	def getFaceID(self):
 		return self.faceID
-
-	def getEncodings(self):
-		return self.encodings
 
 	def getGroup(self):
 		return self.group
@@ -35,7 +26,6 @@ class FaceBundle:
 		data = {
 			'faceID': self.faceID,
 			'filename':	self.filename,
-			'encoding': self.encodings.tolist(),
 			'group': self.group,
 		}
 
@@ -45,6 +35,4 @@ class FaceBundle:
 		bundle = FaceBundle(faceJSON['filename'])
 		bundle.setFaceID(faceJSON['faceID'])
 		bundle.setGroup(faceJSON['group'])
-		encoding_list = np.array(faceJSON['encoding'])
-		bundle.setEncodings(encoding_list.astype(np.float))
 		return bundle

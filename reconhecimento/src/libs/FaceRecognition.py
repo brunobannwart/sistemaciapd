@@ -19,7 +19,6 @@ class FaceRecognition:
 
 	def __newFace(self, bundle):
 		face = bundle.parseData()
-
 		filename = face['filename']
 		encoding = face['encoding']
 		group = face['group']
@@ -32,8 +31,7 @@ class FaceRecognition:
 		faces: list = []
 
 		img = face_recognition.load_image_file(filePath)
-		filename = os.path.basename(filePath)
-		
+		filename = os.path.basename(filePath)	
 		face_locations  = face_recognition.face_locations(img)
 		face_encodings = face_recognition.face_encodings(img, face_locations)
 
