@@ -7,7 +7,7 @@ class Database:
 		self.__createTable()
 
 	def __createTable(self):
-		self.cursor.execute("CREATE TABLE IF NOT EXISTS `face` (`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT, `arquivo` VARCHAR(100), "
+		self.cursor.execute("CREATE TABLE IF NOT EXISTS `face` (`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT, `foto` VARCHAR(100), "
 			+ "`codificações` TEXT, `grupo` VARCHAR(13)) ENGINE=InnoDB")
 
 	def getFaces(self):
@@ -34,7 +34,7 @@ class Database:
 		return faces
 
 	def saveFace(self, filename, encodings, group):
-		self.cursor.execute("INSERT INTO `face`(`arquivo`, `codificações`, `grupo`) VALUES (%s, %s, %s)", [filename, encodings, group])
+		self.cursor.execute("INSERT INTO `face`(`foto`, `codificações`, `grupo`) VALUES (%s, %s, %s)", [filename, encodings, group])
 		self.connection.commit()
 		return self.cursor.lastrowid
 

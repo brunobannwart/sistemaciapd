@@ -16,6 +16,12 @@ class FaceDetection:
 		if (os.path.exists(os.path.join(resources_dir, 'train.yml'))):
 			self.facerecognizer.read(os.path.join(resources_dir, 'train.yml'))
 
+		else:
+			train_from_db = self.db.getTrain(os.path.join(resources_dir, 'train.yml'))
+			
+			if train_from_db:
+				self.facerecognizer.read(os.path.join(resources_dir, 'train.yml'))
+
 		self.__loadFaces()
 
 	def __loadFaces(self):
@@ -43,9 +49,8 @@ class FaceDetection:
 			id_ = 1
 
 		image = Image.open(filepath).convert("L")
-
 		image_array = np.array(image, "uint8")
-		facelist = self.classifier.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5)
+		facelist = self.classifier.detectMultiScale(image_array, scaleFactor=1.1, minNeighbors=5)
 
 		for (x,y,w,h) in facelist:
 			roi = image_array[y:y+h, x:x+w]
@@ -67,12 +72,15 @@ class FaceDetection:
 			
 			if (os.path.exists(os.path.join(self.resources_dir, 'train.yml'))):
 				self.facerecognizer.update(faces, np.array(labels))
+				new = False
 
 			else:
 				self.facerecognizer.train(faces, np.array(labels))
 				train_file = open(os.path.join(self.resources_dir, 'train.yml'), 'w+')
+				new = True
 
 			self.facerecognizer.write(os.path.join(self.resources_dir, 'train.yml'))
+			self.db.saveTrain(os.path.join(self.resources_dir, 'train.yml'), new)
 			return bundle
 		else:
 			return None
@@ -95,17 +103,16 @@ class FaceDetection:
 		matches = []
 
 		image = Image.open(filepath).convert("L")
-
 		image_array = np.array(image, "uint8")
-		facelist = self.classifier.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5)
+		facelist = self.classifier.detectMultiScale(image_array, scaleFactor=1.1, minNeighbors=5)
 
 		for (x,y,w,h) in facelist:
 			roi = image_array[y:y+h, x:x+w]
 			id, conf = self.facerecognizer.predict(roi)
 
-			for known in self.known:
-				if known.getFaceID() == id:
-					if known.getGroup() == filegroup:
-						matches.append(known.parseData())
-
+			if conf >= 70.0:
+				for known in self.known:
+					if known.getFaceID() == id:
+						if known.getGroup() == filegroup:
+							matches.append(known.parseData())
 		return matches
