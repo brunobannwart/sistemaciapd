@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='pt'>
 <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
@@ -15,27 +15,27 @@
 <body>
     <div class='header'>
         <header>
-            <div class='header-options'>
+            <nav class='header-options'>
                 <ul>
                     <li>
-                        <a href="{% url 'curriculum-form' %}">Curriculo</a>
+                        <a href="{% url 'curriculum-form' %}" aria-label='currículo'>Curriculo</a>
                     </li>
                     <li>
-                        <a href="{% url 'job-list' %}">Empregos</a>
+                        <a href="{% url 'job-list' %}" aria-label='empregos'>Empregos</a>
                     </li>
                     <li>
-                        <a href="{% url 'course-list' %}">Cursos</a>
+                        <a href="{% url 'course-list' %}" aria-label='cursos'>Cursos</a>
                     </li>
                     <li>
-                        <a href="{% url 'event-list' %}">Eventos</a>
+                        <a href="{% url 'event-list' %}" aria-label='eventos'>Eventos</a>
                     </li>
                     <li>
-                        <a href="{% url 'game-list' %}">
+                        <a href="{% url 'game-list' %}" aria-label='jogos'>
                             Jogos
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'videolesson-list' %}">
+                        <a href="{% url 'videolesson-list' %}" aria-label='video-aulas'>
                             Video-aulas
                         </a>
                     </li>
@@ -43,12 +43,12 @@
                         Sair
                     </button>
                 </ul>
-            </div>
+            </nav>
         </header>
     </div>
-    <div class='main'>
+    <main class='main'>
         {% block content %}
         {% endblock %}
-    </div>
+    </main>
 </body>
 </html>

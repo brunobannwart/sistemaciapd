@@ -14,41 +14,41 @@
 
 {% block content %}
 	<div class='form'>
-		<div class='form-button-return'>
-			<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'curriculum-list' %}`"></i>
-		</div>
+		<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'curriculum-list' %}`" aria-label='retornar'>
+			<i class='fas fa-arrow-circle-left'></i>
+		</button>
 		<form autocomplete='off' method='post' action='.'>
 			{% csrf_token %}
 			<div class='form-group' style='margin-top: 30px;'>
 				<div class='form-block'>
 					<label for='nome'>Nome</label>
-					<input type='text' name='nome' readonly value='{{ curriculum.nome }}'>
+					<input type='text' id='nome' name='nome' readonly value='{{ curriculum.nome }}'>
 				</div>
 				<div class='form-block'>
 					<label for='email'>Email</label>
-					<input type='text' name='email' readonly value='{{ curriculum.email }}'>
+					<input type='text' id='email' name='email' readonly value='{{ curriculum.email }}'>
 				</div>
 			</div>
 
 			<div class='form-group'>
 				<div class='form-block'>
 					<label for='instituicao_ensino'>Instituições de ensino</label>
-					<textarea name='instituicao_ensino' maxlength='100' required>{{ curriculum.instituicao_ensino }}</textarea>
+					<textarea id='instituicao_ensino' name='instituicao_ensino' maxlength='100' required>{{ curriculum.instituicao_ensino }}</textarea>
 				</div>
 				<div class='form-block'>
 					<label for='curso_extra'>Cursos extras</label>
-					<textarea name='curso_extra' maxlength='100' required>{{ curriculum.curso_extra }}</textarea>
+					<textarea id='curso_extra' name='curso_extra' maxlength='100' required>{{ curriculum.curso_extra }}</textarea>
 				</div>
 			</div>
 
 			<div class='form-group'>
 				<div class='form-block'>
 					<label for='empresa'>Empresas trabalhadas</label>
-					<textarea name='empresa' maxlength='100' required>{{ curriculum.empresa }}</textarea>
+					<textarea id='empresa' name='empresa' maxlength='100' required>{{ curriculum.empresa }}</textarea>
 				</div>
 				<div class='form-block'>
 					<label for='cargo'>Cargos ocupados</label>
-					<textarea name='cargo' maxlength='100' required>{{ curriculum.cargo }}</textarea>
+					<textarea id='cargo' name='cargo' maxlength='100' required>{{ curriculum.cargo }}</textarea>
 				</div>
 			</div>
 

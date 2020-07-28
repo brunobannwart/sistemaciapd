@@ -14,13 +14,13 @@
 
 {% block content %}
 <div class='form'>
-	<div class='form-button-return'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'job-list' %}`"></i>
-	</div>
+	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'job-list' %}`" aria-label='retornar'>
+		<i class='fas fa-arrow-circle-left'></i>
+	</button>
 	<form>
 		<div class='form-file-block'>
 			<div class='preview'>
-				<img src='{{ MEDIA_URL }}{{ job.arquivo }}' alt='Imagem' style='display: block;'>
+				<img src='{{ MEDIA_URL }}{{ job.arquivo }}' style='display: block;' alt='Imagem da vaga {{ job.titulo }}'>
 			</div>
 		</div>
 		
@@ -28,7 +28,8 @@
 			<div class='form-block'>
 				<label for='titulo'>Titulo</label>
 				<input 
-					type='text' 
+					type='text'
+					id='titulo' 
 					name='titulo' 
 					value='{{ job.titulo }}'
 					readonly 
@@ -37,7 +38,8 @@
 			<div class='form-block'>
 				<label for='email'>E-mail da empresa</label>
 				<input 
-					type='text' 
+					type='text'
+					id='email' 
 					name='email' 
 					value='{{ job.email }}' 
 					readonly
@@ -47,9 +49,10 @@
 
 		<div class='form-group'>
 			<div class='form-block'>
-				<label for='data'>Data de expiração</label>
+				<label for='data_exp'>Data de expiração</label>
 				<input
 					type='date'
+					id='data_exp'
 					name='data_exp'
 					value='{{ job.data_exp|date:"Y-m-d" }}'
 					readonly
@@ -57,7 +60,7 @@
 			</div>
 			<div class='form-block'>
 				<label for='descricao'>Descrição</label>
-				<textarea name='descricao' readonly>{{ job.descricao }}</textarea>
+				<textarea id='descricao' name='descricao' readonly>{{ job.descricao }}</textarea>
 			</div>
 		</div>
 	</form>

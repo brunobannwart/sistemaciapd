@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='pt'>
 <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
@@ -20,7 +20,7 @@
         <header>
             <div class='admin-info'>
                 {% if request.user.is_authenticated %}
-                    <img src='{{ request.user.foto.url }}'>
+                    <img src='{{ request.user.foto.url }}' alt=''>
                 {% else %}
                     <i class='fas fa-user-secret'></i>
                 {% endif %}
@@ -30,11 +30,11 @@
         </header>
     </div>
     <div class='container'>
-        <div class='navbar'>
-            <div class='container-home'>
+        <aside class='navbar'>
+            <nav class='container-home'>
                 <img 
                     src="{% static 'assets/ciapdwhite.svg' %}" 
-                    alt='CIAPD' 
+                    alt='Logo do CIAPD' 
                 />
                 <ul>
                     <li>
@@ -43,96 +43,96 @@
                         </i>
                     </li>
                 </ul>
-            </div>
-            <div class='container-accounts'>
+            </nav>
+            <nav class='container-accounts'>
                 <br/><strong>Contas</strong>
                 <ul>
                     <li>
-                        <a href="{% url 'admin-list' %}">
+                        <a href="{% url 'admin-list' %}" aria-label='administradores'>
                             <i class='fas fa-user-shield'>
                                 Administradores
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'student-list' %}">
+                        <a href="{% url 'student-list' %}" aria-label='alunos'>
                             <i class='fas fa-user-graduate'>
                                 Alunos
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'company-list' %}">
+                        <a href="{% url 'company-list' %}" aria-label='empresas'>
                             <i class='fas fa-user-tie'>
                                 Empresas
                             </i>
                         </a>
                     </li>
                 </ul>
-            </div>
-            <div class='container-content'>
+            </nav>
+            <nav class='container-content'>
                 <br/><strong>Contéudo</strong>
                 <ul>
                     <li>
-                        <a href="{% url 'curriculum-list' %}">
+                        <a href="{% url 'curriculum-list' %}" aria-label='currículos'>
                             <i class='fas fa-sticky-note'>
                                 Currículos
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'course-list' %}">
+                        <a href="{% url 'course-list' %}" aria-label='cursos'>
                             <i class='fas fa-book'>
                                 Cursos
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'event-list' %}">
+                        <a href="{% url 'event-list' %}" aria-label='eventos'>
                             <i class='fas fa-palette'>
                                 Eventos culturais
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'game-list' %}">
+                        <a href="{% url 'game-list' %}" aria-label='jogos'>
                             <i class='fas fa-gamepad'>
                                 Jogos
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'job-list' %}">
+                        <a href="{% url 'job-list' %}" aria-label='vagas de emprego'>
                             <i class='fas fa-briefcase'>
                                 Vagas de emprego
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'videolesson-list' %}">
+                        <a href="{% url 'videolesson-list' %}" aria-label='video-aulas'>
                             <i class='fab fa-youtube'>
                                 Video-aulas
                             </i>
                         </a>
                     </li>
                 </ul>
-            </div>
-            <div class='container-actions'>
+            </nav>
+            <nav class='container-actions'>
                 <ul>
                     <li>
-                        <a href="{% url 'logout' %}">
+                        <a href="{% url 'logout' %}" aria-label='sair'>
                             <i class='fas fa-sign-out-alt'>
                                 Sair
                             </i>
                         </a>
                     </li>
                 </ul>
-            </div>
-        </div>
-        <div class='main'>
+            </nav>
+        </aside>
+        <main class='main'>
             {% block content %}
             {% endblock %}
-        </div>
+        </main>
     </div>
 </body>
 </html>

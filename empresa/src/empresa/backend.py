@@ -20,6 +20,10 @@ class LoginBackend(BaseBackend):
 				}
 
 				try:
+					if LoginEmpresa.objects.filter(id=data['id']):
+						company_session = LoginEmpresa.objects.get(id=data['id'])
+						company_session.delete()
+
 					company = 	LoginEmpresa.objects.create(id=data['id'], razao_social=data['razao_social'], email=data['email'], senha_hash=data['senha_hash'], 
 									comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])
 

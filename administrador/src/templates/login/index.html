@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='pt'>
 <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -14,7 +14,7 @@
             <div class='login-error-overlay'>
                 <div class='login-error-popup' onclick="this.parentElement.style.display='none'">
                     <h2>Aviso</h2>
-                    <a class='login-error-close'>&times;</a>
+                    <button class='login-error-close' style='border: 0; background-color: transparent;'>&times;</button>
                     <div class='login-error-content'>
                         <p>{{ error }}</p>
                     </div>
@@ -23,20 +23,20 @@
         {% endif %}
         <div class='container'>
             <div class='content'>
-                <div class='header'>
+                <header class='header'>
                     {% block login-header %}
-                        <img src="{% static 'assets/ciapd.svg' %}" alt='CIAPD' />
+                        <img src="{% static 'assets/ciapd.svg' %}" alt='Logo do CIAPD' />
                         <strong>Entrar</strong>
                         <p>Use sua conta administrativa</p>
                     {% endblock %}
-                </div>
+                </header>
                 {% block login-content %}
                     <form name='login-form' method='post' action='.' autocomplete='off'> 
                         {% csrf_token %}
                         <label for='email'>E-mail *</label>
-                        <input type='email' name='email' class='email' placeholder='Digite seu email' value='{{ login.email }}' />
+                        <input type='email' id='email' name='email' class='email' placeholder='Digite seu email' value='{{ login.email }}' />
                         <label for='senha'>Senha *</label>
-                        <input type='password' name='senha' class='password' placeholder='Digite sua senha' maxlength='50' value='{{ login.senha }}' />
+                        <input type='password' id='senha' name='senha' class='password' placeholder='Digite sua senha' maxlength='50' value='{{ login.senha }}' />
                         
                         <div class='help'>
                             <small>Não compartilhe o seu e-mail e senha com ninguém</small>

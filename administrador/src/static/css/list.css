@@ -214,3 +214,24 @@
 .list .alert-container .alert small {
 	font-size: 1.1em;
 }
+
+.list .alert-container .alert button.alert-button {
+	margin: 20px auto 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 25em;
+	font-size: 1em;
+	font-weight: bold;
+	color: #FFF;
+	background-color: #333;
+	border: 0;
+	cursor: pointer;
+	transition: background-color 0.5s;
+	border-radius: 2px;
+	padding: 15px 20px;
+}
+
+.list .alert-container .alert button.alert-button:hover {
+	background-color: #555;
+}

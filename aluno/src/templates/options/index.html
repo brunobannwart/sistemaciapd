@@ -2,10 +2,10 @@
 
 {% block content %}
    <div class='list'>
-   		<main>
+   		<nav>
    			<ul>
    				<li class='option-item'>
-   				  <a href="{% url 'curriculum-form' %}">
+   				  <a href="{% url 'curriculum-form' %}" aria-label='currículo'>
    				   	<i class='fas fa-pen'>
    				   		Currículo
    				   	</i>
@@ -13,7 +13,7 @@
           </li>
 
           <li class='option-item'>
-            <a href="{% url 'job-list' %}">
+            <a href="{% url 'job-list' %}" aria-label='empregos'>
               <i class='fas fa-clipboard-list'>
                 Empregos
               </i>
@@ -21,7 +21,7 @@
           </li>
           
           <li class='option-item'>
-            <a href="{% url 'course-list' %}">
+            <a href="{% url 'course-list' %}" aria-label='cursos'>
              	<i class='fas fa-book'>
                 Cursos
               </i>
@@ -29,7 +29,7 @@
           </li>
                 
           <li class='option-item'>
-           	<a href="{% url 'event-list' %}">
+           	<a href="{% url 'event-list' %}" aria-label='eventos'>
            		<i class='fas fa-palette'>
                 Eventos
               </i>
@@ -37,7 +37,7 @@
           </li>
                 
           <li class='option-item'>
-            <a href="{% url 'game-list' %}">
+            <a href="{% url 'game-list' %}" aria-label='jogos'>
              	<i class='fas fa-gamepad'>
                 Jogos
               </i>
@@ -45,13 +45,13 @@
           </li>
                 
           <li class='option-item'>
-            <a href="{% url 'videolesson-list' %}">
+            <a href="{% url 'videolesson-list' %}" aria-label='video-aulas'>
              	<i class='fab fa-youtube'>
                 Video-aulas
               </i>
             </a>
           </li>
    			</ul>
-   		</main>
+   		</nav>
    </div>
 {% endblock %}

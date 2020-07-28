@@ -4,7 +4,7 @@ import hashlib
 # Create your form here.
 class LoginForm(forms.Form):
 	email		=	forms.EmailField(label='Email')
-	senha		=	forms.CharField(label='Senha', max_length=100)
+	senha		=	forms.CharField(label='Senha', max_length=50)
 	
 	def clean_form(self):
 		email 	=	self.cleaned_data.get('email')

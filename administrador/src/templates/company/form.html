@@ -17,7 +17,7 @@
 	<div class='error-overlay'>
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
-			<a class='error-close'>&times;</a>
+			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
 			<div class='error-content'>
 				<p>{{ error }}</p>
 			</div>
@@ -28,7 +28,7 @@
 <div id='container' class='message-overlay' style='display: none;'>
 	<div class='message-popup' onclick="this.parentElement.style.display='none'">
 		<h2 id='title'></h2>
-		<a class='message-close'>&times;</a>
+		<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
 		<div class='message-content'>
 			<p id='address'></p>
 			<p id='district'></p>
@@ -42,7 +42,7 @@
 <div id='container_document' class='message-overlay' style='display: none;'>
 	<div class='message-popup' onclick="this.parentElement.style.display='none'">
 		<h2 id='title_document'></h2>
-		<a class='message-close'>&times;</a>
+		<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
 		<div class='message-content'>
 			<p id='message_document'></p>		
 		</div>
@@ -50,9 +50,9 @@
 </div>
 
 <div class='form' style='overflow-y: hidden;'>
-	<div class='form-button-return'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'company-list' %}`"></i>
-	</div>
+	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'company-list' %}`" aria-label='retornar'>
+		<i class='fas fa-arrow-circle-left'></i>
+	</button>
 	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
 		<div class='form-group'>
@@ -107,7 +107,8 @@
 			<div class='form-block'>
 				<label for='razao_social'>Razão social *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='razao_social' 
 					name='razao_social' 
 					required
 					placeholder='Preencha com a razão social' 
@@ -119,7 +120,8 @@
 				<label for='cnpj'>CNPJ *</label>
 				{% if edit is True %}
 					<input 
-						type='text' 
+						type='text'
+						id='cnpj' 
 						name='cnpj' 
 						required 
 						placeholder='Preencha com o CNPJ'
@@ -132,7 +134,8 @@
 					>
 				{% else %}
 					<input 
-						type='text' 
+						type='text'
+						id='cnpj' 
 						name='cnpj' 
 						required 
 						placeholder='Preencha com o CNPJ'
@@ -152,7 +155,8 @@
 			<div class='form-block'>
 				<label for='nome_contato'>Nome do contato *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='nome_contato' 
 					name='nome_contato' 
 					required 
 					pattern='[a-zA-Zà-úÀ-Ú][a-zA-Zà-úÀ-Ú\s]*' 
@@ -165,7 +169,8 @@
 			<div class='form-block'>
 				<label for='telefone'>Telefone *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='telefone' 
 					name='telefone'
 					required
 					placeholder='Preencha com o número de telefone'
@@ -183,7 +188,8 @@
 				<label for='email'>E-mail *</label>
 				{% if edit is True %}
 					<input 
-						type='email' 
+						type='email'
+						id='email' 
 						name='email' 
 						required
 						maxlength='45' 
@@ -194,7 +200,8 @@
 					>
 				{% else %}
 					<input 
-						type='email' 
+						type='email'
+						id='email' 
 						name='email' 
 						required
 						maxlength='45' 
@@ -208,7 +215,8 @@
 				<label for='senha'>Senha *</label>
 				{% if edit is True %}
 					<input 
-						type='password' 
+						type='password'
+						id='senha' 
 						name='senha'
 						minlength='6' 
 						maxlength='20' 
@@ -219,7 +227,8 @@
 					>
 				{% else %}
 					<input 
-						type='password' 
+						type='password'
+						id='senha' 
 						name='senha'
 						minlength='6' 
 						maxlength='20' 
@@ -237,7 +246,8 @@
 			<div class='form-block'>
 				<label for='cep'>CEP *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='cep' 
 					name='cep' 
 					required 
 					placeholder='Preencha com o CEP'
@@ -252,7 +262,8 @@
 			<div class='form-block'>
 				<label for='numero'>Número *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='numero' 
 					name='numero'
 					pattern='[0-9]*' 
 					required 

@@ -20,6 +20,10 @@ class LoginBackend(BaseBackend):
 				}
 
 				try:
+					if LoginAluno.objects.filter(id=data['id']):
+						student_session = LoginAluno.objects.get(id=data['id'])
+						student_session.delete()
+						
 					student = 	LoginAluno.objects.create(id=data['id'], nome=data['nome'], email=data['email'], senha_hash=data['senha_hash'], 
 									comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])
 

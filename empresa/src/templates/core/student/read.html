@@ -8,20 +8,21 @@
 
 {% block content %}
 <div class='form'>
-	<div class='form-button-return'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'student-list' %}`"></i>
-	</div>
+	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'student-list' %}`" aria-label='retornar'>
+		<i class='fas fa-arrow-circle-left'></i>
+	</button>
 	<form>
 		<div class='form-file-block'>
 			<div class='preview'>
-				<img src='{{ MEDIA_URL }}{{ student.foto }}' alt='Imagem' style='display: block;'>
+				<img src='{{ MEDIA_URL }}{{ student.foto }}' alt='Foto do aluno {{ student.nome }}' style='display: block;'>
 			</div>
 		</div>
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='nome'>Nome</label>
 				<input 
-					type='text' 
+					type='text'
+					id='nome' 
 					name='nome' 
 					value='{{ student.nome }}' 
 					readonly 
@@ -31,6 +32,7 @@
 				<label for='data_nasc'>Data de nascimento</label>
 				<input
 					type='date'
+					id='data_nasc'
 					name='data_nasc'
 					readonly
 					value='{{ student.data_nasc|date:"Y-m-d" }}'
@@ -42,7 +44,8 @@
 			<div class='form-block'>
 				<label for='email'>E-mail</label>
 				<input 
-					type='email' 
+					type='email'
+					id='email' 
 					name='email' 
 					value='{{ student.email }}' 
 					readonly 
@@ -51,7 +54,8 @@
 			<div class='form-block'>
 				<label for='cpf'>CPF</label>
 				<input 
-					type='text' 
+					type='text'
+					id='cpf' 
 					name='cpf' 
 					value='{{ student.cpf }}' 
 					readonly
@@ -63,7 +67,8 @@
 			<div class='form-block'>
 				<label for='cep'>CEP</label>
 				<input 
-					type='text' 
+					type='text'
+					id='cep' 
 					name='cep' 
 					value='{{ student.cep }}' 
 					readonly 
@@ -72,7 +77,8 @@
 			<div class='form-block'>
 				<label for='numero'>Número</label>
 				<input 
-					type='text' 
+					type='text'
+					id='numero' 
 					name='numero'
 					readonly 
 					value='{{ student.numero }}' 
@@ -83,29 +89,29 @@
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='instituicao_ensino'>Instituições de ensino</label>
-				<textarea name='instituicao_ensino' readonly>{{ student.instituicao_ensino }}</textarea>
+				<textarea id='instituicao_ensino' name='instituicao_ensino' readonly>{{ student.instituicao_ensino }}</textarea>
 			</div>
 			<div class='form-block'>
 				<label for='curso_extra'>Cursos extras</label>
-				<textarea name='curso_extra' readonly>{{ student.curso_extra }}</textarea>
+				<textarea id='curso_extra' name='curso_extra' readonly>{{ student.curso_extra }}</textarea>
 			</div>
 		</div>
 
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='empresa'>Empresas</label>
-				<textarea name='empresa' readonly>{{ student.empresa }}</textarea>
+				<textarea id='empresa' name='empresa' readonly>{{ student.empresa }}</textarea>
 			</div>
 			<div class='form-block'>
 				<label for='cargo'>Cargos ocupados</label>
-				<textarea name='cargo' readonly>{{ student.cargo }}</textarea>
+				<textarea id='cargo' name='cargo' readonly>{{ student.cargo }}</textarea>
 			</div>
 		</div>
 
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='cid'>CID</label>
-				<select name='cid'>
+				<select id='cid' name='cid'>
 					{% for cid in student.cid %}
 						<option value='{{ cid.id }}'>{{ cid.codigo }} - {{ cid.descricao }}</option>
 					{% endfor %}
@@ -113,7 +119,7 @@
 			</div>
 			<div class='form-block'>
 				<label for='outra_info'>Outras informações</label>
-				<textarea name='outra_info' readonly>{{ student.outra_info }}</textarea>
+				<textarea id='outra_info' name='outra_info' readonly>{{ student.outra_info }}</textarea>
 			</div>
 		</div>
 	</form>

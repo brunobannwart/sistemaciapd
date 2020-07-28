@@ -8,7 +8,7 @@
 					{% for event in event_list %}
 						<li class='list-item'>
 							<div class='list-item-img'>
-								<img src='{{ MEDIA_URL }}{{ event.arquivo }}' alt='Imagem' crossorigin/>
+								<img src='{{ MEDIA_URL }}{{ event.arquivo }}' alt='Imagem do evento {{ event.titulo }}' crossorigin/>
 							</div>
 							<div class='list-item-container'>
 								<header>

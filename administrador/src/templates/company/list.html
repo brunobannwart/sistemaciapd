@@ -42,7 +42,7 @@
 						{% for company in company_list %}
 							<tr>
 								<td>
-									<img src='{{ company.logo.url }}'>
+									<img src='{{ company.logo.url }}' alt='Logo da empresa {{ company.razao_social }}'>
 								</td>
 								<td>{{ company.razao_social }}</td>
 								<td>{{ company.cnpj }}</td>
@@ -74,6 +74,7 @@
 		  		<small>
 		  			Você ainda não possui empresas cadastradas
 		  		</small>
+		  		<button class='alert-button'>Nova empresa</button>
 			</div>
 		</div>
 	{% endif %}

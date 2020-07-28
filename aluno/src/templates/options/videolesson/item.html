@@ -2,7 +2,9 @@
 
 {% block content %}
 	<div class='item'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'videolesson-list' %}`"></i>
+		<button style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'videolesson-list' %}`" aria-label='retornar'>
+			<i class='fas fa-arrow-circle-left'></i>
+		</button>
 		<header>
 			<strong>{{ videolesson.titulo }}</strong>
 		</header>

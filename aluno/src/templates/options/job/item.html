@@ -2,12 +2,14 @@
 
 {% block content %}
 	<div class='item'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'job-list' %}`"></i>
+		<button style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'job-list' %}`" aria-label='retornar'>
+			<i class='fas fa-arrow-circle-left'></i>
+		</button>
 		<header>
 			<strong>{{ job.titulo }}</strong>
 		</header>
 		<div class='item-image'>
-			<img src='{{ job.arquivo }}' crossorigin/>
+			<img src='{{ job.arquivo }}' alt='Imagem da vaga de emprego {{ job.titulo }}' crossorigin/>
 		</div>
 		<div class='item-content'>
 			<p>Data de expiração: {{ job.data_exp }}</p>

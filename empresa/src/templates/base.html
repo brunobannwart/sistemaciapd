@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='pt'>
 <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
@@ -22,11 +22,11 @@
             </header>
     </div>
     <div class='container'>
-        <div class='navbar'>
-            <div class='container-home'>
+        <aside class='navbar'>
+            <nav class='container-home'>
                 <img 
                     src="{% static 'assets/ciapdwhite.svg' %}" 
-                    alt='CIAPD' 
+                    alt='Logo do CIAPD' 
                 />
                 <ul>
                     <li>
@@ -35,49 +35,49 @@
                         </i>
                     </li>
                 </ul>
-            </div>
-            <div class='container-options'>
+            </nav>
+            <nav class='container-options'>
                 <br/><strong>Opções</strong>
                 <ul>
                     <li>
-                        <a href="{% url 'job-list' %}">
+                        <a href="{% url 'job-list' %}" aria-label='vagas disponíveis'>
                             <i class='fas fa-briefcase'>
                                 Vagas disponíveis
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'student-list' %}">
+                        <a href="{% url 'student-list' %}" aria-label='consultar candidatos'>
                             <i class='fas fa-search'>
                                 Consultar candidatos
                             </i>
                         </a>
                     </li>
                 </ul>
-            </div>    
-            <div class='container-actions'>
+            </nav>    
+            <nav class='container-actions'>
                 <ul>
                     <li>
-                        <a href="{% url 'changepassword' %}">
+                        <a href="{% url 'changepassword' %}" aria-label='trocar senha'>
                             <i class='fas fa-key'>
                                 Trocar Senha
                             </i>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'logout' %}">
+                        <a href="{% url 'logout' %}" aria-label='sair'>
                             <i class='fas fa-sign-out-alt'>
                                 Sair
                             </i>
                         </a>
                     </li>
                 </ul>
-            </div>
-        </div>
-        <div class='main'>
+            </nav>
+        </aside>
+        <main class='main'>
             {% block content %}
             {% endblock %}
-        </div>
+        </main>
     </div>
 </body>
 </html>

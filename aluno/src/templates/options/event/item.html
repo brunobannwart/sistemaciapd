@@ -2,12 +2,14 @@
 {% load static %}
 {% block content %}
 	<div class='item'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'event-list' %}`"></i>
+		<button style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'event-list' %}`" aria-label='retornar'>
+			<i class='fas fa-arrow-circle-left'></i>
+		</button>
 		<header>
 			<strong>{{ event.titulo }}</strong>
 		</header>
 		<div class='item-image'>
-			<img src='{{ MEDIA_URL }}{{ event.arquivo }}' crossorigin/>
+			<img src='{{ MEDIA_URL }}{{ event.arquivo }}' alt='Imagem do evento {{ event.titulo }}' crossorigin/>
 		</div>
 		<div class='item-content'>
 			<p>Data de expiração: {{ event.data_exp }}</p>

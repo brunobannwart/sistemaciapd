@@ -5,7 +5,7 @@
 	<div class='error-overlay'>
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
-			<a class='error-close'>&times;</a>
+			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
 			<div class='error-content'>
 				<p>{{ error }}</p>
 			</div>
@@ -14,29 +14,29 @@
 {% endif %}
 
 <div class='form'>
-	<div class='form-button-return'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'home' %}`"></i>
-	</div>
+	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'home' %}`" aria-label='retornar'>
+		<i class='fas fa-arrow-circle-left'></i>
+	</button>
 	<form autocomplete='off' method='post' action='.'>
 		{% csrf_token %}
 		<div class='form-block'>
 			<label for='instituicao_ensino'>Instituições de ensino</label>
-			<textarea name='instituicao_ensino' required placeholder='Preencha com as instituições de ensino frequentadas'>{{ curriculum.instituicao_ensino }}</textarea>
+			<textarea id='instituicao_ensino' name='instituicao_ensino' maxlength='100' required placeholder='Preencha com as instituições de ensino frequentadas'>{{ curriculum.instituicao_ensino }}</textarea>
 		</div>
 
 		<div class='form-block'>
 			<label for='curso_extra'>Cursos extras</label>
-			<textarea name='curso_extra' required placeholder='Preencha com cursos realizados'>{{ curriculum.curso_extra }}</textarea>
+			<textarea id='curso_extra' name='curso_extra' maxlength='100' required placeholder='Preencha com cursos realizados'>{{ curriculum.curso_extra }}</textarea>
 		</div>
 
 		<div class='form-block'>
 			<label for='empresa'>Empresas trabalhadas</label>
-			<textarea name='empresa' required placeholder='Preencha com as empresas trabalhadas'>{{ curriculum.empresa }}</textarea>
+			<textarea id='empresa' name='empresa' maxlength='100' required placeholder='Preencha com as empresas trabalhadas'>{{ curriculum.empresa }}</textarea>
 		</div>
 		
 		<div class='form-block'>
 			<label for='cargo'>Cargos ocupados</label>
-			<textarea name='cargo' required placeholder='Preencha com os cargos ocupados'>{{ curriculum.cargo }}</textarea>
+			<textarea id='cargo' name='cargo' maxlength='100' required placeholder='Preencha com os cargos ocupados'>{{ curriculum.cargo }}</textarea>
 		</div>
 
 		<button type='submit'>Salvar</button>

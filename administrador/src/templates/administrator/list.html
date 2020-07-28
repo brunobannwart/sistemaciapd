@@ -42,7 +42,7 @@
 						{% for admin in admin_list %}
 							<tr>
 								<td>
-									<img src='{{ admin.foto.url }}'>
+									<img src='{{ admin.foto.url }}' alt='Foto do {{admin.nome}}'>
 								</td>
 								<td>{{ admin.nome }}</td>
 								<td>{{ admin.rf }}</td>
@@ -74,6 +74,7 @@
 		  		<small>
 		  			Você ainda não possui administradores cadastrados
 		  		</small>
+		  		<button class='alert-button'>Novo administrador</button>
 			</div>
 		</div>
 	{% endif %}

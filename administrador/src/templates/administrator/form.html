@@ -18,7 +18,7 @@
 	<div class='error-overlay'>
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
-			<a class='error-close'>&times;</a>
+			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
 			<div class='error-content'>
 				<p>{{ error }}</p>
 			</div>
@@ -27,9 +27,9 @@
 {% endif %}
 
 <div class='form'>
-	<div class='form-button-return'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'admin-list' %}`"></i>
-	</div>
+	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'admin-list' %}`" aria-label='retornar'>
+		<i class='fas fa-arrow-circle-left'></i>
+	</button>
 	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
 		<div class='form-file-block'>
@@ -59,7 +59,8 @@
 			<div class='form-block'>
 				<label for='nome'>Nome *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='nome' 
 					name='nome' 
 					required 
 					placeholder='Preencha com o nome'
@@ -74,6 +75,7 @@
 				{% if edit is True %}
 					<input
 						type='text'
+						id='rf'
 						name='rf'
 						required
 						placeholder='Preencha com o RF'
@@ -87,6 +89,7 @@
 				{% else %}
 					<input
 						type='text'
+						id='rf'
 						name='rf'
 						required
 						placeholder='Preencha com o RF'
@@ -105,7 +108,8 @@
 				<label for='email'>E-mail *</label>
 				{% if edit is True %}
 					<input 
-						type='email' 
+						type='email'
+						id='email' 
 						name='email' 
 						required 
 						maxlength='45' 
@@ -116,7 +120,8 @@
 					>
 				{% else %}
 					<input 
-						type='email' 
+						type='email'
+						id='email' 
 						name='email' 
 						required
 						maxlength='45' 
@@ -130,7 +135,8 @@
 				<label for='senha'>Senha *</label>
 				{% if edit is True %}
 					<input 
-						type='password' 
+						type='password'
+						id='senha' 
 						name='senha' 
 						minlength='6'
 						maxlength='20' 
@@ -141,7 +147,8 @@
 					>
 				{% else %}
 					<input 
-						type='password' 
+						type='password'
+						id='senha' 
 						name='senha' 
 						minlength='6'
 						maxlength='20' 

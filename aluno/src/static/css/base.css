@@ -96,11 +96,11 @@ body {
     margin: 20px auto;
 }
 
-.main .list main {
+.main .list nav {
     flex: 1;
 }
 
-.main .list main ul {
+.main .list nav ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
@@ -108,12 +108,12 @@ body {
 }
 
 @media (max-width: 650px) {
-    .main .list main ul {
+    .main .list nav ul {
         grid-template-columns: 1fr;
     }
 }
 
-.main .list main ul li.option-item {
+.main .list nav ul li.option-item {
     background-color: #FFF;
     box-shadow: 0 0 14px rgb(0, 0, 0, 0.02);
     border-radius: 2px;
@@ -125,13 +125,13 @@ body {
     justify-content: center;
 }
 
-.main .list main ul li.option-item a {
+.main .list nav ul li.option-item a {
     color: #333;
     font-size: 1.5em;
     text-decoration: none;
 }
 
-.main .list main ul li.option-item a:hover {
+.main .list nav ul li.option-item a:hover {
     color: #555;
     font-size: 1.6em;
     font-weight: bold;

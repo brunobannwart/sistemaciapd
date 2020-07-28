@@ -17,7 +17,7 @@
 	<div class='error-overlay'>
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
-			<a class='error-close'>&times;</a>
+			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
 			<div class='error-content'>
 				<p>{{ error }}</p>
 			</div>
@@ -26,9 +26,9 @@
 {% endif %}
 
 <div class='form'>
-	<div class='form-button-return'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'videolesson-list' %}`"></i>
-	</div>
+	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'videolesson-list' %}`" aria-label='retornar'>
+		<i class='fas fa-arrow-circle-left'></i>
+	</button>
 	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
 		<div class='form-file-block'>
@@ -58,7 +58,8 @@
 			<div class='form-block'>
 				<label for='titulo'>Titulo *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='titulo' 
 					name='titulo' 
 					required 
 					placeholder='Preencha com o titulo'
@@ -70,6 +71,7 @@
 				<label for='url'>URL *</label>
 				<input
 					type='url'
+					id='url'
 					name='url'
 					maxlength='100'
 					required
@@ -82,7 +84,7 @@
 
 		<div class='form-block' style='margin-top: 15px'>
 			<label for='descricao'>Descrição *</label>
-			<textarea name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required>{{ videolesson.descricao }}</textarea>
+			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required>{{ videolesson.descricao }}</textarea>
 		</div>
 		
 		<button type='submit'>Salvar</button>

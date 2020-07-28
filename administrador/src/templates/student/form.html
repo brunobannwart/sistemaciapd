@@ -17,7 +17,7 @@
 	<div class='error-overlay'>
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
-			<a class='error-close'>&times;</a>
+			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
 			<div class='error-content'>
 				<p>{{ error }}</p>
 			</div>
@@ -28,7 +28,7 @@
 <div id='container' class='message-overlay' style='display: none;'>
 	<div class='message-popup' onclick="this.parentElement.style.display='none'">
 		<h2 id='title'></h2>
-		<a class='message-close'>&times;</a>
+		<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
 		<div class='message-content'>
 			<p id='address'></p>
 			<p id='district'></p>
@@ -42,7 +42,7 @@
 <div id='container_document' class='message-overlay' style='display: none;'>
 	<div class='message-popup' onclick="this.parentElement.style.display='none'">
 		<h2 id='title_document'></h2>
-		<a class='message-close'>&times;</a>
+		<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
 		<div class='message-content'>
 			<p id='message_document'></p>		
 		</div>
@@ -50,9 +50,9 @@
 </div>
 
 <div class='form'>
-	<div class='form-button-return'>
-		<i class='fas fa-arrow-circle-left' onclick="window.location.href=`{% url 'student-list' %}`"></i>
-	</div>
+	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'student-list' %}`" aria-label='retornar'>
+		<i class='fas fa-arrow-circle-left'></i>
+	</button>
 	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
 		<div class='form-file-block'>
@@ -82,7 +82,8 @@
 			<div class='form-block'>
 				<label for='nome'>Nome *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='nome' 
 					name='nome' 
 					required 
 					placeholder='Preencha com o nome'
@@ -96,6 +97,7 @@
 				<label for='data_nasc'>Data de nascimento *</label>
 				<input
 					type='date'
+					id='data_nasc'
 					name='data_nasc'
 					required
 					title='Preencha campo com uma data válida' 
@@ -109,7 +111,8 @@
 				<label for='email'>E-mail *</label>
 				{% if edit is True %}
 					<input 
-						type='email' 
+						type='email'
+						id='email' 
 						name='email' 
 						required 
 						placeholder='Preencha com o e-mail'
@@ -119,7 +122,8 @@
 					>
 				{% else %}
 					<input 
-						type='email' 
+						type='email'
+						id='email' 
 						name='email' 
 						required 
 						placeholder='Preencha com o e-mail'
@@ -132,7 +136,8 @@
 				<label for='senha'>Senha *</label>
 				{% if edit is True %}
 					<input 
-						type='password' 
+						type='password'
+						id='senha' 
 						name='senha' 
 						maxlength='20' 
 						minlength='6'
@@ -143,7 +148,8 @@
 					>
 				{% else %}
 					<input 
-						type='password' 
+						type='password'
+						id='senha' 
 						name='senha' 
 						maxlength='20' 
 						minlength='6'
@@ -162,7 +168,8 @@
 				<label for='cpf'>CPF *</label>
 				{% if edit is True %}
 					<input 
-						type='text' 
+						type='text'
+						id='cpf' 
 						name='cpf' 
 						required 
 						placeholder='Preencha com o CPF'
@@ -176,7 +183,8 @@
 					>
 				{% else %}
 					<input 
-						type='text' 
+						type='text'
+						id='cpf' 
 						name='cpf' 
 						required 
 						placeholder='Preencha com o CPF'
@@ -192,7 +200,8 @@
 			<div class='form-block'>
 				<label for='celular'>Celular *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='celular' 
 					name='celular'
 					required
 					placeholder='Preencha com o número de telefone celular'
@@ -209,7 +218,8 @@
 			<div class='form-block'>
 				<label for='cep'>CEP *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='cep' 
 					name='cep' 
 					required 
 					placeholder='Preencha com o CEP'
@@ -224,7 +234,8 @@
 			<div class='form-block'>
 				<label for='numero'>Número *</label>
 				<input 
-					type='text' 
+					type='text'
+					id='numero' 
 					name='numero'
 					pattern='[0-9]*' 
 					required 
@@ -239,7 +250,7 @@
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='cid'>CID *</label>
-				<select multiple name='cid' title='Selecione múltiplos itens'>
+				<select multiple id='cid' name='cid' title='Selecione múltiplos itens'>
 					{% for item in cid_list %}
 						<option value='{{ item.pk }}'>{{item.codigo}}: {{ item.descricao }}</option>
 					{% endfor %}
@@ -247,7 +258,7 @@
 			</div>
 			<div class='form-block'>
 				<label for='outra_info'>Outras informações</label>
-				<textarea name='outra_info' placeholder='Preencha com outras informações relevantes' maxlength='100'>{{ student.outra_info }}</textarea>
+				<textarea id='outra_info' name='outra_info' placeholder='Preencha com outras informações relevantes' maxlength='100'>{{ student.outra_info }}</textarea>
 			</div>
 		</div>
 
