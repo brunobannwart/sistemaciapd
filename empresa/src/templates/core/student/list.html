@@ -38,10 +38,10 @@
 								<td>{{ student.empresa }}</td>
 								<td>
 									<div class='dropdown'>
-										<button class='dropdown-button'>
+										<button class='dropdown-button' onclick='exibirlista()' onmouseleave='fecharlista()'>
 											Lista de opções
 										</button>
-										<div class='dropdown-content'>
+										<div id='dropdown-content' class='dropdown-content'>
 											<a href="{% url 'student-read' student.id %}">Visualizar</a>
 										</div>
 									</div>
@@ -63,4 +63,21 @@
 		</div>
 	{% endif %}
 </div>
+<script>
+	function exibirlista() {
+		let menu = document.getElementById('dropdown-content');
+
+		if (menu.style.display == 'none') {
+			menu.style.display = 'block';
+		} else {
+			menu.style.display = 'none';
+		}
+	}
+
+	function fecharlista() {
+		let menu = document.getElementById('dropdown-content');
+
+		menu.style.display = 'none';
+	}
+</script>
 {% endblock %}

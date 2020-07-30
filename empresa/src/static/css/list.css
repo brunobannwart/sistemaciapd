@@ -179,10 +179,6 @@
 	background-color: #f1f1f1;
 }
 
-.list .list-container .list-table table.content-table tbody tr td .dropdown:hover .dropdown-content {
-  	display: block;
-}
-
 .list .alert-container {
 	width: 700px;
 	max-width: 100%;
