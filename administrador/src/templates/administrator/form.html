@@ -47,12 +47,18 @@
 				{% endif %}
 			</div>
 
-			{% if administrator.foto %}
-				<input type='file' accept='image/*' name='foto' id='foto' />
-			{% else %}
-				<input type='file' accept='image/*' name='foto' id='foto' required />
-			{% endif %}
-			<label title='Preencha esse campo' for='foto' style='width: 11em'>Foto do Administrador</label>
+			<div class='form-file'>
+				<label for='foto_botao'>Foto do Administrador</label>
+				<button id='foto_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione uma foto</button>
+
+				<div class='input-file-hidden'>
+					{% if administrator.foto %}
+						<input type='file' accept='image/*' name='foto' id='foto'/>
+					{% else %}
+						<input type='file' accept='image/*' name='foto' id='foto' required/>
+					{% endif %}
+				</div>
+			</div>
 		</div>
 
 		<div class='form-group'>
@@ -226,6 +232,10 @@
 			leitor.readAsDataURL(arquivo);
 		}
 	});
+
+	function selecionarArquivo() {
+		input.click();
+	}
 
 	function selecionarComando() {
 		if(document.getElementById('comando_voz').checked) {

@@ -54,15 +54,15 @@
 									{% endfor %}
 								</td>
 								<td>
-									<div class='dropdown'>
-										<button class='dropdown-button' onclick='exibirlista()' onmouseleave='fecharlista()'>
+									<div class='dropdown' onmouseleave='fecharlista()'>
+										<button class='dropdown-button' onclick='exibirlista()'>
 											Lista de opções
 										</button>
 										<div id='dropdown-content' class='dropdown-content'>
 											<a href="{% url 'student-edit' student.id %}">Editar</a>
 											<form method='post' action="{% url 'student-delete' student.id %}">
 												{% csrf_token %}
-												<button type="submit">Remover</button>
+												<button style='cursor: pointer;' type='submit'>Remover</button>
 											</form>
 										</div>
 									</div>

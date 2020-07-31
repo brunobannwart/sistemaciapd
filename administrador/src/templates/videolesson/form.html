@@ -46,12 +46,18 @@
 				{% endif %}
 			</div>
 
-			{% if videolesson.arquivo %}
-				<input type='file' accept='image/*' name='arquivo' id='arquivo' />
-			{% else %}
-				<input type='file' accept='image/*' name='arquivo' id='arquivo' required />
-			{% endif %}
-			<label title='Preencha esse campo' for='arquivo' style='width: 195px;'>Logo da Video-Aula</label>
+			<div class='form-file'>
+				<label for='logo_botao'>Logo da Video-Aula</label>
+				<button id='logo_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione um logo</button>
+
+				<div class='input-file-hidden'>
+					{% if videolesson.arquivo %}
+						<input type='file' accept='image/*' name='arquivo' id='arquivo'/>
+					{% else %}
+						<input type='file' accept='image/*' name='arquivo' id='arquivo' required/>
+					{% endif %}
+				</div>
+			</div>
 		</div>
 		
 		<div class='form-group'>
@@ -111,5 +117,9 @@
 			leitor.readAsDataURL(arquivo);
 		}
 	});
+
+	function selecionarArquivo() {
+		input.click();
+	}
 </script>
 {% endblock %}

@@ -42,15 +42,15 @@
 								<td>{{ event.titulo }}</td>
 								<td>{{ event.data_exp }}</td>
 								<td>
-									<div class='dropdown'>
-										<button class='dropdown-button' onclick='exibirlista()' onmouseleave='fecharlista()'>
+									<div class='dropdown' onmouseleave='fecharlista()'>
+										<button class='dropdown-button' onclick='exibirlista()'>
 											Lista de opções
 										</button>
 										<div id='dropdown-content' class='dropdown-content'>
 											<a href="{% url 'event-edit' event.id %}">Editar</a>
 											<form method='post' action="{% url 'event-delete' event.id %}">
 												{% csrf_token %}
-												<button type="submit">Remover</button>
+												<button style='cursor: pointer;' type='submit'>Remover</button>
 											</form>
 										</div>
 									</div>

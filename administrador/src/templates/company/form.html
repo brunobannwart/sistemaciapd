@@ -71,12 +71,18 @@
 					{% endif %}
 				</div>
 
-				{% if company.logo %}
-					<input type='file' accept='image/*' name='logo' id='logo' />
-				{% else %}
-					<input type='file' accept='image/*' name='logo' id='logo' required />
-				{% endif %}
-				<label title='Preencha esse campo' for='logo'>Logo da Empresa</label>
+				<div class='form-file'>
+					<label for='logo_botao'>Logo da Empresa</label>
+					<button id='logo_botao' type='button' class='file' onclick='selecionarLogo()'>Selecione um logo</button>
+
+					<div class='input-file-hidden'>
+						{% if company.logo %}
+							<input type='file' accept='image/*' name='logo' id='logo'/>
+						{% else %}
+							<input type='file' accept='image/*' name='logo' id='logo' required/>
+						{% endif %}
+					</div>
+				</div>
 			</div>
 
 			<div class='form-file-block'>
@@ -94,12 +100,18 @@
 					{% endif %}
 				</div>
 
-				{% if company.foto %}
-					<input type='file' accept='image/*' name='foto' id='foto' />
-				{% else %}
-					<input type='file' accept='image/*' name='foto' id='foto' required />
-				{% endif %}
-				<label title='Preencha esse campo' for='foto'>Foto do Contato</label>
+				<div class='form-file'>
+					<label for='foto_botao'>Foto do Contato</label>
+					<button id='foto_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione uma foto</button>
+
+					<div class='input-file-hidden'>
+						{% if company.foto %}
+							<input type='file' accept='image/*' name='foto' id='foto'/>
+						{% else %}
+							<input type='file' accept='image/*' name='foto' id='foto' required/>
+						{% endif %}
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -340,6 +352,10 @@
 		}
 	});
 
+	function selecionarArquivo() {
+		input.click();
+	}
+
 	const seletor = document.getElementById('logo');
 	const imagem_logo = document.getElementById('preview_logo')
 	const icone_logo = document.getElementById('preview_icon_logo');
@@ -361,6 +377,9 @@
 		}
 	});
 
+	function selecionarLogo() {
+		seletor.click();
+	}
 
 	function selecionarComando() {
 		if(document.getElementById('comando_voz').checked) {
