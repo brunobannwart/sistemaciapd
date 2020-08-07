@@ -16,9 +16,10 @@ Including another URLconf
 	path('admin/', admin.site.urls),
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
 
 from administrador.views import login_view, camera_view, readmore_view, forgot_view, logout_view
 from cids.views import cid_list_view
@@ -83,6 +84,8 @@ urlpatterns = [
 	path('videoaulas/formulario/', videolesson_form_view, name='videolesson-form'),
 	path('videoaulas/formulario/<int:id>/', videolesson_form_view, name='videolesson-edit'),
 	path('videoaulas/excluir/<int:id>/', videolesson_delete_view, name='videolesson-delete'),
+
+	re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT }),
 ]
 
 if settings.DEBUG:

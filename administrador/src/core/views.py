@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db import connection
 from .forms import CurriculumForm
@@ -18,7 +19,7 @@ def job_list_view(request):
 				'id': row[0],
 				'razao_social': row[1],
 				'email': row[2],
-				'arquivo': row[3],
+				'arquivo': settings.MEDIA_URL + row[3],
 				'titulo': row[4],
 				'data_exp': row[5],
 				'descricao': row[6],
@@ -44,7 +45,7 @@ def job_read_view(request, id=0):
 					'id': result[0],
 					'razao_social': result[1],
 					'email': result[2],
-					'arquivo': result[3],
+					'arquivo': settings.MEDIA_URL + result[3],
 					'titulo': result[4],
 					'data_exp': result[5],
 					'descricao': result[6],

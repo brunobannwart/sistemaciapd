@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db import connection
 from .forms import ChangePasswordForm
@@ -63,7 +64,7 @@ def student_list_view(request):
 		for row in results:
 			student = {
 				'id': row[0],
-				'foto':	row[1],
+				'foto': settings.MEDIA_URL + row[1],
 				'nome': row[2],
 				'data_nasc': row[3],
 				'email': row[4],
@@ -114,7 +115,7 @@ def student_read_view(request, id=0):
 
 				student = {
 					'id': result[0],
-					'foto':	result[1],
+					'foto':	settings.MEDIA_URL + result[1],
 					'nome': result[2],
 					'data_nasc': result[3],
 					'email': result[4],

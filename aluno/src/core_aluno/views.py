@@ -1,5 +1,6 @@
 # from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db import connection
 
@@ -15,7 +16,7 @@ def course_list_view(request):
 		for row in results:
 			course = {
 				'id': row[0],
-				'arquivo': row[1],
+				'arquivo': settings.MEDIA_URL + row[1],
 				'titulo': row[2],
 				'data_exp': row[3],
 				'descricao': row[4],
@@ -38,7 +39,7 @@ def course_view(request, id=0):
 			if result != None:
 				course = {
 					'id': result[0],
-					'arquivo': result[1],
+					'arquivo': settings.MEDIA_URL + result[1],
 					'titulo': result[2],
 					'data_exp': result[3],
 					'descricao': result[4],
@@ -65,7 +66,7 @@ def event_list_view(request):
 		for row in results:
 			event = {
 				'id': row[0],
-				'arquivo': row[1],
+				'arquivo': settings.MEDIA_URL + row[1],
 				'titulo': row[2],
 				'data_exp': row[3],
 				'descricao': row[4],
@@ -88,7 +89,7 @@ def event_view(request, id=0):
 			if result != None:
 				event = {
 					'id': result[0],
-					'arquivo': result[1],
+					'arquivo': settings.MEDIA_URL + result[1],
 					'titulo': result[2],
 					'data_exp': result[3],
 					'descricao': result[4],
@@ -115,7 +116,7 @@ def game_list_view(request):
 		for row in results:
 			game = {
 				'id': row[0],
-				'arquivo': row[1],
+				'arquivo': settings.MEDIA_URL + row[1],
 				'titulo': row[2],
 				'url': row[3],
 				'descricao': row[4],
@@ -137,7 +138,7 @@ def game_view(request, id=0):
 			if result != None:
 				game = {
 					'id': result[0],
-					'arquivo': result[1],
+					'arquivo': settings.MEDIA_URL + result[1],
 					'titulo': result[2],
 					'url': result[3],
 					'descricao': result[4],
@@ -165,7 +166,7 @@ def job_list_view(request):
 			job = {
 				'id': row[0],
 				'email': row[1],
-				'arquivo': row[2],
+				'arquivo': settings.MEDIA_URL + row[2],
 				'titulo': row[3],
 				'data_exp': row[4],
 				'descricao': row[5],
@@ -189,7 +190,7 @@ def job_view(request, id=0):
 				job = {
 					'id': result[0],
 					'email': result[1],
-					'arquivo': result[2],
+					'arquivo': settings.MEDIA_URL + result[2],
 					'titulo': result[3],
 					'data_exp': result[4],
 					'descricao': result[5],
@@ -216,7 +217,7 @@ def videolesson_list_view(request):
 		for row in results:
 			videolesson = {
 				'id': row[0],
-				'arquivo': row[1],
+				'arquivo': settings.MEDIA_URL + row[1],
 				'titulo': row[2],
 				'url': row[3],
 				'descricao': row[4],
@@ -239,7 +240,7 @@ def videolesson_view(request, id=0):
 			if result != None:
 				videolesson = {
 					'id': result[0],
-					'arquivo': result[1],
+					'arquivo': settings.MEDIA_URL + result[1],
 					'titulo': result[2],
 					'url': result[3],
 					'descricao': result[4],

@@ -9,12 +9,16 @@
     <link rel='stylesheet' type='text/css' href="{% static '/css/base.css' %}">
     <link rel='stylesheet' type='text/css' href="{% static '/css/list.css' %}">
     <link rel='stylesheet' type='text/css' href="{% static '/css/form.css' %}">
+    <script src='https://apis.google.com/js/api.js'></script>
     <script type='text/javascript' src="{% static '/javascript/search.js' %}"></script>
     <title>CIAPD - Empresa</title>
 </head>
 <body>
     <div class='header'>
             <header>
+                <div class='company-info'>
+                    <img src='{{ request.user.logo }}' alt='Logo da empresa {{ request.user.razao_social }}'>
+                </div>
                 <div class='page-info'>
                     {% block header %}
                     {% endblock %}

@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class LoginEmpresa(models.Model):
 	id 					=	models.IntegerField(verbose_name='ID', primary_key=True)
+	logo 				=	models.CharField(verbose_name='Logo', max_length=150)
 	razao_social		=	models.CharField(verbose_name='Razão social', max_length=45)
 	email				=	models.EmailField(verbose_name='E-mail', unique=True, max_length=45)
 	senha_hash			=	models.CharField(verbose_name='Senha', max_length=64)

@@ -8,7 +8,7 @@
 					{% for job in job_list %}
 						<li class='list-item'>
 							<div class='list-item-img'>
-								<img src='{{ MEDIA_URL}}{{ job.arquivo }}' alt='Imagem da vaga de emprego {{ job.titulo }}' crossorigin/>
+								<img src='{{ job.arquivo }}' alt='Imagem da vaga de emprego {{ job.titulo }}' crossorigin/>
 							</div>
 							<div class='list-item-container'>
 								<header>

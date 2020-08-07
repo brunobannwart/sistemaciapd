@@ -10,9 +10,11 @@
     <link rel='stylesheet' type='text/css' href="{% static '/css/list.css' %}">
     <link rel='stylesheet' type='text/css' href="{% static '/css/form.css' %}">
     <script src='https://kit.fontawesome.com/50797efa34.js'></script>
+    <script src='https://apis.google.com/js/api.js'></script>
     <script type='text/javascript' src="{% static '/javascript/search.js' %}"></script>
     <script type='text/javascript' src="{% static '/javascript/mask.js' %}"></script>
     <script type='text/javascript' src="{% static '/javascript/validate.js' %}"></script>
+    <script type='text/javascript' src="{% static '/javascript/voice.js' %}"></script>
     <title>CIAPD - Administrativo</title>
 </head>
 <body>
@@ -20,7 +22,7 @@
         <header>
             <div class='admin-info'>
                 {% if request.user.is_authenticated %}
-                    <img src='{{ request.user.foto.url }}' alt=''>
+                    <img src='{{ request.user.foto.url }}' alt='Foto do {{ request.user.nome }}'>
                 {% else %}
                     <i class='fas fa-user-secret'></i>
                 {% endif %}
