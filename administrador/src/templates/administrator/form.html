@@ -195,13 +195,13 @@
 
 			</div>
 			<div class='form-block-checkbox'>
-				<label for='nvda' class='checkbox-label'>NVDA
-					{% if administrator.nvda is True %}
-						<input type='checkbox' id='nvda' name='nvda' value='sim' checked onclick='selecionarNVDA()'>
-						<input id='nvda_hidden' type='hidden' value='nao' name='nvda' disabled>
+				<label for='leitor_tela' class='checkbox-label'>Leitor de tela
+					{% if administrator.leitor_tela is True %}
+						<input type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' checked onclick='selecionarLeitor()'>
+						<input id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela' disabled>
 					{% else %}
-						<input type='checkbox' id='nvda' name='nvda' value='sim' onclick='selecionarNVDA()'>
-						<input id='nvda_hidden' type='hidden' value='nao' name='nvda'>
+						<input type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' onclick='selecionarLeitor()'>
+						<input id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela'>
 					{% endif %}
   					<span class='checkmark'></span>
 				</label>
@@ -254,11 +254,11 @@
 		}
 	}
 
-	function selecionarNVDA() {
-		if(document.getElementById('nvda').checked) {
-    		document.getElementById('nvda_hidden').disabled = true;
+	function selecionarLeitor() {
+		if(document.getElementById('leitor_tela').checked) {
+    		document.getElementById('leitor_tela_hidden').disabled = true;
 		} else {
-			document.getElementById('nvda_hidden').disabled = false;
+			document.getElementById('leitor_tela_hidden').disabled = false;
 		}
 	}
 </script>

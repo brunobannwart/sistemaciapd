@@ -15,7 +15,7 @@ class AlunoForm(forms.Form):
 	cid 		=	forms.ModelMultipleChoiceField(label='CIDs', widget=forms.SelectMultiple, queryset=Cid.objects.all(), required=False)
 	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
-	nvda 		=	forms.CharField(label='NVDA', max_length=3)
+	leitor_tela	=	forms.CharField(label='Leitor de tela', max_length=3)
 	outra_info	=	forms.CharField(label='Outras Informações', widget=forms.Textarea, required=False, max_length=100)
 	foto		=	forms.ImageField(label='Foto')
 
@@ -32,7 +32,7 @@ class AlunoForm(forms.Form):
 		cid 		=	self.cleaned_data.get('cid')
 		comando		=	self.cleaned_data.get('comando_voz')
 		ajuda		=	self.cleaned_data.get('ajuda_voz')
-		aluno_nvda	=	self.cleaned_data.get('nvda')
+		leitor 		=	self.cleaned_data.get('leitor_tela')
 		info		=	self.cleaned_data.get('outra_info')
 
 		if comando == 'sim':
@@ -45,10 +45,10 @@ class AlunoForm(forms.Form):
 		else:
 			ajuda_voz = False
 
-		if aluno_nvda == 'sim':
-			nvda = True
+		if leitor == 'sim':
+			leitor_tela = True
 		else:
-			nvda = False
+			leitor_tela = False
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -66,7 +66,7 @@ class AlunoForm(forms.Form):
 			'cid': cid,
 			'comando_voz': comando_voz, 
 			'ajuda_voz': ajuda_voz, 
-			'nvda': nvda, 
+			'leitor_tela': leitor_tela, 
 			'outra_info': info 
 		}
 
@@ -82,7 +82,7 @@ class AlunoEditForm(forms.Form):
 	cid 		=	forms.ModelMultipleChoiceField(label='CIDs', widget=forms.SelectMultiple, queryset=Cid.objects.all(), required=False)
 	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
-	nvda 		=	forms.CharField(label='NVDA', max_length=3)
+	leitor_tela	=	forms.CharField(label='Leitor de tela', max_length=3)
 	outra_info	=	forms.CharField(label='Outras Informações', widget=forms.Textarea, required=False, max_length=100)
 	foto		=	forms.ImageField(label='Foto', required=False)
 
@@ -99,7 +99,7 @@ class AlunoEditForm(forms.Form):
 		cid 		=	self.cleaned_data.get('cid')
 		comando		=	self.cleaned_data.get('comando_voz')
 		ajuda		=	self.cleaned_data.get('ajuda_voz')
-		aluno_nvda	=	self.cleaned_data.get('nvda')
+		leitor 		=	self.cleaned_data.get('leitor_tela')
 		info		=	self.cleaned_data.get('outra_info')
 
 		if comando == 'sim':
@@ -112,10 +112,10 @@ class AlunoEditForm(forms.Form):
 		else:
 			ajuda_voz = False
 
-		if aluno_nvda == 'sim':
-			nvda = True
+		if leitor == 'sim':
+			leitor_tela = True
 		else:
-			nvda = False
+			leitor_tela = False
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -133,6 +133,6 @@ class AlunoEditForm(forms.Form):
 			'cid': cid,
 			'comando_voz': comando_voz, 
 			'ajuda_voz': ajuda_voz, 
-			'nvda': nvda, 
+			'leitor_tela': leitor_tela, 
 			'outra_info': info 
 		}

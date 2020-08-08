@@ -9,7 +9,7 @@ class AdministradorForm(forms.Form):
 	senha		=	forms.CharField(label='Senha', max_length=20, widget=forms.PasswordInput)
 	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
-	nvda 		=	forms.CharField(label='NVDA', max_length=3)
+	leitor_tela	=	forms.CharField(label='Leitor de tela', max_length=3)
 	foto		=	forms.ImageField(label='Foto')
 
 	def clean_form(self):
@@ -20,7 +20,7 @@ class AdministradorForm(forms.Form):
 		senha			=	self.cleaned_data.get('senha')
 		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
-		admin_nvda		=	self.cleaned_data.get('nvda')
+		leitor			=	self.cleaned_data.get('leitor_tela')
 
 		if comando == 'sim':
 			comando_voz = True
@@ -32,10 +32,10 @@ class AdministradorForm(forms.Form):
 		else:
 			ajuda_voz = False
 
-		if admin_nvda == 'sim':
-			nvda = True
+		if leitor == 'sim':
+			leitor_tela = True
 		else:
-			nvda = False
+			leitor_tela = False
 
 
 		hash_bytes = hashlib.sha256(senha.encode())
@@ -49,7 +49,7 @@ class AdministradorForm(forms.Form):
 			'senha': senha_hash,  
 			'comando_voz': comando_voz, 
 			'ajuda_voz': ajuda_voz, 
-			'nvda': nvda 
+			'leitor_tela': leitor_tela 
 		}
 
 class AdministradorEditForm(forms.Form):
@@ -59,7 +59,7 @@ class AdministradorEditForm(forms.Form):
 	senha		=	forms.CharField(label='Senha', max_length=20, widget=forms.PasswordInput, required=False)
 	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
-	nvda 		=	forms.CharField(label='NVDA', max_length=3)
+	leitor_tela	=	forms.CharField(label='Leitor de tela', max_length=3)
 	foto		=	forms.ImageField(label='Foto', required=False)
 
 	def clean_form(self):
@@ -70,7 +70,7 @@ class AdministradorEditForm(forms.Form):
 		senha			=	self.cleaned_data.get('senha')
 		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
-		admin_nvda		=	self.cleaned_data.get('nvda')
+		leitor 			=	self.cleaned_data.get('leitor_tela')
 
 		if comando == 'sim':
 			comando_voz = True
@@ -82,10 +82,10 @@ class AdministradorEditForm(forms.Form):
 		else:
 			ajuda_voz = False
 
-		if admin_nvda == 'sim':
-			nvda = True
+		if leitor == 'sim':
+			leitor_tela = True
 		else:
-			nvda = False
+			leitor_tela = False
 
 
 		hash_bytes = hashlib.sha256(senha.encode())
@@ -99,5 +99,5 @@ class AdministradorEditForm(forms.Form):
 			'senha': senha_hash,  
 			'comando_voz': comando_voz, 
 			'ajuda_voz': ajuda_voz, 
-			'nvda': nvda 
+			'leitor_tela': leitor_tela 
 		}

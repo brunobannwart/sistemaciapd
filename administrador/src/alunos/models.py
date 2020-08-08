@@ -19,7 +19,7 @@ class Aluno(models.Model):
 	
 	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
 	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)
-	nvda 				=	models.BooleanField(verbose_name='NVDA', default=False)
+	leitor_tela			=	models.BooleanField(verbose_name='Leitor de tela', default=False)
 	outra_info			=	models.TextField(verbose_name='Outras Informações', blank=True, null=False, max_length=100)
 	
 	instituicao_ensino 	= 	models.TextField(verbose_name='Instituições de ensino', max_length=100, blank=True, null=False)

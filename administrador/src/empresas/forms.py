@@ -13,7 +13,7 @@ class EmpresaForm(forms.Form):
 	numero			=	forms.CharField(label='Número', max_length=5)
 	comando_voz		=	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz		=	forms.CharField(label='Ajuda por voz', max_length=3)
-	nvda 			=	forms.CharField(label='NVDA', max_length=3)
+	leitor_tela		=	forms.CharField(label='Leitor de tela', max_length=3)
 	foto 			=	forms.ImageField(label='Foto')
 	logo			=	forms.ImageField(label='Logo')
 
@@ -30,7 +30,7 @@ class EmpresaForm(forms.Form):
 		numero			=	self.cleaned_data.get('numero')
 		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
-		empresa_nvda	=	self.cleaned_data.get('nvda')
+		leitor 			=	self.cleaned_data.get('leitor_tela')
 
 		if comando == 'sim':
 			comando_voz = True
@@ -42,10 +42,10 @@ class EmpresaForm(forms.Form):
 		else:
 			ajuda_voz = False
 
-		if empresa_nvda == 'sim':
-			nvda = True
+		if leitor == 'sim':
+			leitor_tela = True
 		else:
-			nvda = False
+			leitor_tela = False
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -63,7 +63,7 @@ class EmpresaForm(forms.Form):
 			'numero': numero, 
 			'comando_voz': comando_voz,
 			'ajuda_voz': ajuda_voz,
-			'nvda': nvda
+			'leitor_tela': leitor_tela
 		}
 
 class EmpresaEditForm(forms.Form):
@@ -77,7 +77,7 @@ class EmpresaEditForm(forms.Form):
 	numero			=	forms.CharField(label='Número', max_length=5)
 	comando_voz		=	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz		=	forms.CharField(label='Ajuda por voz', max_length=3)
-	nvda 			=	forms.CharField(label='NVDA', max_length=3)
+	leitor_tela		=	forms.CharField(label='Leitor de tela', max_length=3)
 	foto 			=	forms.ImageField(label='Foto', required=False)
 	logo			=	forms.ImageField(label='Logo', required=False)
 
@@ -94,7 +94,7 @@ class EmpresaEditForm(forms.Form):
 		numero			=	self.cleaned_data.get('numero')
 		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
-		empresa_nvda	=	self.cleaned_data.get('nvda')
+		leitor			=	self.cleaned_data.get('leitor_tela')
 
 		if comando == 'sim':
 			comando_voz = True
@@ -106,10 +106,10 @@ class EmpresaEditForm(forms.Form):
 		else:
 			ajuda_voz = False
 
-		if empresa_nvda == 'sim':
-			nvda = True
+		if leitor == 'sim':
+			leitor_tela = True
 		else:
-			nvda = False
+			leitor_tela = False
 
 		hash_bytes = hashlib.sha256(senha.encode())
 		senha_hash = hash_bytes.hexdigest()
@@ -127,5 +127,5 @@ class EmpresaEditForm(forms.Form):
 			'numero': numero, 
 			'comando_voz': comando_voz,
 			'ajuda_voz': ajuda_voz,
-			'nvda': nvda
+			'leitor_tela': leitor_tela
 		}

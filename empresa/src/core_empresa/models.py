@@ -10,7 +10,7 @@ class LoginEmpresa(models.Model):
 		
 	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
 	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)
-	nvda 				=	models.BooleanField(verbose_name='NVDA', default=False)
+	leitor_tela			=	models.BooleanField(verbose_name='Leitor de tela', default=False)
 	
 	is_authenticated	=	models.BooleanField(verbose_name='Autenticado', default=False)
 	last_login			=	models.DateTimeField(verbose_name='Último login', blank=True, null=True)

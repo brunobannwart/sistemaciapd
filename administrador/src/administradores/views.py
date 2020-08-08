@@ -46,7 +46,7 @@ def admin_form_view(request, id=0):
 							
 							create_admin = 	Administrador.objects.create(foto=data['foto'], nome=data['nome'], rf=data['rf'], 
 												email=data['email'], senha_hash=data['senha'], cod_treino=responseJSON['treino'],
-												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])	
+												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], leitor_tela=data['leitor_tela'])	
 							create_admin.save()
 							
 							form = AdministradorForm()
@@ -74,7 +74,7 @@ def admin_form_view(request, id=0):
 					update_admin.nome = data['nome']
 					update_admin.comando_voz = data['comando_voz']
 					update_admin.ajuda_voz = data['ajuda_voz']
-					update_admin.nvda = data['nvda']
+					update_admin.leitor_tela = data['leitor_tela']
 					update_admin.save()
 
 
@@ -99,7 +99,7 @@ def admin_form_view(request, id=0):
 				'senha': '',
 				'comando_voz': 'nao',
 				'ajuda_voz': 'nao',
-				'nvda': 'nao',
+				'leitor_tela': 'nao',
 			}
 
 			edit = False

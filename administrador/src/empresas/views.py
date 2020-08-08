@@ -48,7 +48,7 @@ def company_form_view(request, id=0):
 												nome_contato=data['nome_contato'], email=data['email'], 
 												senha_hash=data['senha'], telefone=data['telefone'], 
 												cep=data['cep'], numero=data['numero'], cod_treino=responseJSON['treino'],
-												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])		
+												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], leitor_tela=data['leitor_tela'])		
 							create_company.save()
 
 							return redirect('/empresas/')
@@ -89,7 +89,7 @@ def company_form_view(request, id=0):
 					update_company.numero = data['numero']
 					update_company.comando_voz = data['comando_voz']
 					update_company.ajuda_voz = data['ajuda_voz']
-					update_company.nvda = data['nvda']
+					update_company.leitor_tela = data['leitor_tela']
 					update_company.save()
 
 				finally:
@@ -114,9 +114,9 @@ def company_form_view(request, id=0):
 				'telefone': '',
 				'cep': '',
 				'numero': '',
-				'comando_voz': '',
-				'ajuda_voz': '',
-				'nvda': '',
+				'comando_voz': 'nao',
+				'ajuda_voz': 'nao',
+				'leitor_tela': 'nao',
 			}
 			edit = False
 		else:

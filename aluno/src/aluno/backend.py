@@ -5,7 +5,7 @@ from core_aluno.models import LoginAluno
 class LoginBackend(BaseBackend):
 	def authenticate(request, student_email=None, student_senha=None):
 		with connection.cursor() as cursor:
-			cursor.execute("SELECT id, nome, email, senha_hash, comando_voz, ajuda_voz, nvda  FROM aluno WHERE email=%s", [student_email])
+			cursor.execute("SELECT id, nome, email, senha_hash, comando_voz, ajuda_voz, leitor_tela  FROM aluno WHERE email=%s", [student_email])
 			result = cursor.fetchone()
 
 			if result != None:
@@ -16,7 +16,7 @@ class LoginBackend(BaseBackend):
 					'senha_hash': result[3],
 					'comando_voz': result[4],
 					'ajuda_voz': result[5],
-					'nvda': result[6],
+					'leitor_tela': result[6],
 				}
 
 				try:
@@ -26,7 +26,7 @@ class LoginBackend(BaseBackend):
 							student_session.delete()
 
 						student = 	LoginAluno.objects.create(id=data['id'], nome=data['nome'], email=data['email'], senha_hash=data['senha_hash'], 
-										comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], nvda=data['nvda'])
+										comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], leitor_tela=data['leitor_tela'])
 						
 						return student
 					else:

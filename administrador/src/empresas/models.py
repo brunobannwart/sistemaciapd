@@ -18,7 +18,7 @@ class Empresa(models.Model):
 	
 	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
 	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)
-	nvda 				=	models.BooleanField(verbose_name='NVDA', default=False)
+	leitor_tela			=	models.BooleanField(verbose_name='Leitor de tela', default=False)
 	
 	cod_treino 			=	models.IntegerField(verbose_name='ID do treino facial', null=True)
 	created_at			=	models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
