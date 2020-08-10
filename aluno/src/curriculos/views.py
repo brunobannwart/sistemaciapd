@@ -11,12 +11,9 @@ def curriculum_form_view(request):
 
 		if form.is_valid():
 			data = form.clean_form()
-			student_name = request.user.nome
-			student_email = request.user.email
 			try:
-				curriculum = Curriculo.objects.create(nome_aluno=student_name, email_aluno=student_email, 
-								instituicao_ensino=data['instituicao_ensino'], curso_extra=data['curso_extra'], 
-								empresa=data['empresa'], cargo=data['cargo'])
+				curriculum = Curriculo.objects.create(aluno_id=request.user.id, instituicao_ensino=data['instituicao_ensino'], 
+								curso_extra=data['curso_extra'], empresa=data['empresa'], cargo=data['cargo'])
 				curriculum.save()
 				return redirect('/inicio/')
 			except:

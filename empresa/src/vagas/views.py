@@ -6,7 +6,7 @@ from .forms import VagaForm, VagaEditForm
 # Create your views here.
 @login_required(login_url='login')
 def job_list_view(request):
-	job_list = Vaga.objects.filter(email=request.user.email)
+	job_list = Vaga.objects.filter(empresa_id=request.user.id)
 	context = {
 		'job_list': job_list
 	}
@@ -25,10 +25,8 @@ def job_form_view(request, id=0):
 						
 			if id == 0:
 				try:
-					company_name = request.user.razao_social
-					company_email = request.user.email
-					create_job = Vaga.objects.create(razao_social=company_name, email=company_email, arquivo=data['arquivo'], 
-									titulo=data['titulo'], data_exp=data['data_exp'], descricao=data['descricao'])
+					create_job = Vaga.objects.create(empresa_id=request.user.id, arquivo=data['arquivo'], titulo=data['titulo'], 
+									data_exp=data['data_exp'], descricao=data['descricao'])
 					create_event.save()
 				finally:
 					form = VagaForm()

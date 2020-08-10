@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import connection
 from .forms import CurriculumForm
 from alunos.models import Aluno
+from empresas.models import Empresa
 
 # Create your views here.
 @login_required(login_url='login')
@@ -15,17 +16,23 @@ def job_list_view(request):
 		results = cursor.fetchall()
 
 		for row in results:
-			job = {
-				'id': row[0],
-				'razao_social': row[1],
-				'email': row[2],
-				'arquivo': settings.MEDIA_URL + row[3],
-				'titulo': row[4],
-				'data_exp': row[5],
-				'descricao': row[6],
-			}
+			try:
+				company = Empresa.objects.get(id=row[1])
+			except:
+				company = None
 
-			job_list.append(job)
+			if company != None:
+				job = {
+					'id': row[0],
+					'razao_social': company.razao_social,
+					'email': company.email,
+					'arquivo': settings.MEDIA_URL + row[2],
+					'titulo': row[3],
+					'data_exp': row[4],
+					'descricao': row[5],
+				}
+
+				job_list.append(job)
 
 	context = {
 		'job_list': job_list
@@ -41,21 +48,26 @@ def job_read_view(request, id=0):
 			result = cursor.fetchone()
 
 			if result != None:
-				job = {
-					'id': result[0],
-					'razao_social': result[1],
-					'email': result[2],
-					'arquivo': settings.MEDIA_URL + result[3],
-					'titulo': result[4],
-					'data_exp': result[5],
-					'descricao': result[6],
-				}
+				try:
+					company = Empresa.objects.get(id=result[1])
 
-				context = {
-					'job': job
-				}
+					job = {
+						'id': result[0],
+						'razao_social': company.razao_social,
+						'email': company.email,
+						'arquivo': settings.MEDIA_URL + result[2],
+						'titulo': result[3],
+						'data_exp': result[4],
+						'descricao': result[5],
+					}
 
-				return render(request, 'core/job/read.html', context)
+					context = {
+						'job': job
+					}
+
+					return render(request, 'core/job/read.html', context)
+				except:
+					return redirect('/vagas/')
 			else:
 				return redirect('/vagas/')
 	else:
@@ -70,18 +82,24 @@ def curriculum_list_view(request):
 		results = cursor.fetchall()
 	
 		for row in results:
-			curriculum = {
-				'id': row[0],
-				'nome': row[1],
-				'email': row[2],
-				'instituicao_ensino': row[3],
-				'curso_extra': row[4],
-				'empresa': row[5],
-				'cargo': row[6],
-				'liberado': row[7],
-			}
+			try:
+				student = Aluno.objects.get(id=row[1])
+			except:
+				student = None
 
-			curriculum_list.append(curriculum)
+			if student != None:
+				curriculum = {
+					'id': row[0],
+					'nome': student.nome,
+					'email': student.email,
+					'instituicao_ensino': row[2],
+					'curso_extra': row[3],
+					'empresa': row[4],
+					'cargo': row[5],
+					'liberado': row[6],
+				}
+
+				curriculum_list.append(curriculum)
 
 	context = {
 		'curriculum_list': curriculum_list
@@ -136,16 +154,20 @@ def curriculum_read_view(request, id=0):
 				result = cursor.fetchone()
 
 				if result != None:
-					curriculum = {
-						'id': result[0],
-						'nome': result[1],
-						'email': result[2],
-						'instituicao_ensino': result[3],
-						'curso_extra': result[4],
-						'empresa': result[5],
-						'cargo': result[6],
-						'liberado': result[7],
-					}
+					try:
+						student = Aluno.objects.get(id=result[1])
+						curriculum = {
+							'id': result[0],
+							'nome': student.nome,
+							'email': student.email,
+							'instituicao_ensino': result[2],
+							'curso_extra': result[3],
+							'empresa': result[4],
+							'cargo': result[5],
+							'liberado': result[6],
+						}
+					except:
+						return redirect('/curriculos/')
 				else:
 					return redirect('/curriculos/')
 		
