@@ -16,6 +16,9 @@ class Jogo(models.Model):
 		self.arquivo.delete()
 		super().delete(*args, **kwargs)
 
+	def removeFile(self):
+		self.arquivo.delete()
+
 	class Meta:
 		db_table = 'jogo'
 		verbose_name = 'Jogo'

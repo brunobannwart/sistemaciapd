@@ -53,8 +53,11 @@
 	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'company-list' %}`" aria-label='retornar'>
 		<i class='fas fa-arrow-circle-left'></i>
 	</button>
-	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
+	<form name='formulario_empresa' onsubmit='return validarFormularioEmpresa()' autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
+		<input id='cep_valido' name='cep_valido' type='hidden' value='' />
+		<input id='cnpj_valido' name='cnpj_valido' type='hidden' value='' />
+
 		<div class='form-group'>
 			<div class='form-file-block' style='padding-left: 40px;'>
 				<div class='preview'>
@@ -289,18 +292,6 @@
 
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
-				<label for='comando_voz' class='checkbox-label'>Comando por voz
-					{% if company.comando_voz is True %}
-						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' checked onclick='selecionarComando()'>
-						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz' disabled>
-					{% else %}
-						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' onclick='selecionarComando()'>
-						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz'>
-					{% endif %}
-  					<span class='checkmark'></span>
-				</label>
-			</div>
-			<div class='form-block-checkbox'>
 				<label for='ajuda_voz' class='checkbox-label'>Ajuda por voz
 					{% if company.ajuda_voz is True %}
 						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
@@ -311,7 +302,6 @@
 					{% endif %}
   					<span class='checkmark'></span>
 				</label>
-
 			</div>
 			<div class='form-block-checkbox'>
 				<label for='leitor_tela' class='checkbox-label'>Leitor de tela
@@ -380,15 +370,6 @@
 	function selecionarLogo() {
 		seletor.click();
 	}
-
-	function selecionarComando() {
-		if(document.getElementById('comando_voz').checked) {
-    		document.getElementById('comando_hidden').disabled = true;
-		} else {
-			document.getElementById('comando_hidden').disabled = false;
-		}
-	}
-
 
 	function selecionarAjuda() {
 		if(document.getElementById('ajuda_voz').checked) {

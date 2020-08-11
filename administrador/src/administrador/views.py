@@ -61,26 +61,29 @@ def camera_view(request):
 		img.save(photo, 'png')
 		photo.seek(0)
 
-		response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'administrador'}, files={ 'file': ('photo.png', photo, 'image/png') })
+		try:
+			response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'administrador'}, files={ 'file': ('photo.png', photo, 'image/png') })
 
-		if response.status_code == 200:
-			responseJSON = response.json()
-			admin_codigo = responseJSON['reconhecimento']
+			if response.status_code == 200:
+				responseJSON = response.json()
+				admin_codigo = responseJSON['reconhecimento']
 
-			try:
-				admin_train = Administrador.objects.get(cod_treino=admin_codigo)
-				login_admin = LoginBackend.authenticate(request, admin_train.email, admin_train.senha_hash)
+				try:
+					admin_train = Administrador.objects.get(cod_treino=admin_codigo)
+					login_admin = LoginBackend.authenticate(request, admin_train.email, admin_train.senha_hash)
 
-				if login_admin != None and login_admin != False:
-					login_admin.is_authenticated = True
-					login_admin.save()
-					login(request, login_admin, backend='administrador.backend.LoginBackend')
-					return redirect('/cids/')
-				else:
+					if login_admin != None and login_admin != False:
+						login_admin.is_authenticated = True
+						login_admin.save()
+						login(request, login_admin, backend='administrador.backend.LoginBackend')
+						return redirect('/cids/')
+					else:
+						return redirect('login')
+				except:
 					return redirect('login')
-			except:
+			else:
 				return redirect('login')
-		else:
+		except:
 			return redirect('login')
 
 	return render(request, 'login/camera.html', {})

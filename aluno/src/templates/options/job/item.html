@@ -12,6 +12,8 @@
 			<img src='{{ job.arquivo }}' alt='Imagem da vaga de emprego {{ job.titulo }}' crossorigin/>
 		</div>
 		<div class='item-content'>
+			<p>Empresa: {{ job.razao_social }}</p>
+			<p>E-mail de contato: {{ job.email }}</p>
 			<p>Data de expiração: {{ job.data_exp }}</p>
 			<p>{{ job.descricao }}</p>
 		</div>

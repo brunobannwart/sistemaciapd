@@ -46,11 +46,11 @@
 								{% endif %}
 								
 								<td>
-									<div class='dropdown' onmouseleave='fecharlista()'>
-										<button class='dropdown-button' onclick='exibirlista()'>
+									<div class='dropdown' onmouseleave='fecharlista(`{{ curriculum.id }}`)'>
+										<button class='dropdown-button' onclick='exibirlista(`{{ curriculum.id }}`)'>
 											Lista de opções
 										</button>
-										<div id='dropdown-content' class='dropdown-content'>
+										<div id='{{ curriculum.id }}' class='dropdown-content'>
 											<a href="{% url 'curriculum-read' curriculum.id %}">Visualizar</a>
 											<form method='post' action="{% url 'curriculum-delete' curriculum.id %}">
 												{% csrf_token %}
@@ -77,8 +77,8 @@
 	{% endif %}
 </div>
 <script>
-	function exibirlista() {
-		let menu = document.getElementById('dropdown-content');
+	function exibirlista(id) {
+		let menu = document.getElementById(id);
 
 		if (menu.style.display == 'none') {
 			menu.style.display = 'block';
@@ -87,8 +87,8 @@
 		}
 	}
 
-	function fecharlista() {
-		let menu = document.getElementById('dropdown-content');
+	function fecharlista(id) {
+		let menu = document.getElementById(id);
 
 		menu.style.display = 'none';
 	}

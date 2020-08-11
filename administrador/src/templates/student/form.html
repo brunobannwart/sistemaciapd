@@ -53,8 +53,11 @@
 	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'student-list' %}`" aria-label='retornar'>
 		<i class='fas fa-arrow-circle-left'></i>
 	</button>
-	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
+	<form name='formulario_estudante' onsubmit='return validarFormularioEstudante()' autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
+		<input id='cep_valido' name='cep_valido' type='hidden' value='' />
+		<input id='cpf_valido' name='cpf_valido' type='hidden' value='' />
+
 		<div class='form-file-block'>
 			<div class='preview'>
 				{% if student.foto %}
@@ -258,7 +261,11 @@
 				<label for='cid'>CID *</label>
 				<select multiple id='cid' name='cid' title='Selecione múltiplos itens'>
 					{% for item in cid_list %}
-						<option value='{{ item.pk }}'>{{item.codigo}}: {{ item.descricao }}</option>
+						{% if item in student.cid %}
+							<option value='{{ item.pk }}' selected>{{ item.codigo }}: {{ item.descricao }}</option>
+						{% else %}
+							<option value='{{ item.pk }}'>{{ item.codigo }}: {{ item.descricao }}</option>
+						{% endif %}
 					{% endfor %}
 				</select>
 			</div>
@@ -270,18 +277,6 @@
 
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
-				<label for='comando_voz' class='checkbox-label'>Comando por voz
-					{% if student.comando_voz is True %}
-						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' checked onclick='selecionarComando()'>
-						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz' disabled>
-					{% else %}
-						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' onclick='selecionarComando()'>
-						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz'>
-					{% endif %}
-  					<span class='checkmark'></span>
-				</label>
-			</div>
-			<div class='form-block-checkbox'>
 				<label for='ajuda_voz' class='checkbox-label'>Ajuda por voz
 					{% if student.ajuda_voz is True %}
 						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
@@ -292,7 +287,6 @@
 					{% endif %}
   					<span class='checkmark'></span>
 				</label>
-
 			</div>
 			<div class='form-block-checkbox'>
 				<label for='leitor_tela' class='checkbox-label'>Leitor de tela
@@ -336,15 +330,6 @@
 	function selecionarArquivo() {
 		input.click();
 	}
-
-	function selecionarComando() {
-		if(document.getElementById('comando_voz').checked) {
-    		document.getElementById('comando_hidden').disabled = true;
-		} else {
-			document.getElementById('comando_hidden').disabled = false;
-		}
-	}
-
 
 	function selecionarAjuda() {
 		if(document.getElementById('ajuda_voz').checked) {

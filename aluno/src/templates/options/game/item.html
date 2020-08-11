@@ -8,13 +8,11 @@
 		<header>
 			<strong>{{ game.titulo }}</strong>
 		</header>
-		<div class='wrapper-content'>
-			<iframe 
-				width='560' 
-				height='315' 
-				src='{{ game.url }}' 
-				frameborder='0'
-			>
+		<div class='item-image'>
+			<img src='{{ game.arquivo }}' alt='Imagem do jogo {{ game.titulo }}' crossorigin/>
+		</div>
+		<div class='item-content'>
+			<button onclick='window.open(`{{ game.url }}`, `_blank`)'>Acessar jogo</button>
 		</div>
 	</div>
 {% endblock %}

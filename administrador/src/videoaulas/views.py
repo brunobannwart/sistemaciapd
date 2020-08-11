@@ -36,7 +36,8 @@ def videolesson_form_view(request, id=0):
 				try:
 					update_videolesson = Videoaula.objects.get(id=id)
 
-					if request.FILES.get('arquivo', False):
+					if 'arquivo' in request.FILES:
+						update_videolesson.removeFile()
 						update_videolesson.arquivo = data['arquivo']
 					
 					update_videolesson.titulo = data['titulo']

@@ -50,6 +50,7 @@ class FaceDetection:
 
 		image = Image.open(filepath).convert("L")
 		image_array = np.array(image, "uint8")
+		image_array = cv2.equalizeHist(image_array)
 		facelist = self.classifier.detectMultiScale(image_array, scaleFactor=1.1, minNeighbors=5)
 
 		for (x,y,w,h) in facelist:
@@ -104,6 +105,7 @@ class FaceDetection:
 
 		image = Image.open(filepath).convert("L")
 		image_array = np.array(image, "uint8")
+		image_array = cv2.equalizeHist(image_array)
 		facelist = self.classifier.detectMultiScale(image_array, scaleFactor=1.1, minNeighbors=5)
 
 		for (x,y,w,h) in facelist:

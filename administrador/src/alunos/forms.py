@@ -13,7 +13,6 @@ class AlunoForm(forms.Form):
 	numero		=	forms.CharField(label='Número', max_length=5)
 	celular     =	forms.CharField(label='Celular', max_length=15)
 	cid 		=	forms.ModelMultipleChoiceField(label='CIDs', widget=forms.SelectMultiple, queryset=Cid.objects.all(), required=False)
-	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
 	leitor_tela	=	forms.CharField(label='Leitor de tela', max_length=3)
 	outra_info	=	forms.CharField(label='Outras Informações', widget=forms.Textarea, required=False, max_length=100)
@@ -30,15 +29,9 @@ class AlunoForm(forms.Form):
 		cep			=	self.cleaned_data.get('cep')
 		numero		=	self.cleaned_data.get('numero')	
 		cid 		=	self.cleaned_data.get('cid')
-		comando		=	self.cleaned_data.get('comando_voz')
 		ajuda		=	self.cleaned_data.get('ajuda_voz')
 		leitor 		=	self.cleaned_data.get('leitor_tela')
 		info		=	self.cleaned_data.get('outra_info')
-
-		if comando == 'sim':
-			comando_voz = True
-		else:
-			comando_voz = False
 
 		if ajuda == 'sim':
 			ajuda_voz = True
@@ -64,7 +57,6 @@ class AlunoForm(forms.Form):
 			'cep': cep, 
 			'numero': numero, 
 			'cid': cid,
-			'comando_voz': comando_voz, 
 			'ajuda_voz': ajuda_voz, 
 			'leitor_tela': leitor_tela, 
 			'outra_info': info 
@@ -80,7 +72,6 @@ class AlunoEditForm(forms.Form):
 	numero		=	forms.CharField(label='Número', max_length=5)
 	celular     =	forms.CharField(label='Celular', max_length=15)
 	cid 		=	forms.ModelMultipleChoiceField(label='CIDs', widget=forms.SelectMultiple, queryset=Cid.objects.all(), required=False)
-	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
 	leitor_tela	=	forms.CharField(label='Leitor de tela', max_length=3)
 	outra_info	=	forms.CharField(label='Outras Informações', widget=forms.Textarea, required=False, max_length=100)
@@ -97,15 +88,9 @@ class AlunoEditForm(forms.Form):
 		cep			=	self.cleaned_data.get('cep')
 		numero		=	self.cleaned_data.get('numero')	
 		cid 		=	self.cleaned_data.get('cid')
-		comando		=	self.cleaned_data.get('comando_voz')
 		ajuda		=	self.cleaned_data.get('ajuda_voz')
 		leitor 		=	self.cleaned_data.get('leitor_tela')
 		info		=	self.cleaned_data.get('outra_info')
-
-		if comando == 'sim':
-			comando_voz = True
-		else:
-			comando_voz = False
 
 		if ajuda == 'sim':
 			ajuda_voz = True
@@ -131,7 +116,6 @@ class AlunoEditForm(forms.Form):
 			'cep': cep, 
 			'numero': numero, 
 			'cid': cid,
-			'comando_voz': comando_voz, 
 			'ajuda_voz': ajuda_voz, 
 			'leitor_tela': leitor_tela, 
 			'outra_info': info 

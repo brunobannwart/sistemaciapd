@@ -1,5 +1,5 @@
 async function validarCEP(cep_entrada) {
-	let cep;
+	let cep, cep_valido;
 	const exp = /\-|\.|\/|\(|\)| /g
 
 	const bloco_cep = document.getElementById('container');
@@ -25,6 +25,7 @@ async function validarCEP(cep_entrada) {
 	}
 
 	cep = cep_entrada.value.replace(exp, '');
+	cep_valido = document.getElementById('cep_valido');
 
 	if (cep.length == 8) {
 		await fetch(`https://viacep.com.br/ws/${cep}/json/`, opcoes)
@@ -42,12 +43,15 @@ async function validarCEP(cep_entrada) {
 			  			bairro.innerHTML = data.bairro;
 			  			localidade.innerHTML = data.localidade;
 			  			uf.innerHTML = data.uf;
+			  			cep_valido.value = 'sim';
+
 					} else {
 						bloco_cep.style.display = 'block';
 				  		titulo.style.display = 'block';
 				  		erro.style.display = 'block';
 				  		titulo.innerHTML = 'Aviso';
 				  		erro.innerHTML = 'Informe um CEP válido';
+				  		cep_valido.value = 'nao';
 					}
 				});
 			})
@@ -57,12 +61,13 @@ async function validarCEP(cep_entrada) {
 				erro.style.display = 'block';
 				titulo.innerHTML = 'Aviso';
 				erro.innerHTML = 'Informe um CEP válido';
+				cep_valido.value = 'nao';
 			});
 	}
 }
 
 function validarCPF(cpf_entrada) {
-	let cpf, numeros, digitos, soma, i, resultado, iguais, controle;
+	let cpf, cpf_valido, numeros, digitos, soma, i, resultado, iguais, controle;
 	const exp = /\-|\.|\/|\(|\)| /g
 
 	const bloco = document.getElementById('container_document');
@@ -74,6 +79,7 @@ function validarCPF(cpf_entrada) {
 	mensagem.style.display = 'none';
 
 	cpf = cpf_entrada.value.replace(exp, '');
+	cpf_valido = document.getElementById('cpf_valido');
 
 	if (cpf.length == 11) {
 		controle = 0;
@@ -128,12 +134,15 @@ function validarCPF(cpf_entrada) {
 			mensagem.style.display = 'block';
 			titulo.innerHTML = 'Aviso';
 			mensagem.innerHTML = 'Informe um CPF válido'
+			cpf_valido.value = 'nao';
+		} else {
+			cpf_valido.value = 'sim';
 		}
 	}
 }
 
 function validarCNPJ(cnpj_entrada) {
-	let cnpj, posicao, tamanho, numeros, digitos, soma, resultado, i, iguais, controle;
+	let cnpj, cnpj_valido, posicao, tamanho, numeros, digitos, soma, resultado, i, iguais, controle;
 	const exp = /\-|\.|\/|\(|\)| /g
 
 	const bloco = document.getElementById('container_document');
@@ -145,6 +154,7 @@ function validarCNPJ(cnpj_entrada) {
 	mensagem.style.display = 'none';
 
 	cnpj = cnpj_entrada.value.replace(exp, '');
+	cnpj_valido = document.getElementById('cnpj_valido');
 
 	if (cnpj.length == 14) {
 		controle = 0;
@@ -209,6 +219,97 @@ function validarCNPJ(cnpj_entrada) {
 			mensagem.style.display = 'block';
 			titulo.innerHTML = 'Aviso';
 			mensagem.innerHTML = 'Informe um CNPJ válido'
+			cnpj_valido.value = 'nao';
+		} else {
+			cnpj_valido.value = 'sim';
 		}
+	}
+}
+
+function validarFormularioEstudante() {
+	const cpf = document.forms['formulario_estudante']['cpf_valido'].value;
+	const cep = document.forms['formulario_estudante']['cep_valido'].value;
+
+	const bloco = document.getElementById('container_document');
+	const titulo = document.getElementById('title_document');
+	const mensagem = document.getElementById('message_document');
+
+	bloco.style.display = 'none';
+	titulo.style.display = 'none';
+	mensagem.style.display = 'none';
+
+	if (cpf == 'sim' && cep == 'sim') {
+		return true;
+
+	} else {
+		if (cpf == 'sim') {
+			bloco.style.display = 'block';
+			titulo.style.display = 'block';
+			mensagem.style.display = 'block';
+			titulo.innerHTML = 'Aviso';
+			mensagem.innerHTML = 'CEP continua inválido'
+
+		} else {
+			if (cep == 'sim') {
+				bloco.style.display = 'block';
+				titulo.style.display = 'block';
+				mensagem.style.display = 'block';
+				titulo.innerHTML = 'Aviso';
+				mensagem.innerHTML = 'CPF continua inválido'
+
+			} else {
+				bloco.style.display = 'block';
+				titulo.style.display = 'block';
+				mensagem.style.display = 'block';
+				titulo.innerHTML = 'Aviso';
+				mensagem.innerHTML = 'CPF e CEP continuam inválidos'
+			}
+		}
+
+		return false;
+	}
+}
+
+function validarFormularioEmpresa() {
+	const cnpj = document.forms['formulario_empresa']['cnpj_valido'].value;
+	const cep = document.forms['formulario_empresa']['cep_valido'].value;
+
+	const bloco = document.getElementById('container_document');
+	const titulo = document.getElementById('title_document');
+	const mensagem = document.getElementById('message_document');
+
+	bloco.style.display = 'none';
+	titulo.style.display = 'none';
+	mensagem.style.display = 'none';
+
+	if (cnpj == 'sim' && cep == 'sim') {
+		return true;
+
+	} else {
+		if (cnpj == 'sim') {
+			bloco.style.display = 'block';
+			titulo.style.display = 'block';
+			mensagem.style.display = 'block';
+			titulo.innerHTML = 'Aviso';
+			mensagem.innerHTML = 'CEP continua inválido'
+
+		} else {
+			if (cep == 'sim') {
+				bloco.style.display = 'block';
+				titulo.style.display = 'block';
+				mensagem.style.display = 'block';
+				titulo.innerHTML = 'Aviso';
+				mensagem.innerHTML = 'CNPJ continua inválido'
+
+			} else {
+				bloco.style.display = 'block';
+				titulo.style.display = 'block';
+				mensagem.style.display = 'block';
+				titulo.innerHTML = 'Aviso';
+				mensagem.innerHTML = 'CNPJ e CEP continuam inválidos'
+			}
+		}
+
+		return false;
 	}
 }

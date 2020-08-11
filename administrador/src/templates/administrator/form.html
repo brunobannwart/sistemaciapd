@@ -170,18 +170,6 @@
 
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
-				<label for='comando_voz' class='checkbox-label'>Comando por voz
-					{% if administrator.comando_voz is True %}
-						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' checked onclick='selecionarComando()'>
-						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz' disabled>
-					{% else %}
-						<input type='checkbox' id='comando_voz' name='comando_voz' value='sim' onclick='selecionarComando()'>
-						<input id='comando_hidden' type='hidden' value='nao' name='comando_voz'>
-					{% endif %}
-  					<span class='checkmark'></span>
-				</label>
-			</div>
-			<div class='form-block-checkbox'>
 				<label for='ajuda_voz' class='checkbox-label'>Ajuda por voz
 					{% if administrator.ajuda_voz is True %}
 						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
@@ -192,7 +180,6 @@
 					{% endif %}
   					<span class='checkmark'></span>
 				</label>
-
 			</div>
 			<div class='form-block-checkbox'>
 				<label for='leitor_tela' class='checkbox-label'>Leitor de tela
@@ -236,15 +223,6 @@
 	function selecionarArquivo() {
 		input.click();
 	}
-
-	function selecionarComando() {
-		if(document.getElementById('comando_voz').checked) {
-    		document.getElementById('comando_hidden').disabled = true;
-		} else {
-			document.getElementById('comando_hidden').disabled = false;
-		}
-	}
-
 
 	function selecionarAjuda() {
 		if(document.getElementById('ajuda_voz').checked) {

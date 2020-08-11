@@ -163,15 +163,22 @@ def job_list_view(request):
 		results = cursor.fetchall()
 
 		for row in results:
-			job = {
-				'id': row[0],
-				'email': row[1],
-				'arquivo': settings.MEDIA_URL + row[2],
-				'titulo': row[3],
-				'data_exp': row[4],
-				'descricao': row[5],
-			}
-			job_list.append(job)
+			company_id = row[1]
+			cursor.execute("SELECT razao_social, email FROM empresa WHERE id=%s", [company_id])
+			company = cursor.fetchone()
+
+			if company != None:
+				job = {
+					'id': row[0],
+					'razao_social': company[0],
+					'email': company[1],
+					'arquivo': settings.MEDIA_URL + row[2],
+					'titulo': row[3],
+					'data_exp': row[4],
+					'descricao': row[5],
+				}
+
+				job_list.append(job)
 
 	context = {
 		'job_list': job_list
@@ -187,20 +194,28 @@ def job_view(request, id=0):
 			result = cursor.fetchone()
 
 			if result != None:
-				job = {
-					'id': result[0],
-					'email': result[1],
-					'arquivo': settings.MEDIA_URL + result[2],
-					'titulo': result[3],
-					'data_exp': result[4],
-					'descricao': result[5],
-				}
+				company_id = result[1]
+				cursor.execute("SELECT razao_social, email FROM empresa WHERE id=%s", [company_id])
+				company = cursos.fetchone()
 
-				context = {
-					'job': job
-				}
+				if company != None:
+					job = {
+						'id': result[0],
+						'razao_social': company[0],
+						'email': company[1],
+						'arquivo': settings.MEDIA_URL + result[2],
+						'titulo': result[3],
+						'data_exp': result[4],
+						'descricao': result[5],
+					}
 
-				return render(request, 'options/job/item.html', context)
+					context = {
+						'job': job
+					}
+
+					return render(request, 'options/job/item.html', context)
+				else:
+					return redirect('/vagas/')
 			else:
 				return redirect('/vagas/')
 	else:
@@ -238,11 +253,15 @@ def videolesson_view(request, id=0):
 			result = cursor.fetchone()
 
 			if result != None:
+				video_url = result[3]
+				video_id = video_url.split('=')[1]
+				embedded_url = 'https://www.youtube.com/embed/' + video_id
+
 				videolesson = {
 					'id': result[0],
 					'arquivo': settings.MEDIA_URL + result[1],
 					'titulo': result[2],
-					'url': result[3],
+					'url': embedded_url,
 					'descricao': result[4],
 				}
 

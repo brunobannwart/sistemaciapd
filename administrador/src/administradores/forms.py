@@ -7,7 +7,6 @@ class AdministradorForm(forms.Form):
 	rf			=	forms.CharField(label='RF', max_length=8)
 	email		=	forms.EmailField(label='Email', max_length=45)
 	senha		=	forms.CharField(label='Senha', max_length=20, widget=forms.PasswordInput)
-	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
 	leitor_tela	=	forms.CharField(label='Leitor de tela', max_length=3)
 	foto		=	forms.ImageField(label='Foto')
@@ -18,14 +17,8 @@ class AdministradorForm(forms.Form):
 		rf 				=	self.cleaned_data.get('rf')
 		email 			=	self.cleaned_data.get('email')
 		senha			=	self.cleaned_data.get('senha')
-		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
 		leitor			=	self.cleaned_data.get('leitor_tela')
-
-		if comando == 'sim':
-			comando_voz = True
-		else:
-			comando_voz = False
 
 		if ajuda == 'sim':
 			ajuda_voz = True
@@ -47,7 +40,6 @@ class AdministradorForm(forms.Form):
 			'rf': rf, 
 			'email': email, 
 			'senha': senha_hash,  
-			'comando_voz': comando_voz, 
 			'ajuda_voz': ajuda_voz, 
 			'leitor_tela': leitor_tela 
 		}
@@ -57,7 +49,6 @@ class AdministradorEditForm(forms.Form):
 	rf			=	forms.CharField(label='RF', max_length=8)
 	email		=	forms.EmailField(label='Email', max_length=45)
 	senha		=	forms.CharField(label='Senha', max_length=20, widget=forms.PasswordInput, required=False)
-	comando_voz =	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz	=	forms.CharField(label='Ajuda por voz', max_length=3)
 	leitor_tela	=	forms.CharField(label='Leitor de tela', max_length=3)
 	foto		=	forms.ImageField(label='Foto', required=False)
@@ -68,14 +59,8 @@ class AdministradorEditForm(forms.Form):
 		rf 				=	self.cleaned_data.get('rf')
 		email 			=	self.cleaned_data.get('email')
 		senha			=	self.cleaned_data.get('senha')
-		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
 		leitor 			=	self.cleaned_data.get('leitor_tela')
-
-		if comando == 'sim':
-			comando_voz = True
-		else:
-			comando_voz = False
 
 		if ajuda == 'sim':
 			ajuda_voz = True
@@ -96,8 +81,7 @@ class AdministradorEditForm(forms.Form):
 			'nome': nome, 
 			'rf': rf, 
 			'email': email, 
-			'senha': senha_hash,  
-			'comando_voz': comando_voz, 
+			'senha': senha_hash,
 			'ajuda_voz': ajuda_voz, 
 			'leitor_tela': leitor_tela 
 		}

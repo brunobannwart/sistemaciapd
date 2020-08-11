@@ -48,11 +48,11 @@
 								<td>{{ company.cnpj }}</td>
 								<td>{{ company.email }}</td>
 								<td>
-									<div class='dropdown' onmouseleave='fecharlista()'>
-										<button class='dropdown-button' onclick='exibirlista()'>
+									<div class='dropdown' onmouseleave='fecharlista(`{{ company.id }}`)'>
+										<button class='dropdown-button' onclick='exibirlista(`{{ company.id }}`)'>
 											Lista de opções
 										</button>
-										<div id='dropdown-content' class='dropdown-content'>
+										<div id='{{ company.id }}' class='dropdown-content'>
 											<a href="{% url 'company-edit' company.id %}">Editar</a>
 											<form method='post' action="{% url 'company-delete' company.id %}">
 												{% csrf_token %}
@@ -80,8 +80,8 @@
 	{% endif %}
 </div>
 <script>
-	function exibirlista() {
-		let menu = document.getElementById('dropdown-content');
+	function exibirlista(id) {
+		let menu = document.getElementById(id);
 
 		if (menu.style.display == 'none') {
 			menu.style.display = 'block';
@@ -90,8 +90,8 @@
 		}
 	}
 
-	function fecharlista() {
-		let menu = document.getElementById('dropdown-content');
+	function fecharlista(id) {
+		let menu = document.getElementById(id);
 
 		menu.style.display = 'none';
 	}

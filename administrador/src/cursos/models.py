@@ -16,6 +16,9 @@ class Curso(models.Model):
 		self.arquivo.delete()
 		super().delete(*args, **kwargs)
 
+	def removeFile(self):
+		self.arquivo.delete()
+
 	class Meta:
 		db_table = 'curso'
 		verbose_name = 'Curso'

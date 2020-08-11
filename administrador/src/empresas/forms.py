@@ -11,7 +11,6 @@ class EmpresaForm(forms.Form):
 	telefone 		=	forms.CharField(label='Telefone', max_length=14)
 	cep				=	forms.CharField(label='CEP', max_length=10)
 	numero			=	forms.CharField(label='Número', max_length=5)
-	comando_voz		=	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz		=	forms.CharField(label='Ajuda por voz', max_length=3)
 	leitor_tela		=	forms.CharField(label='Leitor de tela', max_length=3)
 	foto 			=	forms.ImageField(label='Foto')
@@ -28,14 +27,8 @@ class EmpresaForm(forms.Form):
 		telefone		=	self.cleaned_data.get('telefone')
 		cep 			=	self.cleaned_data.get('cep')
 		numero			=	self.cleaned_data.get('numero')
-		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
 		leitor 			=	self.cleaned_data.get('leitor_tela')
-
-		if comando == 'sim':
-			comando_voz = True
-		else:
-			comando_voz = False
 
 		if ajuda == 'sim':
 			ajuda_voz = True
@@ -60,8 +53,7 @@ class EmpresaForm(forms.Form):
 			'senha': senha_hash, 
 			'telefone': telefone,
 			'cep': cep,  
-			'numero': numero, 
-			'comando_voz': comando_voz,
+			'numero': numero,
 			'ajuda_voz': ajuda_voz,
 			'leitor_tela': leitor_tela
 		}
@@ -75,7 +67,6 @@ class EmpresaEditForm(forms.Form):
 	telefone 		=	forms.CharField(label='Telefone', max_length=14)
 	cep				=	forms.CharField(label='CEP', max_length=10)
 	numero			=	forms.CharField(label='Número', max_length=5)
-	comando_voz		=	forms.CharField(label='Comando por voz', max_length=3)
 	ajuda_voz		=	forms.CharField(label='Ajuda por voz', max_length=3)
 	leitor_tela		=	forms.CharField(label='Leitor de tela', max_length=3)
 	foto 			=	forms.ImageField(label='Foto', required=False)
@@ -92,14 +83,8 @@ class EmpresaEditForm(forms.Form):
 		telefone		=	self.cleaned_data.get('telefone')
 		cep 			=	self.cleaned_data.get('cep')
 		numero			=	self.cleaned_data.get('numero')
-		comando			=	self.cleaned_data.get('comando_voz')
 		ajuda			=	self.cleaned_data.get('ajuda_voz')
 		leitor			=	self.cleaned_data.get('leitor_tela')
-
-		if comando == 'sim':
-			comando_voz = True
-		else:
-			comando_voz = False
 
 		if ajuda == 'sim':
 			ajuda_voz = True
@@ -124,8 +109,7 @@ class EmpresaEditForm(forms.Form):
 			'senha': senha_hash, 
 			'telefone': telefone,
 			'cep': cep,  
-			'numero': numero, 
-			'comando_voz': comando_voz,
+			'numero': numero,
 			'ajuda_voz': ajuda_voz,
 			'leitor_tela': leitor_tela
 		}

@@ -36,7 +36,8 @@ def event_form_view(request, id=0):
 				try:
 					update_event = Evento.objects.get(id=id)
 
-					if request.FILES.get('arquivo', False):
+					if 'arquivo' in request.FILES:
+						update_event.removeFile()
 						update_event.arquivo = data['arquivo']
 					
 					update_event.titulo = data['titulo']

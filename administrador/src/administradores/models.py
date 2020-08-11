@@ -8,7 +8,6 @@ class Administrador(models.Model):
 	email				=	models.EmailField(verbose_name='Email', unique=True, max_length=45)
 	senha_hash			=	models.CharField(verbose_name='Hash senha', max_length=64)
 	
-	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
 	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)
 	leitor_tela			=	models.BooleanField(verbose_name='Leitor de tela', default=False)
 	cod_treino  		=	models.IntegerField(verbose_name='ID do treino facial', null=True)
@@ -24,6 +23,9 @@ class Administrador(models.Model):
 	def delete(self, *args, **kwargs):
 		self.foto.delete()
 		super().delete(*args, **kwargs)
+
+	def removePicture(self):
+		self.foto.delete()
 
 	class Meta:
 		db_table = 'administrador'

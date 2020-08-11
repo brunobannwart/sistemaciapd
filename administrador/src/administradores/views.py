@@ -42,11 +42,11 @@ def admin_form_view(request, id=0):
 						response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'administrador'}, files={ 'file': data['foto'] })
 						
 						if response.status_code == 200:	
-							responseJSON = response.json()		
+							responseJSON = response.json()
 							
 							create_admin = 	Administrador.objects.create(foto=data['foto'], nome=data['nome'], rf=data['rf'], 
 												email=data['email'], senha_hash=data['senha'], cod_treino=responseJSON['treino'],
-												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], leitor_tela=data['leitor_tela'])	
+												ajuda_voz=data['ajuda_voz'], leitor_tela=data['leitor_tela'])	
 							create_admin.save()
 							
 							form = AdministradorForm()
@@ -65,14 +65,14 @@ def admin_form_view(request, id=0):
 				try:
 					update_admin = Administrador.objects.get(id=id)
 
-					if request.FILES.get('foto', False):
+					if 'foto' in request.FILES:
+						update_admin.removePicture()
 						update_admin.foto = data['foto']
 
 					if request.POST.get('senha') != '':
 						update_admin.senha_hash = data['senha']
 					
 					update_admin.nome = data['nome']
-					update_admin.comando_voz = data['comando_voz']
 					update_admin.ajuda_voz = data['ajuda_voz']
 					update_admin.leitor_tela = data['leitor_tela']
 					update_admin.save()
@@ -97,7 +97,6 @@ def admin_form_view(request, id=0):
 				'rf': '',
 				'email': '',
 				'senha': '',
-				'comando_voz': 'nao',
 				'ajuda_voz': 'nao',
 				'leitor_tela': 'nao',
 			}

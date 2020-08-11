@@ -34,15 +34,16 @@ def game_form_view(request, id=0):
 					return redirect('/jogos/')
 			else:
 				try:
-				 	update_game = Jogo.objects.get(id=id)
+					update_game = Jogo.objects.get(id=id)
 
-				 	if request.FILES.get('arquivo', False):
-					 	update_game.arquivo = data['arquivo']
+					if 'arquivo' in request.FILES:
+						update_game.removeFile()
+						update_game.arquivo = data['arquivo']
 
-				 	update_game.titulo = data['titulo']
-				 	update_game.url = data['url']
-				 	update_game.descricao = data['descricao']
-				 	update_game.save()
+					update_game.titulo = data['titulo']
+					update_game.url = data['url']
+					update_game.descricao = data['descricao']
+					update_game.save()
 
 				finally:
 					form = JogoForm()

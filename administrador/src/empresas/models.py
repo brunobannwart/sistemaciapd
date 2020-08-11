@@ -16,7 +16,6 @@ class Empresa(models.Model):
 	cep					=	models.CharField(verbose_name='CEP', max_length=10)
 	numero				=	models.CharField(verbose_name='Número', max_length=5)
 	
-	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
 	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)
 	leitor_tela			=	models.BooleanField(verbose_name='Leitor de tela', default=False)
 	
@@ -31,6 +30,12 @@ class Empresa(models.Model):
 		self.foto.delete()
 		self.logo.delete()
 		super().delete(*args, **kwargs)
+
+	def removePicture(self):
+		self.foto.delete()
+
+	def removeLogo(self):
+		self.logo.delete()
 
 	class Meta:
 		db_table = 'empresa'

@@ -48,11 +48,11 @@
 								<td>{{ admin.rf }}</td>
 								<td>{{ admin.email }}</td>
 								<td>
-									<div class='dropdown' onmouseleave='fecharlista()'>
-										<button class='dropdown-button' onclick='exibirlista()'>
+									<div class='dropdown' onmouseleave='fecharlista(`{{ admin.id }}`)'>
+										<button class='dropdown-button' onclick='exibirlista(`{{ admin.id }}`)'>
 											Lista de opções
 										</button>
-										<div id='dropdown-content' class='dropdown-content'>
+										<div id='{{ admin.id }}' class='dropdown-content'>
 											<a href="{% url 'admin-edit' admin.id %}">Editar</a>
 											<form method='post' action="{% url 'admin-delete' admin.id %}">
 												{% csrf_token %}
@@ -80,8 +80,8 @@
 	{% endif %}
 </div>
 <script>
-	function exibirlista() {
-		let menu = document.getElementById('dropdown-content');
+	function exibirlista(id) {
+		let menu = document.getElementById(id);
 
 		if (menu.style.display == 'none') {
 			menu.style.display = 'block';
@@ -90,8 +90,8 @@
 		}
 	}
 
-	function fecharlista() {
-		let menu = document.getElementById('dropdown-content');
+	function fecharlista(id) {
+		let menu = document.getElementById(id);
 
 		menu.style.display = 'none';
 	}

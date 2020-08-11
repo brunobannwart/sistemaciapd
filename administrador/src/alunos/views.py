@@ -46,7 +46,7 @@ def student_form_view(request, id=0):
 
 							create_student = Aluno.objects.create(foto=data['foto'], nome=data['nome'], data_nasc=data['data_nasc'], email=data['email'], 
 												senha_hash=data['senha'], cpf=data['cpf'], celular=data['celular'], cod_treino=responseJSON['treino'],
-												cep=data['cep'], numero=data['numero'], comando_voz=data['comando_voz'],ajuda_voz=data['ajuda_voz'], 
+												cep=data['cep'], numero=data['numero'], ajuda_voz=data['ajuda_voz'], 
 												leitor_tela=data['leitor_tela'], outra_info=data['outra_info'])
 							create_student.save()
 
@@ -68,7 +68,8 @@ def student_form_view(request, id=0):
 				try:
 					update_student = Aluno.objects.get(id=id)
 					
-					if request.FILES.get('foto', False):
+					if 'foto' in request.FILES:
+						update_student.removePicture()
 						update_student.foto = data['foto']
 
 					if request.POST.get('senha') != '':
@@ -85,7 +86,6 @@ def student_form_view(request, id=0):
 					update_student.cep = data['cep']
 					update_student.celular = data['celular']
 					update_student.numero = data['numero']
-					update_student.comando_voz = data['comando_voz']
 					update_student.ajuda_voz = data['ajuda_voz']
 					update_student.leitor_tela = data['leitor_tela']
 					update_student.outra_info = data['outra_info']
@@ -113,7 +113,7 @@ def student_form_view(request, id=0):
 				'celular': '',
 				'cep': '',
 				'numero': '',
-				'comando_voz': 'nao',
+				'cid': [],
 				'ajuda_voz': 'nao',
 				'leitor_tela': 'nao',
 				'outra_info': '',

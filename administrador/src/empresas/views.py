@@ -48,7 +48,7 @@ def company_form_view(request, id=0):
 												nome_contato=data['nome_contato'], email=data['email'], 
 												senha_hash=data['senha'], telefone=data['telefone'], 
 												cep=data['cep'], numero=data['numero'], cod_treino=responseJSON['treino'],
-												comando_voz=data['comando_voz'], ajuda_voz=data['ajuda_voz'], leitor_tela=data['leitor_tela'])		
+												ajuda_voz=data['ajuda_voz'], leitor_tela=data['leitor_tela'])		
 							create_company.save()
 
 							return redirect('/empresas/')
@@ -63,20 +63,22 @@ def company_form_view(request, id=0):
 			else:
 				try:
 					update_company = Empresa.objects.get(id=id)
-				
-					if request.FILES.get('foto', False):
+
+					if 'foto' in request.FILES and update_company.nome_contato != data['nome_contato']:
 						try:
 							response = requests.post('http://127.0.0.1:5000/api/train', data={'group': 'empresa'}, files={ 'file': data['foto'] })
 
 							if response.status_code == 200:
 								responseJSON = response.json()
+								update_company.removePicture()
 								update_company.foto = data['foto']
 								update_company.cod_treino = responseJSON['treino']
 								
 						except Exception as e:
 							print(e)
 				
-					if request.FILES.get('logo', False):
+					if 'logo' in request.FILES:
+						update_company.removeLogo()
 						update_company.logo = data['logo']
 
 					if request.POST.get('senha') != '':
@@ -87,7 +89,6 @@ def company_form_view(request, id=0):
 					update_company.telefone = data['telefone']
 					update_company.cep = data['cep']
 					update_company.numero = data['numero']
-					update_company.comando_voz = data['comando_voz']
 					update_company.ajuda_voz = data['ajuda_voz']
 					update_company.leitor_tela = data['leitor_tela']
 					update_company.save()
@@ -114,7 +115,6 @@ def company_form_view(request, id=0):
 				'telefone': '',
 				'cep': '',
 				'numero': '',
-				'comando_voz': 'nao',
 				'ajuda_voz': 'nao',
 				'leitor_tela': 'nao',
 			}

@@ -36,7 +36,8 @@ def job_form_view(request, id=0):
 				try:
 					update_job = Vaga.objects.get(id=id)
 
-					if request.FILES.get('arquivo', False):
+					if 'arquivo' in request.FILES:
+						update_job.removeFile()
 						update_job.arquivo = data['arquivo']
 
 					update_job.titulo = data['titulo']

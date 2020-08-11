@@ -17,6 +17,9 @@ class Vaga(models.Model):
 		self.arquivo.delete()
 		super().delete(*args, **kwargs)
 
+	def removeFile(self):
+		self.arquivo.delete()
+
 	class Meta:
 		db_table = 'vaga'
 		verbose_name = 'Vaga'

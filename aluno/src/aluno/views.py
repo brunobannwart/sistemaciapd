@@ -64,31 +64,34 @@ def camera_view(request):
 		img.save(photo, 'png')
 		photo.seek(0)
 
-		response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'aluno'}, files={ 'file': ('photo.png', photo, 'image/png') })
+		try:
+			response = requests.post('http://127.0.0.1:5000/api/recognize', data={'group': 'aluno'}, files={ 'file': ('photo.png', photo, 'image/png') })
 
-		if response.status_code == 200:
-			responseJSON = response.json()
-			student_codigo = responseJSON['reconhecimento']
+			if response.status_code == 200:
+				responseJSON = response.json()
+				student_codigo = responseJSON['reconhecimento']
 
-			with connection.cursor() as cursor:
-				cursor.execute("SELECT id, email, senha_hash FROM aluno WHERE cod_treino=%s", [student_codigo])
-				result = cursor.fetchone()
+				with connection.cursor() as cursor:
+					cursor.execute("SELECT id, email, senha_hash FROM aluno WHERE cod_treino=%s", [student_codigo])
+					result = cursor.fetchone()
 
-				if result != None:
-					data = { 'id': result[0], 'email': result[1], 'senha_hash': result[2] }
-					
-					login_student = LoginBackend.authenticate(request, data['email'], data['senha_hash'])
+					if result != None:
+						data = { 'id': result[0], 'email': result[1], 'senha_hash': result[2] }
+						
+						login_student = LoginBackend.authenticate(request, data['email'], data['senha_hash'])
 
-					if login_student != None and login_student != False:
-						login_student.is_authenticated = True
-						login_student.save()
-						login(request, login_student, backend='aluno.backend.LoginBackend')
-						return redirect('/inicio/')
+						if login_student != None and login_student != False:
+							login_student.is_authenticated = True
+							login_student.save()
+							login(request, login_student, backend='aluno.backend.LoginBackend')
+							return redirect('/inicio/')
+						else:
+							return redirect('login')
 					else:
 						return redirect('login')
-				else:
-					return redirect('login')
-		else:
+			else:
+				return redirect('login')
+		except:
 			return redirect('login')
 
 	return render(request, 'login/camera.html', {})

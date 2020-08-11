@@ -36,8 +36,9 @@ def course_form_view(request, id=0):
 			else:
 				try:
 					update_course = Curso.objects.get(id=id)
-				
-					if request.FILES.get('arquivo', False):
+
+					if 'arquivo' in request.FILES:
+						update_course.removeFile()
 						update_course.arquivo = data['arquivo']
 				
 					update_course.titulo = data['titulo']

@@ -17,7 +17,6 @@ class Aluno(models.Model):
 	numero				=	models.CharField(verbose_name='Número', max_length=5)
 	cid 				=	models.ManyToManyField(Cid, related_name='cid')
 	
-	comando_voz			=	models.BooleanField(verbose_name='Comando por voz', default=False)
 	ajuda_voz 			=	models.BooleanField(verbose_name='Ajuda por voz', default=False)
 	leitor_tela			=	models.BooleanField(verbose_name='Leitor de tela', default=False)
 	outra_info			=	models.TextField(verbose_name='Outras Informações', blank=True, null=False, max_length=100)
@@ -37,6 +36,9 @@ class Aluno(models.Model):
 	def delete(self, *args, **kwargs):
 		self.foto.delete()
 		super().delete(*args, **kwargs)
+
+	def removePicture(self):
+		self.foto.delete()
 
 	class Meta:
 		db_table = 'aluno'

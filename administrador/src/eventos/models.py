@@ -16,6 +16,9 @@ class Evento(models.Model):
 		self.arquivo.delete()
 		super().delete(*args, **kwargs)
 
+	def removeFile(self):
+		self.arquivo.delete()
+
 	class Meta:
 		db_table = 'evento'
 		verbose_name = 'Evento'

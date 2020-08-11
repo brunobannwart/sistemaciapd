@@ -3,10 +3,10 @@ import hashlib
 
 # Create your form here.
 class CurriculoForm(forms.Form):
-	instituicao_ensino 	= 	forms.CharField(label='Instituições de ensino', widget=forms.Textarea, max_length=100)
-	curso_extra 		=	forms.CharField(label='Cursos extras', widget=forms.Textarea, max_length=100)
-	empresa 			=	forms.CharField(label='Empresas', widget=forms.Textarea, max_length=100)
-	cargo				=	forms.CharField(label='Cargos ocupados', widget=forms.Textarea, max_length=100)
+	instituicao_ensino 	= 	forms.CharField(label='Instituições de ensino', max_length=255)
+	curso_extra 		=	forms.CharField(label='Cursos extras', max_length=255)
+	empresa 			=	forms.CharField(label='Empresas', max_length=255)
+	cargo				=	forms.CharField(label='Cargos ocupados', max_length=255)
 
 	def clean_form(self):
 		instituicao	=	self.cleaned_data.get('instituicao_ensino')
