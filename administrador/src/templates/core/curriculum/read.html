@@ -56,11 +56,11 @@
 				<div class='form-block-checkbox'>
 					<label for='liberado' class='checkbox-label'>Liberado
 						{% if curriculum.liberado %}
-							<input type='checkbox' id='liberado' name='liberado' value='sim' checked onclick='liberar()'>
-							<input id='liberado_hidden' type='hidden' value='nao' name='liberado' disabled>
+							<input aria-hidden='true' type='checkbox' id='liberado' name='liberado' value='sim' checked onclick='liberar()'>
+							<input aria-hidden='true' id='liberado_hidden' type='hidden' value='nao' name='liberado' disabled>
 						{% else %}
-							<input type='checkbox' id='liberado' name='liberado' value='sim' onclick='liberar()'>
-							<input id='liberado_hidden' type='hidden' value='nao' name='liberado'>
+							<input aria-hidden='true' type='checkbox' id='liberado' name='liberado' value='sim' onclick='liberar()'>
+							<input aria-hidden='true' id='liberado_hidden' type='hidden' value='nao' name='liberado'>
 						{% endif %}
 						<span class='checkmark'></span>
 					</label>
@@ -78,5 +78,13 @@
 				document.getElementById('liberado_hidden').disabled = false;
 			}
 		}
+
+		$("textarea").keydown(function(evento) {
+		let texto_entrada = evento.key;
+
+		if(/[a-zA-Z0-9\s\@\-\&\*\(\)\!]/.test(texto_entrada)) {
+			audio(`${texto_entrada}`);
+		}
+	});
 	</script>
 {% endblock %}

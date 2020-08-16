@@ -11,8 +11,8 @@
 	{% if student_list|length > 0 %}
 		<div class='list-container'>
 			<div class='list-search'>
-				<input type='text' class='search-input' placeholder='Pesquise por nível escolar...'>
-				<button class='search-button' type='button' onclick='pesquisaCandidato()'>
+				<input type='text' class='search-input' placeholder='Pesquise por instituições de ensino...'>
+				<button aria-label='Pesquisar candidato' class='search-button' type='button' onclick='pesquisaCandidato()'>
 					<i class='fa fa-search'></i>
 				</button>
 			</div>
@@ -79,5 +79,13 @@
 
 		menu.style.display = 'none';
 	}
+
+	$("input").keydown(function(evento) {
+		let texto_entrada = evento.key;
+
+		if(/[a-zA-Z0-9\s\@\-\&\*\(\)\!]/.test(texto_entrada)) {
+			audio(`${texto_entrada}`);
+		}
+	});
 </script>
 {% endblock %}

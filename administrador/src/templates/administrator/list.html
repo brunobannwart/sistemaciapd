@@ -22,7 +22,7 @@
 		<div class='list-container'>
 			<div class='list-search'>
 				<input type='text' class='search-input' placeholder='Pesquise por nome...'>
-				<button class='search-button' type='button' onclick='pesquisaAdmin()'>
+				<button aria-label='Pesquisar administrador' class='search-button' type='button' onclick='pesquisaAdmin()'>
 					<i class='fa fa-search'></i>
 				</button>
 			</div>
@@ -95,5 +95,13 @@
 
 		menu.style.display = 'none';
 	}
+
+	$("input").keydown(function(evento) {
+		let texto_entrada = evento.key;
+
+		if(/[a-zA-Z0-9\s\@\-\&\*\(\)\!]/.test(texto_entrada)) {
+			audio(`${texto_entrada}`);
+		}
+	});
 </script>
 {% endblock %}

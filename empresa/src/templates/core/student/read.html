@@ -111,7 +111,7 @@
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='cid'>CID</label>
-				<select id='cid' name='cid'>
+				<select id='cid' name='cid' title='Lista de cids do candidato'>
 					{% for cid in student.cid %}
 						<option value='{{ cid.id }}'>{{ cid.codigo }} - {{ cid.descricao }}</option>
 					{% endfor %}

@@ -17,6 +17,10 @@ body {
     background: #fafafa;
 }
 
+.leitor-selecionar {
+    border: 5px solid rgb(0, 191, 255, 0.7);
+}
+
 /* Header Style */
  .header header {
     margin-left: 255px;

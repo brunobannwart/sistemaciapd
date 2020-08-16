@@ -17,7 +17,7 @@
 	<div class='error-overlay'>
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
-			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
+			<button aria-label='Fechar aviso' class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
 			<div class='error-content'>
 				<p>{{ error }}</p>
 			</div>
@@ -28,7 +28,7 @@
 <div id='container' class='message-overlay' style='display: none;'>
 	<div class='message-popup' onclick="this.parentElement.style.display='none'">
 		<h2 id='title'></h2>
-		<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
+		<button aria-label='Fechar mensagem' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
 		<div class='message-content'>
 			<p id='address'></p>
 			<p id='district'></p>
@@ -42,7 +42,7 @@
 <div id='container_document' class='message-overlay' style='display: none;'>
 	<div class='message-popup' onclick="this.parentElement.style.display='none'">
 		<h2 id='title_document'></h2>
-		<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
+		<button aria-label='Fechar mensagem' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
 		<div class='message-content'>
 			<p id='message_document'></p>		
 		</div>
@@ -55,8 +55,8 @@
 	</button>
 	<form name='formulario_empresa' onsubmit='return validarFormularioEmpresa()' autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
-		<input id='cep_valido' name='cep_valido' type='hidden' value='' />
-		<input id='cnpj_valido' name='cnpj_valido' type='hidden' value='' />
+		<input aria-hidden='true' id='cep_valido' name='cep_valido' type='hidden' value='' />
+		<input aria-hidden='true' id='cnpj_valido' name='cnpj_valido' type='hidden' value='' />
 
 		<div class='form-group'>
 			<div class='form-file-block' style='padding-left: 40px;'>
@@ -80,9 +80,9 @@
 
 					<div class='input-file-hidden'>
 						{% if company.logo %}
-							<input type='file' accept='image/*' name='logo' id='logo'/>
+							<input aria-hidden='true' type='file' accept='image/*' name='logo' id='logo'/>
 						{% else %}
-							<input type='file' accept='image/*' name='logo' id='logo' required/>
+							<input aria-hidden='true' type='file' accept='image/*' name='logo' id='logo' required/>
 						{% endif %}
 					</div>
 				</div>
@@ -109,9 +109,9 @@
 
 					<div class='input-file-hidden'>
 						{% if company.foto %}
-							<input type='file' accept='image/*' name='foto' id='foto'/>
+							<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto'/>
 						{% else %}
-							<input type='file' accept='image/*' name='foto' id='foto' required/>
+							<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto' required/>
 						{% endif %}
 					</div>
 				</div>
@@ -161,7 +161,6 @@
 						onblur="validarCNPJ(this)"
 						value='{{ company.cnpj }}' 
 					>
-
 				{% endif %}
 			</div>
 		</div>
@@ -292,25 +291,25 @@
 
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
-				<label for='ajuda_voz' class='checkbox-label'>Ajuda por voz
+				<label id='label_ajuda_voz' for='ajuda_voz' class='checkbox-label'>Ajuda por voz
 					{% if company.ajuda_voz is True %}
-						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
-						<input id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz' disabled>
+						<input aria-hidden='true' type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
+						<input aria-hidden='true' id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz' disabled>
 					{% else %}
-						<input type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' onclick='selecionarAjuda()'>
-						<input id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz'>
+						<input aria-hidden='true' type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' onclick='selecionarAjuda()'>
+						<input aria-hidden='true' id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz'>
 					{% endif %}
   					<span class='checkmark'></span>
 				</label>
 			</div>
 			<div class='form-block-checkbox'>
-				<label for='leitor_tela' class='checkbox-label'>Leitor de tela
+				<label id='label_leitor_tela' for='leitor_tela' class='checkbox-label'>Leitor de tela
 					{% if company.leitor_tela is True %}
-						<input type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' checked onclick='selecionarLeitor()'>
-						<input id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela' disabled>
+						<input aria-hidden='true' type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' checked onclick='selecionarLeitor()'>
+						<input aria-hidden='true' id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela' disabled>
 					{% else %}
-						<input type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' onclick='selecionarLeitor()'>
-						<input id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela'>
+						<input aria-hidden='true' type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' onclick='selecionarLeitor()'>
+						<input aria-hidden='true' id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela'>
 					{% endif %}
   					<span class='checkmark'></span>
 				</label>
@@ -324,6 +323,21 @@
 	const input = document.getElementById('foto');
 	const imagem = document.getElementById('preview_image')
 	const icone = document.getElementById('preview_icon');
+
+	const label_leitor = document.getElementById('label_leitor_tela');
+	const label_ajuda = document.getElementById('label_ajuda_voz');
+
+	label_leitor.addEventListener('keyup', function(evento) {
+  		if (evento.keyCode === 13) {
+    		document.getElementById('leitor_tela').click();
+  		}
+	});
+
+	label_ajuda.addEventListener('keyup', function(evento) {
+		if (evento.keyCode === 13) {
+    		document.getElementById('ajuda_voz').click();
+  		}
+	});
 
 	input.addEventListener('change', function() {
 		const arquivo = this.files[0];
@@ -386,5 +400,13 @@
 			document.getElementById('leitor_tela_hidden').disabled = false;
 		}
 	}
+
+	$("input").keydown(function(evento) {
+		let texto_entrada = evento.key;
+
+		if(/[a-zA-Z0-9\s\@\-\&\*\(\)\!]/.test(texto_entrada)) {
+			audio(`${texto_entrada}`);
+		}
+	});
 </script>
 {% endblock %}

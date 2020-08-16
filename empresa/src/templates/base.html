@@ -9,8 +9,15 @@
     <link rel='stylesheet' type='text/css' href="{% static '/css/base.css' %}">
     <link rel='stylesheet' type='text/css' href="{% static '/css/list.css' %}">
     <link rel='stylesheet' type='text/css' href="{% static '/css/form.css' %}">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script src='https://apis.google.com/js/api.js'></script>
     <script type='text/javascript' src="{% static '/javascript/search.js' %}"></script>
+    {% if request.user.ajuda_voz %}
+        <script type='text/javascript' src="{% static '/javascript/voice.js' %}"></script>
+    {% endif %}
+    {% if request.user.leitor_tela %}
+        <script type='text/javascript' src="{% static '/javascript/reader.js' %}"></script>
+    {% endif %}
     <title>CIAPD - Empresa</title>
 </head>
 <body>
@@ -27,19 +34,19 @@
     </div>
     <div class='container'>
         <aside class='navbar'>
-            <nav class='container-home'>
+            <div class='container-home'>
                 <img 
                     src="{% static 'assets/ciapdwhite.svg' %}" 
                     alt='Logo do CIAPD' 
                 />
-                <ul>
-                    <li>
+                <ul aria-hidden='true'>
+                    <li aria-hidden='true'>
                         <i class='fas fa-home'>
                             Empresarial
                         </i>
                     </li>
                 </ul>
-            </nav>
+            </div>
             <nav class='container-options'>
                 <br/><strong>Opções</strong>
                 <ul>

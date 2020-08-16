@@ -42,4 +42,13 @@
 		<button type='submit'>Salvar</button>
 	</form>
 </div>
+<script>
+	$("textarea").keydown(function(evento) {
+		let texto_entrada = evento.key;
+
+		if(/[a-zA-Z0-9\s\@\-\&\*\(\)\!]/.test(texto_entrada)) {
+			audio(`${texto_entrada}`);
+		}
+	});
+</script>
 {% endblock %}

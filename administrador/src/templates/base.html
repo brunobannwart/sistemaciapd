@@ -11,10 +11,16 @@
     <link rel='stylesheet' type='text/css' href="{% static '/css/form.css' %}">
     <script src='https://kit.fontawesome.com/50797efa34.js'></script>
     <script src='https://apis.google.com/js/api.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script type='text/javascript' src="{% static '/javascript/search.js' %}"></script>
     <script type='text/javascript' src="{% static '/javascript/mask.js' %}"></script>
     <script type='text/javascript' src="{% static '/javascript/validate.js' %}"></script>
-    <script type='text/javascript' src="{% static '/javascript/voice.js' %}"></script>
+    {% if request.user.ajuda_voz %}
+        <script type='text/javascript' src="{% static '/javascript/voice.js' %}"></script>
+    {% endif %}
+    {% if request.user.leitor_tela %}
+        <script type='text/javascript' src="{% static '/javascript/reader.js' %}"></script>
+    {% endif %}
     <title>CIAPD - Administrativo</title>
 </head>
 <body>
@@ -33,19 +39,19 @@
     </div>
     <div class='container'>
         <aside class='navbar'>
-            <nav class='container-home'>
+            <div class='container-home'>
                 <img 
                     src="{% static 'assets/ciapdwhite.svg' %}" 
                     alt='Logo do CIAPD' 
                 />
-                <ul>
-                    <li>
+                <ul aria-hidden='true'>
+                    <li aria-hidden='true'>
                         <i class='fas fa-home'>
                             Administrativo
                         </i>
                     </li>
                 </ul>
-            </nav>
+            </div>
             <nav class='container-accounts'>
                 <br/><strong>Contas</strong>
                 <ul>

@@ -72,11 +72,11 @@ def student_list_view(request):
 				'celular': row[7],
 				'cep': row[8],
 				'numero': row[9],
-				'outra_info': row[13],
-				'instituicao_ensino': row[14],
-				'curso_extra': row[15],
-				'empresa': row[16],
-				'cargo': row[17],
+				'outra_info': row[12],
+				'instituicao_ensino': row[13],
+				'curso_extra': row[14],
+				'empresa': row[15],
+				'cargo': row[16],
 			}
 			student_list.append(student)
 	
@@ -123,11 +123,11 @@ def student_read_view(request, id=0):
 					'cep': result[8],
 					'numero': result[9],
 					'cid': cids,
-					'outra_info': result[13],
-					'instituicao_ensino': result[14],
-					'curso_extra': result[15],
-					'empresa': result[16],
-					'cargo': result[17],
+					'outra_info': result[12],
+					'instituicao_ensino': result[13],
+					'curso_extra': result[14],
+					'empresa': result[15],
+					'cargo': result[16],
 				}
 		
 				context = {

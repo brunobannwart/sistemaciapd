@@ -52,9 +52,9 @@
 
 				<div class='input-file-hidden'>
 					{% if game.arquivo %}
-						<input type='file' accept='image/*' name='arquivo' id='arquivo'/>
+						<input aria-hidden='true' type='file' accept='image/*' name='arquivo' id='arquivo'/>
 					{% else %}
-						<input type='file' accept='image/*' name='arquivo' id='arquivo' required/>
+						<input aria-hidden='true' type='file' accept='image/*' name='arquivo' id='arquivo' required/>
 					{% endif %}
 				</div>
 			</div>
@@ -121,5 +121,13 @@
 	function selecionarArquivo() {
 		input.click();
 	}
+
+	$("input, textarea").keydown(function(evento) {
+		let texto_entrada = evento.key;
+
+		if(/[a-zA-Z0-9\s\@\-\&\*\(\)\!]/.test(texto_entrada)) {
+			audio(`${texto_entrada}`);
+		}
+	});
 </script>
 {% endblock %}
