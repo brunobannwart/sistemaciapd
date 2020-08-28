@@ -6,7 +6,7 @@
 			<i class='fas fa-arrow-circle-left'></i>
 		</button>
 		<header>
-			<strong>{{ videolesson.titulo }}</strong>
+			<strong onmouseenter='ajudaVoz(`{{ videolesson.titulo }}`)'>{{ videolesson.titulo }}</strong>
 		</header>
 		<div class='wrapper-content'>
 			<iframe 
@@ -15,9 +15,30 @@
 				src='{{ videolesson.url }}' 
 				frameborder='0' 
 				allowfullscreen
-				title='Video no youtube da {{ videolesson.titulo }}' 
+				id='iframe_videolesson'
+				allow='autoplay'
+				title='Video no youtube da {{ videolesson.titulo }}'
 			>
 			</iframe>
 		</div>
+		{% if request.user.leitor_tela %}
+			<div class='wrapper-button'>
+				<button type='button' id='playvideo'>Reproduzir video-aula</button>
+			</div>
+		{% endif %}
 	</div>
+	{% if request.user.leitor_tela %}
+		<script>
+			$('#playvideo').click(function(evento) {
+				let url = $('#iframe_videolesson')[0].src;
+
+				if (url.includes('?autoplay=1')) {
+					url = url.replace('?autoplay=1', '');
+					$('#iframe_videolesson')[0].src = url;
+				}
+
+				$('#iframe_videolesson')[0].src += '?autoplay=1';
+			});
+		</script>
+	{% endif %}
 {% endblock %}

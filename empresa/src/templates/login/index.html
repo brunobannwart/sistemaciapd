@@ -6,6 +6,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1' />
     <link rel='stylesheet' type='text/css' href="{% static 'css/login.css' %}">
     <link rel='shortcut icon' href="{% static 'assets/favicon.ico' %}" />
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script type='text/javascript' src="{% static 'javascript/reader.js' %}"></script>
     <title>CIAPD - Empresa</title>
 </head>
 <body>
@@ -38,6 +40,13 @@
                         <label for='senha'>Senha *</label>
                         <input type='password' id='senha' name='senha' class='password' placeholder='Digite sua senha' maxlength='50' value='{{ login.senha }}' />
 
+                        <div class='checkbox'>
+                            <label id='label_controle' for='controle_leitor' class='checkbox-label'>Leitor de tela
+                                <input aria-hidden='true' type='checkbox' id='controle_leitor' name='controle_leitor' value='sim' checked>
+                                <span class='checkmark'></span>
+                            </label>
+                        </div>
+
                         <div class='help'>
                             <small>Não compartilhe o seu e-mail e senha com ninguém</small>
                             <a href="{% url 'forgot' %}"> Esqueceu seus dados? </a>
@@ -55,4 +64,24 @@
         </div>
     </div>
 </body>
+<script>
+    const label_controle = document.getElementById('label_controle');
+    const controle_leitor = document.getElementById('controle_leitor');
+
+    label_controle.addEventListener('keyup', function(evento) {
+        if (evento.keyCode === 13) {
+            document.getElementById('controle_leitor').click();
+        }
+    });
+
+    $("input").keydown(function(evento) {
+        let texto_entrada = evento.key;
+
+        if (controle_leitor.checked) {
+            if(/[a-zA-Z0-9\s\@\-\&\*\(\)\!]/.test(texto_entrada)) {
+                audio(`${texto_entrada}`);
+            }
+        }
+    });
+</script>
 </html>

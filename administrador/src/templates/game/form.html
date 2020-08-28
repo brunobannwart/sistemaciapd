@@ -47,8 +47,21 @@
 			</div>
 
 			<div class='form-file'>
-				<label for='logo_botao'>Logo do Jogo</label>
-				<button id='logo_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione um logo</button>
+				{% if game.arquivo %}
+					<label for='logo_botao'>Logo do jogo</label>
+				{% else %}
+					<label for='logo_botao'>Logo do jogo *</label>
+				{% endif %}
+
+				<button 
+					id='logo_botao' 
+					type='button' 
+					class='file' 
+					onclick='selecionarArquivo()'
+					onmouseenter='ajudaVoz(`Escolher logo do jogo`)'
+				>
+					Selecione um logo
+				</button>
 
 				<div class='input-file-hidden'>
 					{% if game.arquivo %}
@@ -70,7 +83,8 @@
 					required 
 					placeholder='Preencha com o titulo'
 					maxlength='45' 
-					value='{{ game.titulo }}' 
+					value='{{ game.titulo }}'
+					onmouseenter='ajudaVoz(`Preencher com o titulo`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -83,14 +97,15 @@
 					required
 					placeholder='Preencha com a URL'
 					title='Preencha campo com o formato padrão de URL'
-					value='{{ game.url }}' 
+					value='{{ game.url }}'
+					onmouseenter='ajudaVoz(`Preencher URL no formato padrão`)' 
 				>
 			</div>
 		</div>
 
 		<div class='form-block' style='margin-top: 15px'>
 			<label for='descricao'>Descrição *</label>
-			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required>{{ game.descricao }}</textarea>
+			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required onmouseenter='ajudaVoz(`Preencher com uma descrição`)'>{{ game.descricao }}</textarea>
 		</div>
 
 		<button type='submit'>Salvar</button>

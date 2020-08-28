@@ -16,6 +16,10 @@ body, input, button {
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
+.leitor-selecionar {
+    border: 5px solid rgb(0, 191, 255, 0.7);
+}
+
 .background {
     background: #000 url('../assets/background.jpg');
     background-size: cover;
@@ -140,6 +144,70 @@ body, input, button {
     height: 45px;
     padding: 0 15px;
     font-size: 16px;
+}
+
+.content form .checkbox {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 20px;
+}
+
+.content form .checkbox label.checkbox-label {
+    display: block;
+    position: relative;
+    padding-left: 27px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.content form .checkbox label.checkbox-label input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.content form .checkbox label.checkbox-label span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #EEE;
+  border-radius: 50%;
+}
+
+.content form .checkbox label.checkbox-label:hover input[type='checkbox'] ~.checkmark {
+  background-color: #CCC
+}
+
+.content form .checkbox label.checkbox-label input[type='checkbox']:checked ~.checkmark {
+  background-color: #2196F3;
+}
+
+.content form .checkbox label.checkbox-label .checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 0px;
+  width: 3px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.content form .checkbox label.checkbox-label input[type='checkbox']:checked ~.checkmark:after {
+  display: block;
 }
 
 .content button.login-admin {

@@ -6,14 +6,14 @@
 			<i class='fas fa-arrow-circle-left'></i>
 		</button>
 		<header>
-			<strong>{{ event.titulo }}</strong>
+			<strong onmouseenter='ajudaVoz(`{{ event.titulo }}`)'>{{ event.titulo }}</strong>
 		</header>
 		<div class='item-image'>
 			<img src='{{ event.arquivo }}' alt='Imagem do evento {{ event.titulo }}' crossorigin/>
 		</div>
 		<div class='item-content'>
-			<p>Data de expiração: {{ event.data_exp }}</p>
-			<p>{{ event.descricao }}</p>
+			<p onmouseenter='ajudaVoz(`Data de expiração: {{ event.data_exp }}`)'>Data de expiração: {{ event.data_exp }}</p>
+			<p onmouseenter='ajudaVoz(`{{ event.descricao }}`)'>{{ event.descricao }}</p>
 		</div>
 	</div>
 {% endblock %}

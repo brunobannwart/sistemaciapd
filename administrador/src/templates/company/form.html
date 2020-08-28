@@ -55,8 +55,13 @@
 	</button>
 	<form name='formulario_empresa' onsubmit='return validarFormularioEmpresa()' autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
-		<input aria-hidden='true' id='cep_valido' name='cep_valido' type='hidden' value='' />
-		<input aria-hidden='true' id='cnpj_valido' name='cnpj_valido' type='hidden' value='' />
+		{% if edit is True %}
+			<input aria-hidden='true' id='cep_valido' name='cep_valido' type='hidden' value='sim' />
+			<input aria-hidden='true' id='cnpj_valido' name='cnpj_valido' type='hidden' value='sim' />
+		{% else %}
+			<input aria-hidden='true' id='cep_valido' name='cep_valido' type='hidden' value='' />
+			<input aria-hidden='true' id='cnpj_valido' name='cnpj_valido' type='hidden' value='' />
+		{% endif %}
 
 		<div class='form-group'>
 			<div class='form-file-block' style='padding-left: 40px;'>
@@ -75,8 +80,21 @@
 				</div>
 
 				<div class='form-file'>
-					<label for='logo_botao'>Logo da Empresa</label>
-					<button id='logo_botao' type='button' class='file' onclick='selecionarLogo()'>Selecione um logo</button>
+					{% if company.logo %}
+						<label for='logo_botao'>Logo da empresa</label>
+					{% else %}
+						<label for='logo_botao'>Logo da empresa *</label>
+					{% endif %}
+					
+					<button 
+						id='logo_botao' 
+						type='button' 
+						class='file' 
+						onclick='selecionarLogo()'
+						onmouseenter='ajudaVoz(`Escolher logo da empresa`)' 
+					>
+						Selecione um logo
+					</button>
 
 					<div class='input-file-hidden'>
 						{% if company.logo %}
@@ -104,8 +122,21 @@
 				</div>
 
 				<div class='form-file'>
-					<label for='foto_botao'>Foto do Contato</label>
-					<button id='foto_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione uma foto</button>
+					{% if company.foto %}
+						<label for='foto_botao'>Foto do contato</label>
+					{% else %}
+						<label for='foto_botao'>Foto do contato *</label>
+					{% endif %}
+
+					<button 
+						id='foto_botao' 
+						type='button' 
+						class='file' 
+						onclick='selecionarArquivo()'
+						onmouseenter='ajudaVoz(`Escolher foto do contato`)'
+					>
+						Selecione uma foto
+					</button>
 
 					<div class='input-file-hidden'>
 						{% if company.foto %}
@@ -128,7 +159,8 @@
 					required
 					placeholder='Preencha com a razão social' 
 					maxlength='45'
-					value='{{ company.razao_social }}' 
+					value='{{ company.razao_social }}'
+					onmouseenter='ajudaVoz(`Preencher razão social`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -146,6 +178,8 @@
 						onkeypress="mascaraCNPJ(this)" 
 						onblur="validarCNPJ(this)"
 						value='{{ company.cnpj }}' 
+						readonly 
+						onmouseenter='ajudaVoz(`CNPJ não pode ser alterado`)'
 					>
 				{% else %}
 					<input 
@@ -159,7 +193,8 @@
 						title='Preencha campo com o formato padrão de CNPJ'  
 						onkeypress="mascaraCNPJ(this)" 
 						onblur="validarCNPJ(this)"
-						value='{{ company.cnpj }}' 
+						value='{{ company.cnpj }}'
+						onmouseenter='ajudaVoz(`Preencher CNPJ no formato padrão`)' 
 					>
 				{% endif %}
 			</div>
@@ -177,7 +212,8 @@
 					placeholder='Preencha com o nome'
 					title='Preencha campo com apenas caracters alfabéticos' 
 					maxlength='45'
-					value='{{ company.nome_contato }}' 
+					value='{{ company.nome_contato }}'
+					onmouseenter='ajudaVoz(`Preencher nome com apenas letras`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -192,7 +228,8 @@
 					pattern='[\(][0-9]{2}[\)][\s]{1}[0-9]{4}[-][0-9]{4}' 
 					title='Preencha campo com o formato padrão de telefone' 
 					onkeypress="mascaraTelefone(this)"
-					value='{{ company.telefone }}' 
+					value='{{ company.telefone }}'
+					onmouseenter='ajudaVoz(`Preencher telefone no formato padrão`)' 
 				>
 			</div>
 		</div>
@@ -210,7 +247,8 @@
 						placeholder='Preencha com o e-mail'
 						title='Preencha campo com o formato padrão de e-mail'
 						value='{{ company.email }}'
-						readonly 
+						readonly
+						onmouseenter='ajudaVoz(`E-mail não pode ser alterado`)' 
 					>
 				{% else %}
 					<input 
@@ -221,13 +259,14 @@
 						maxlength='45' 
 						placeholder='Preencha com o e-mail'
 						title='Preencha campo com o formato padrão de e-mail'
-						value='{{ company.email }}' 
+						value='{{ company.email }}'
+						onmouseenter='ajudaVoz(`Preencher e-mail no formato padrão`)' 
 					>
 				{% endif %}
 			</div>
 			<div class='form-block'>
-				<label for='senha'>Senha *</label>
 				{% if edit is True %}
+					<label for='senha'>Senha</label>
 					<input 
 						type='password'
 						id='senha' 
@@ -237,9 +276,11 @@
 						pattern='.{6,}'  
 						placeholder='Preencha com uma nova senha'
 						title='Preencha campo com no mínimo seis caracteres'
-						value='{{ company.senha }}' 
+						value='{{ company.senha }}'
+						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento minimo 6`)' 
 					>
 				{% else %}
+					<label for='senha'>Senha *</label>
 					<input 
 						type='password'
 						id='senha' 
@@ -250,7 +291,8 @@
 						required 
 						placeholder='Preencha com a senha'
 						title='Preencha campo com no mínimo seis caracteres'
-						value='{{ company.senha }}' 
+						value='{{ company.senha }}'
+						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)' 
 					>
 				{% endif %}
 			</div>
@@ -270,7 +312,8 @@
 					pattern='[0-9]{2}[\.][0-9]{3}[-][0-9]{3}' 
 					onkeypress="mascaraCEP(this)" 
 					onblur="validarCEP(this)" 
-					value='{{ company.cep }}' 
+					value='{{ company.cep }}'
+					onmouseenter='ajudaVoz(`Preencher CEP no formato padrão`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -281,17 +324,24 @@
 					name='numero'
 					pattern='[0-9]*' 
 					required 
-					placeholder='Preencha com o número da residência'
+					placeholder='Preencha com o número do local'
 					title='Preencha campo com apenas caracteres númericos' 
 					maxlength='5'
-					value='{{ company.numero }}' 
+					value='{{ company.numero }}'
+					onmouseenter='ajudaVoz(`Preencher com apenas números`)' 
 				>
 			</div>
 		</div>
 
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
-				<label id='label_ajuda_voz' for='ajuda_voz' class='checkbox-label'>Ajuda por voz
+				<label 
+					id='label_ajuda_voz' 
+					for='ajuda_voz' 
+					class='checkbox-label'
+					onmouseenter='ajudaVoz(`Habilitar ajuda por voz`)'
+				>
+					Ajuda por voz
 					{% if company.ajuda_voz is True %}
 						<input aria-hidden='true' type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
 						<input aria-hidden='true' id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz' disabled>
@@ -303,7 +353,13 @@
 				</label>
 			</div>
 			<div class='form-block-checkbox'>
-				<label id='label_leitor_tela' for='leitor_tela' class='checkbox-label'>Leitor de tela
+				<label 
+					id='label_leitor_tela' 
+					for='leitor_tela' 
+					class='checkbox-label'
+					onmouseenter='ajudaVoz(`Habilitar leitor de tela`)'
+				>
+					Leitor de tela
 					{% if company.leitor_tela is True %}
 						<input aria-hidden='true' type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' checked onclick='selecionarLeitor()'>
 						<input aria-hidden='true' id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela' disabled>

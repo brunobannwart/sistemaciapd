@@ -42,8 +42,21 @@
 			</div>
 
 			<div class='form-file'>
-				<label for='logo_botao'>Logo da Vaga</label>
-				<button id='logo_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione um logo</button>
+				{% if job.arquivo %}
+					<label for='logo_botao'>Logo da vaga</label>
+				{% else %}
+					<label for='logo_botao'>Logo da vaga *</label>
+				{% endif %}
+				
+				<button 
+					id='logo_botao' 
+					type='button' 
+					class='file' 
+					onclick='selecionarArquivo()'
+					onmouseenter='ajudaVoz(`Escolher logo da vaga`)'
+				>
+					Selecione um logo
+				</button>
 
 				<div class='input-file-hidden'>
 					{% if job.arquivo %}
@@ -65,7 +78,8 @@
 					required 
 					placeholder='Preencha com o titulo'
 					maxlength='45'
-					value='{{ job.titulo }}' 
+					value='{{ job.titulo }}'
+					onmouseenter='ajudaVoz(`Preencher com o titulo`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -76,14 +90,15 @@
 					name='data_exp'
 					required
 					title='Preencha campo com uma data válida'
-					value='{{ job.data_exp|date:"Y-m-d" }}' 
+					value='{{ job.data_exp|date:"Y-m-d" }}'
+					onmouseenter='ajudaVoz(`Escolher uma data`)' 
 				>
 			</div>
 		</div>
 
 		<div id='description' class='form-block'>
 			<label for='descricao'>Descrição *</label>
-			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required>{{ job.descricao }}</textarea>
+			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required onmouseenter='ajudaVoz(`Preencher com uma descrição`)'>{{ job.descricao }}</textarea>
 		</div>
 
 		<button type='submit'>Salvar</button>

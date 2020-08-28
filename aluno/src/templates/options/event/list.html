@@ -6,7 +6,7 @@
 			<div class='list-content'>
 				<ul>
 					{% for event in event_list %}
-						<li class='list-item'>
+						<li class='list-item' onmouseenter='ajudaVoz(`{{ event.titulo }}`)'>
 							<div class='list-item-img'>
 								<img src='{{ event.arquivo }}' alt='Imagem do evento {{ event.titulo }}' crossorigin/>
 							</div>

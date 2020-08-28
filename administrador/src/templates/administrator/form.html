@@ -48,8 +48,21 @@
 			</div>
 
 			<div class='form-file'>
-				<label for='foto_botao'>Foto do Administrador</label>
-				<button id='foto_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione uma foto</button>
+				{% if administrator.foto %}
+					<label for='foto_botao'>Foto do administrador</label>
+				{% else %}
+					<label for='foto_botao'>Foto do administrador *</label>
+				{% endif %}
+				
+				<button 
+					id='foto_botao' 
+					type='button' 
+					class='file' 
+					onclick='selecionarArquivo()'
+					onmouseenter='ajudaVoz(`Escolher foto do administrador`)'
+				>
+					Selecione uma foto
+				</button>
 
 				<div class='input-file-hidden'>
 					{% if administrator.foto %}
@@ -73,7 +86,8 @@
 					title='Preencha campo com apenas caracteres alfabéticos'
 					pattern='[a-zA-Zà-úÀ-Ú][a-zA-Zà-úÀ-Ú\s]*' 
 					maxlength='45'
-					value='{{ administrator.nome }}' 
+					value='{{ administrator.nome }}'
+					onmouseenter='ajudaVoz(`Preencher nome com apenas letras`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -91,6 +105,7 @@
 						value='{{ administrator.rf }}'
 						title='Preencha campo com apenas caracteres númericos'
 						readonly
+						onmouseenter='ajudaVoz(`RF não pode ser alterado`)'
 					>
 				{% else %}
 					<input
@@ -104,6 +119,7 @@
 						minlength='7'
 						value='{{ administrator.rf }}'
 						title='Preencha campo com apenas caracteres númericos'
+						onmouseenter='ajudaVoz(`Preencher RF com apenas números`)'
 					>
 				{% endif %}
 			</div>
@@ -123,6 +139,7 @@
 						title='Preencha campo com o formato padrão de e-mail'
 						value='{{ administrator.email }}' 
 						readonly
+						onmouseenter='ajudaVoz(`E-mail não pode ser alterado`)'
 					>
 				{% else %}
 					<input 
@@ -133,13 +150,14 @@
 						maxlength='45' 
 						placeholder='Preencha com o e-mail'
 						title='Preencha campo com o formato padrão de e-mail'
-						value='{{ administrator.email }}' 
+						value='{{ administrator.email }}'
+						onmouseenter='ajudaVoz(`Preencher e-mail com o formato padrão`)' 
 					>
 				{% endif %}
 			</div>
 			<div class='form-block'>
-				<label for='senha'>Senha *</label>
 				{% if edit is True %}
+					<label for='senha'>Senha</label>
 					<input 
 						type='password'
 						id='senha' 
@@ -149,9 +167,11 @@
 						pattern='.{6,}'    
 						placeholder='Preencha com uma nova senha'
 						title='Preencha campo com no mínimo seis caracteres' 
-						value='{{ administrator.senha }}' 
+						value='{{ administrator.senha }}'
+						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento mínimo 6`)' 
 					>
 				{% else %}
+					<label for='senha'>Senha *</label>
 					<input 
 						type='password'
 						id='senha' 
@@ -162,7 +182,8 @@
 						required 
 						placeholder='Preencha com a senha'
 						title='Preencha campo com no mínimo seis caracteres' 
-						value='{{ administrator.senha }}' 
+						value='{{ administrator.senha }}'
+						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)' 
 					>
 				{% endif %}
 			</div>
@@ -170,7 +191,13 @@
 
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
-				<label id='label_ajuda_voz' for='ajuda_voz' class='checkbox-label'>Ajuda por voz
+				<label 
+					id='label_ajuda_voz' 
+					for='ajuda_voz' 
+					class='checkbox-label'
+					onmouseenter='ajudaVoz(`Habilitar ajuda por voz`)'
+				>
+					Ajuda por voz
 					{% if administrator.ajuda_voz is True %}
 						<input aria-hidden='true' type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
 						<input aria-hidden='true' id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz' disabled>
@@ -182,7 +209,13 @@
 				</label>
 			</div>
 			<div class='form-block-checkbox'>
-				<label id='label_leitor_tela' for='leitor_tela' class='checkbox-label'>Leitor de tela
+				<label 
+					id='label_leitor_tela' 
+					for='leitor_tela' 
+					class='checkbox-label'
+					onmouseenter='ajudaVoz(`Habilitar leitor de tela`)'
+				>
+					Leitor de tela
 					{% if administrator.leitor_tela is True %}
 						<input aria-hidden='true' type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' checked onclick='selecionarLeitor()'>
 						<input aria-hidden='true' id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela' disabled>

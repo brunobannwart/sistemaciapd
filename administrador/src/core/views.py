@@ -125,10 +125,18 @@ def curriculum_read_view(request, id=0):
 					try:
 						update_student = Aluno.objects.get(email=data['email'])
 
-						update_student.instituicao_ensino = data['instituicao_ensino']
-						update_student.curso_extra = data['curso_extra']
-						update_student.empresa = data['empresa']
-						update_student.cargo = data['cargo']
+						if data['instituicao_ensino'] != '':
+							update_student.instituicao_ensino = data['instituicao_ensino']
+
+						if data['curso_extra'] != '':
+							update_student.curso_extra = data['curso_extra']
+
+						if data['empresa'] != '':
+							update_student.empresa = data['empresa']
+
+						if data['cargo'] != '':
+							update_student.cargo = data['cargo']
+							
 						update_student.save()
 					except:
 						return redirect('/curriculos/')

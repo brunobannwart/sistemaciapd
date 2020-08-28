@@ -3,10 +3,10 @@ from django.db import models
 # Create your models here.
 class Curriculo(models.Model):
 	aluno_id			=	models.IntegerField(verbose_name='ID do aluno')
-	instituicao_ensino 	= 	models.CharField(verbose_name='Instituições de ensino', max_length=255)
-	curso_extra 		=	models.CharField(verbose_name='Cursos extras', max_length=255)
-	empresa 			=	models.CharField(verbose_name='Empresas', max_length=255)
-	cargo				=	models.CharField(verbose_name='Cargos ocupados', max_length=255)
+	instituicao_ensino 	= 	models.CharField(verbose_name='Instituições de ensino', max_length=255, blank=True, null=False)
+	curso_extra 		=	models.CharField(verbose_name='Cursos extras', max_length=255, blank=True, null=False)
+	empresa 			=	models.CharField(verbose_name='Empresas', max_length=255, blank=True, null=False)
+	cargo				=	models.CharField(verbose_name='Cargos ocupados', max_length=255, blank=True, null=False)
 	liberado 			=	models.BooleanField(verbose_name='Curriculo liberado', default=False, null=False, blank=False)
 	created_at			=	models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
 	updated_at			=	models.DateTimeField(verbose_name='Atualizado em', auto_now=True)

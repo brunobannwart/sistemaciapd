@@ -5,7 +5,7 @@
 			<div class='list-content'>
 				<ul>
 					{% for videolesson in videolesson_list %}
-						<li class='list-item'>
+						<li class='list-item' onmouseenter='ajudaVoz(`{{ videolesson.titulo }}`)'>
 							<div class='list-item-img'>
 								<img src='{{ videolesson.arquivo }}' alt='Imagem da video-aula {{ videolesson.titulo }}' crossorigin/>
 							</div>

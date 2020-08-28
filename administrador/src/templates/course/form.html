@@ -47,8 +47,21 @@
 			</div>
 
 			<div class='form-file'>
-				<label for='logo_botao'>Logo do Curso</label>
-				<button id='logo_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione um logo</button>
+				{% if course.arquivo %}
+					<label for='logo_botao'>Logo do curso</label>
+				{% else %}
+					<label for='logo_botao'>Logo do curso *</label>
+				{% endif %}
+				
+				<button 
+					id='logo_botao' 
+					type='button' 
+					class='file' 
+					onclick='selecionarArquivo()'
+					onmouseenter='ajudaVoz(`Escolher logo do curso`)'
+				>
+					Selecione um logo
+				</button>
 
 				<div class='input-file-hidden'>
 					{% if course.arquivo %}
@@ -70,7 +83,8 @@
 					required 
 					placeholder='Preencha com o titulo'
 					maxlength='45'
-					value='{{ course.titulo }}' 
+					value='{{ course.titulo }}'
+					onmouseenter='ajudaVoz(`Preencher com o título`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -82,13 +96,14 @@
 					required
 					title='Preencha campo com uma data válida'
 					value='{{ course.data_exp|date:"Y-m-d" }}'
+					onmouseenter='ajudaVoz(`Escolher uma data`)'
 				>
 			</div>
 		</div>
 
 		<div class='form-block' style='margin-top: 15px'>
 			<label for='descricao'>Descrição *</label>
-			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required>{{ course.descricao }}</textarea>
+			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required onmouseenter='ajudaVoz(`Preencher com uma descrição`)'>{{ course.descricao }}</textarea>
 		</div>
 
 		<button type='submit'>Salvar</button>

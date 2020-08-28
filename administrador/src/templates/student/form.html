@@ -55,8 +55,13 @@
 	</button>
 	<form name='formulario_estudante' onsubmit='return validarFormularioEstudante()' autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token  %}
-		<input aria-hidden='true' id='cep_valido' name='cep_valido' type='hidden' value='' />
-		<input aria-hidden='true' id='cpf_valido' name='cpf_valido' type='hidden' value='' />
+		{% if edit is True %}
+			<input aria-hidden='true' id='cep_valido' name='cep_valido' type='hidden' value='sim' />
+			<input aria-hidden='true' id='cpf_valido' name='cpf_valido' type='hidden' value='sim' />
+		{% else %}
+			<input aria-hidden='true' id='cep_valido' name='cep_valido' type='hidden' value='' />
+			<input aria-hidden='true' id='cpf_valido' name='cpf_valido' type='hidden' value='' />
+		{% endif %}
 
 		<div class='form-file-block'>
 			<div class='preview'>
@@ -74,8 +79,21 @@
 			</div>
 
 			<div class='form-file'>
-				<label for='foto_botao'>Foto do Estudante</label>
-				<button id='foto_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione uma foto</button>
+				{% if student.foto %}
+					<label for='foto_botao'>Foto do estudante</label>
+				{% else %}
+					<label for='foto_botao'>Foto do estudante *</label>
+				{% endif %}
+
+				<button 
+					id='foto_botao' 
+					type='button' 
+					class='file' 
+					onclick='selecionarArquivo()'
+					onmouseenter='ajudaVoz(`Escolher foto do aluno`)'
+				>
+					Selecione uma foto
+				</button>
 
 				<div class='input-file-hidden'>
 					{% if student.foto %}
@@ -99,7 +117,8 @@
 					pattern='[a-zA-Zà-úÀ-Ú][a-zA-Zà-úÀ-Ú\s]*'
 					maxlength='45' 
 					title='Preencha campo com apenas caracteres alfabéticos'
-					value='{{ student.nome }}' 
+					value='{{ student.nome }}'
+					onmouseenter='ajudaVoz(`Preencher nome com apenas letras`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -112,6 +131,7 @@
 					placeholder='Preencha com a data de nascimento'
 					title='Preencha campo com uma data válida' 
 					value='{{ student.data_nasc|date:"Y-m-d" }}'
+					onmouseenter='ajudaVoz(`Escolher uma data`)'
 				>
 			</div>
 		</div>
@@ -129,6 +149,7 @@
 						title='Preencha campo com o formato padrão de e-mail'
 						value='{{ student.email }}' 
 						readonly 
+						onmouseenter='ajudaVoz(`E-mail não pode ser alterado`)' 
 					>
 				{% else %}
 					<input 
@@ -138,13 +159,14 @@
 						required 
 						placeholder='Preencha com o e-mail'
 						title='Preencha campo com o formato padrão de e-mail'
-						value='{{ student.email }}' 
+						value='{{ student.email }}'
+						onmouseenter='ajudaVoz(`Preencher e-mail no formato padrão`)' 
 					>
 				{% endif %}
 			</div>
 			<div class='form-block'>
-				<label for='senha'>Senha *</label>
 				{% if edit is True %}
+					<label for='senha'>Senha</label>
 					<input 
 						type='password'
 						id='senha' 
@@ -154,9 +176,11 @@
 						pattern='.{6,}'  
 						title='Preencha campo com no mínimo seis caracteres' 
 						placeholder='Preencha com uma nova senha'
-						value='{{ student.senha }}' 
+						value='{{ student.senha }}'
+						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento minimo 6`)'  
 					>
 				{% else %}
+					<label for='senha'>Senha *</label>
 					<input 
 						type='password'
 						id='senha' 
@@ -167,7 +191,8 @@
 						required 
 						title='Preencha campo com no mínimo seis caracteres' 
 						placeholder='Preencha com a senha'
-						value='{{ student.senha }}' 
+						value='{{ student.senha }}'
+						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)' 
 					>
 				{% endif %}
 			</div>
@@ -189,7 +214,8 @@
 						onkeypress="mascaraCPF(this)"
 						onblur="validarCPF(this)"
 						value='{{ student.cpf }}'
-						readonly 
+						readonly
+						onmouseenter='ajudaVoz(`CPF não pode ser alterado`)'  
 					>
 				{% else %}
 					<input 
@@ -203,7 +229,8 @@
 						title='Preencha campo com o formato padrão de CPF' 
 						onkeypress="mascaraCPF(this)"
 						onblur="validarCPF(this)"
-						value='{{ student.cpf }}' 
+						value='{{ student.cpf }}'
+						onmouseenter='ajudaVoz(`Preencher CPF no formato padrão`)' 
 					>
 				{% endif %}
 			</div>
@@ -219,7 +246,8 @@
 					title='Preencha campo com o formato padrão de celular' 
 					maxlength='15'
 					onkeypress="mascaraCelular(this)"
-					value='{{ student.celular }}' 
+					value='{{ student.celular }}'
+					onmouseenter='ajudaVoz(`Preencher celular no formato padrão`)' 
 				>
 			</div>
 		</div>
@@ -238,7 +266,8 @@
 					pattern='[0-9]{2}[\.][0-9]{3}[-][0-9]{3}' 
 					onkeypress="mascaraCEP(this)" 
 					onblur="validarCEP(this)" 
-					value='{{ student.cep }}' 
+					value='{{ student.cep }}'
+					onmouseenter='ajudaVoz(`Preencher CEP no formato padrão`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -252,7 +281,8 @@
 					placeholder='Preencha com o número da residência'
 					title='Preencha campo com apenas caracteres númericos' 
 					maxlength='5'
-					value='{{ student.numero }}' 
+					value='{{ student.numero }}'
+					onmouseenter='ajudaVoz(`Preencher com apenas números`)' 
 				>
 			</div>
 		</div>
@@ -260,7 +290,7 @@
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='cid'>CID *</label>
-				<select multiple id='cid' name='cid' title='Selecione múltiplos itens'>
+				<select multiple id='cid' name='cid' title='Selecione múltiplos itens' onmouseenter='ajudaVoz(`Escolher CIDs`)'>
 					{% for item in cid_list %}
 						<option value='{{ item.pk }}'>{{ item.codigo }}: {{ item.descricao }}</option>
 					{% endfor %}
@@ -268,13 +298,19 @@
 			</div>
 			<div class='form-block'>
 				<label for='outra_info'>Outras informações</label>
-				<textarea id='outra_info' name='outra_info' placeholder='Preencha com outras informações relevantes' maxlength='100'>{{ student.outra_info }}</textarea>
+				<textarea id='outra_info' name='outra_info' placeholder='Preencha com outras informações relevantes' maxlength='100' onmouseenter='ajudaVoz(`Preencher com outras informações`)'>{{ student.outra_info }}</textarea>
 			</div>
 		</div>
 
 		<div class='form-group-checkbox'>
 			<div class='form-block-checkbox'>
-				<label id='label_ajuda_voz' for='ajuda_voz' class='checkbox-label'>Ajuda por voz
+				<label 
+					id='label_ajuda_voz' 
+					for='ajuda_voz' 
+					class='checkbox-label'
+					onmouseenter='ajudaVoz(`Habilitar ajuda por voz`)'
+				>
+					Ajuda por voz
 					{% if student.ajuda_voz is True %}
 						<input aria-hidden='true' type='checkbox' id='ajuda_voz' name='ajuda_voz' value='sim' checked onclick='selecionarAjuda()'>
 						<input aria-hidden='true' id='ajuda_hidden' type='hidden' value='nao' name='ajuda_voz' disabled>
@@ -286,7 +322,13 @@
 				</label>
 			</div>
 			<div class='form-block-checkbox'>
-				<label id='label_leitor_tela' for='leitor_tela' class='checkbox-label'>Leitor de tela
+				<label 
+					id='label_leitor_tela' 
+					for='leitor_tela' 
+					class='checkbox-label'
+					onmouseenter='ajudaVoz(`Habilitar leitor de tela`)'
+				>
+					Leitor de tela
 					{% if student.leitor_tela is True %}
 						<input aria-hidden='true' type='checkbox' id='leitor_tela' name='leitor_tela' value='sim' checked onclick='selecionarLeitor()'>
 						<input aria-hidden='true' id='leitor_tela_hidden' type='hidden' value='nao' name='leitor_tela' disabled>

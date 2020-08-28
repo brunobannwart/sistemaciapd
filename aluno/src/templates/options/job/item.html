@@ -6,16 +6,16 @@
 			<i class='fas fa-arrow-circle-left'></i>
 		</button>
 		<header>
-			<strong>{{ job.titulo }}</strong>
+			<strong onmouseenter='ajudaVoz(`{{ job.titulo }}`)'>{{ job.titulo }}</strong>
 		</header>
 		<div class='item-image'>
 			<img src='{{ job.arquivo }}' alt='Imagem da vaga de emprego {{ job.titulo }}' crossorigin/>
 		</div>
 		<div class='item-content'>
-			<p>Empresa: {{ job.razao_social }}</p>
-			<p>E-mail de contato: {{ job.email }}</p>
-			<p>Data de expiração: {{ job.data_exp }}</p>
-			<p>{{ job.descricao }}</p>
+			<p onmouseenter='ajudaVoz(`Empresa: {{ job.razao_social }}`)'>Empresa: {{ job.razao_social }}</p>
+			<p onmouseenter='ajudaVoz(`E-mail de contato: {{ job.email }}`)'>E-mail de contato: {{ job.email }}</p>
+			<p onmouseenter='ajudaVoz(`Data de expiração: {{ job.data_exp }}`)'>Data de expiração: {{ job.data_exp }}</p>
+			<p onmouseenter='ajudaVoz(`{{ job.descricao }}`)'>{{ job.descricao }}</p>
 		</div>
 	</div>
 {% endblock %}

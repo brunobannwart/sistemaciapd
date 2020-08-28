@@ -13,28 +13,32 @@ from core_aluno.models import LoginAluno
 
 def login_view(request):
 	if request.method == 'POST':
-		form = LoginForm(request.POST)
-	
-		if form.is_valid():
-			data = form.clean_form()
-			login_student = LoginBackend.authenticate(request, data['email'], data['senha_hash'])
+		try:
+			form = LoginForm(request.POST)
+		
+			if form.is_valid():
+				data = form.clean_form()
+				login_student = LoginBackend.authenticate(request, data['email'], data['senha_hash'])
 
-			if login_student != None and login_student != False:
-				login_student.is_authenticated = True
-				login_student.save()
-				form = LoginForm()
-				login(request, login_student, backend='aluno.backend.LoginBackend')
-				return redirect('/inicio/')
-			else:
-				if login_student == False:
-					login_form = request.POST
-					error = 'Senha não confere'
+				if login_student != None and login_student != False:
+					login_student.is_authenticated = True
+					login_student.save()
+					form = LoginForm()
+					login(request, login_student, backend='aluno.backend.LoginBackend')
+					return redirect('/inicio/')
 				else:
-					login_form = request.POST
-					error = 'Não existe aluno com esse e-mail'
-		else:
+					if login_student == False:
+						login_form = request.POST
+						error = 'Senha não confere'
+					else:
+						login_form = request.POST
+						error = 'Não existe aluno com esse e-mail'
+			else:
+				login_form = request.POST
+				error = 'Preencher campos de login corretamente'
+		except:
 			login_form = request.POST
-			error = 'Preencher campos de login corretamente'
+			error = 'Não foi possível realizar o login. Tente novamente'
 	else:
 		form = LoginForm()
 		error = None

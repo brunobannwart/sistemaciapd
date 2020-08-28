@@ -47,8 +47,21 @@
 			</div>
 
 			<div class='form-file'>
-				<label for='logo_botao'>Logo da Video-Aula</label>
-				<button id='logo_botao' type='button' class='file' onclick='selecionarArquivo()'>Selecione um logo</button>
+				{% if videolesson.arquivo %}
+					<label for='logo_botao'>Logo da video-aula</label>
+				{% else %}
+					<label for='logo_botao'>Logo da video-aula *</label>
+				{% endif %}
+				
+				<button 
+					id='logo_botao' 
+					type='button' 
+					class='file' 
+					onclick='selecionarArquivo()'
+					onmouseenter='ajudaVoz(`Escolher logo da video-aula`)'
+				>
+					Selecione um logo
+				</button>
 
 				<div class='input-file-hidden'>
 					{% if videolesson.arquivo %}
@@ -71,6 +84,7 @@
 					placeholder='Preencha com o titulo'
 					maxlength='45' 
 					value='{{ videolesson.titulo }}'
+					onmouseenter='ajudaVoz(`Preencher com o titulo`)'
 				>
 			</div>
 			<div class='form-block'>
@@ -83,14 +97,15 @@
 					required
 					placeholder='Preencha com a URL'
 					value='{{ videolesson.url }}'
-					title='Preencha campo com o formato padrão de URL' 
+					title='Preencha campo com o formato padrão de URL'
+					onmouseenter='ajudaVoz(`Preencher URL no formato padrão`)' 
 				>
 			</div>
 		</div>
 
 		<div class='form-block' style='margin-top: 15px'>
 			<label for='descricao'>Descrição *</label>
-			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required>{{ videolesson.descricao }}</textarea>
+			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required onmouseenter='ajudaVoz(`Preencher com uma descrição`)'>{{ videolesson.descricao }}</textarea>
 		</div>
 		
 		<button type='submit'>Salvar</button>

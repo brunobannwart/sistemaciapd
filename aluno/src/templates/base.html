@@ -14,6 +14,7 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     {% if request.user.ajuda_voz %}
         <script type='text/javascript' src="{% static '/javascript/voice.js' %}"></script>
+        <script async defer src='https://apis.google.com/js/platform.js' onload='this.onload=function(){}; carregarCliente()'></script>
     {% endif %}
     {% if request.user.leitor_tela %}
         <script type='text/javascript' src="{% static '/javascript/reader.js' %}"></script>
@@ -21,6 +22,7 @@
     <title>CIAPD - Portal do Aluno</title>
 </head>
 <body>
+    <div id='ajuda_audio' aria-hidden='true' style='display: none;'></div>
     <div class='header'>
         <header>
             <nav class='header-options'>

@@ -12,9 +12,10 @@ def curriculum_form_view(request):
 		if form.is_valid():
 			data = form.clean_form()
 			try:
-				curriculum = Curriculo.objects.create(aluno_id=request.user.id, instituicao_ensino=data['instituicao_ensino'], 
-								curso_extra=data['curso_extra'], empresa=data['empresa'], cargo=data['cargo'])
-				curriculum.save()
+				if data['instituicao_ensino'] != '' or data['curso_extra'] != '' or data['empresa'] != '' or data['cargo'] != '':
+					curriculum = Curriculo.objects.create(aluno_id=request.user.id, instituicao_ensino=data['instituicao_ensino'], 
+									curso_extra=data['curso_extra'], empresa=data['empresa'], cargo=data['cargo'])
+					curriculum.save()
 				return redirect('/inicio/')
 			except:
 				curriculum = request.POST

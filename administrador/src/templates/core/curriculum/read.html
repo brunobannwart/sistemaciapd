@@ -33,28 +33,34 @@
 			<div class='form-group'>
 				<div class='form-block'>
 					<label for='instituicao_ensino'>Instituições de ensino</label>
-					<textarea id='instituicao_ensino' name='instituicao_ensino' maxlength='255' required>{{ curriculum.instituicao_ensino }}</textarea>
+					<textarea id='instituicao_ensino' name='instituicao_ensino' maxlength='255' onmouseenter='ajudaVoz(`Preencher com as instituições de ensino do aluno`)'>{{ curriculum.instituicao_ensino }}</textarea>
 				</div>
 				<div class='form-block'>
 					<label for='curso_extra'>Cursos extras</label>
-					<textarea id='curso_extra' name='curso_extra' maxlength='255' required>{{ curriculum.curso_extra }}</textarea>
+					<textarea id='curso_extra' name='curso_extra' maxlength='255' onmouseenter='ajudaVoz(`Preencher com cursos feitos pelo aluno`)'>{{ curriculum.curso_extra }}</textarea>
 				</div>
 			</div>
 
 			<div class='form-group'>
 				<div class='form-block'>
 					<label for='empresa'>Empresas trabalhadas</label>
-					<textarea id='empresa' name='empresa' maxlength='255' required>{{ curriculum.empresa }}</textarea>
+					<textarea id='empresa' name='empresa' maxlength='255' onmouseenter='ajudaVoz(`Preencher com as empresas trabalhadas do aluno`)'>{{ curriculum.empresa }}</textarea>
 				</div>
 				<div class='form-block'>
 					<label for='cargo'>Cargos ocupados</label>
-					<textarea id='cargo' name='cargo' maxlength='255' required>{{ curriculum.cargo }}</textarea>
+					<textarea id='cargo' name='cargo' maxlength='255' onmouseenter='ajudaVoz(`Preencher com os cargos ocupados pelo aluno`)'>{{ curriculum.cargo }}</textarea>
 				</div>
 			</div>
 
 			<div class='form-group-checkbox'>
 				<div class='form-block-checkbox'>
-					<label for='liberado' class='checkbox-label'>Liberado
+					<label 
+						id='label_liberar_curriculo'
+						for='liberado' 
+						class='checkbox-label'
+						onmouseenter='ajudaVoz(`Liberar currículo`)'
+					>
+						Liberado
 						{% if curriculum.liberado %}
 							<input aria-hidden='true' type='checkbox' id='liberado' name='liberado' value='sim' checked onclick='liberar()'>
 							<input aria-hidden='true' id='liberado_hidden' type='hidden' value='nao' name='liberado' disabled>
@@ -71,6 +77,14 @@
 		</form>
 	</div>
 	<script>
+		const label_liberar = document.getElementById('label_liberar_curriculo');
+
+		label_liberar.addEventListener('keyup', function(evento) {
+  			if (evento.keyCode === 13) {
+    			document.getElementById('liberado').click();
+  			}
+		});
+
 		function liberar() {
 			if(document.getElementById('liberado').checked) {
     			document.getElementById('liberado_hidden').disabled = true;

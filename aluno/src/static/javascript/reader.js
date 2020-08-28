@@ -19,8 +19,8 @@ const mapeamentos = {
 	img: 'image',
 	nav: 'nav',
 	ul: 'ul',
-	iframe: 'iframe',
 	label: 'label',
+	input: 'input',
 	textarea: 'textarea',
 };
 
@@ -68,17 +68,38 @@ const narradores = {
 	},
 
 	label(elemento) {
-		audio(`${acessibilidade(elemento)}`);
+		const texto_label = acessibilidade(elemento);
+		let texto_obrigatorio;
+
+		if (texto_label.includes('*')) {
+			texto_obrigatorio = 'Campo obrigatório';
+		} else {
+			texto_obrigatorio = '';
+		}
+
+		audio(`${acessibilidade(elemento)}. ${texto_obrigatorio}`);
+	},
+
+	input(elemento) {
+		const texto_entrada = $(elemento)[0].value;
+		const texto_formulario = $(elemento)[0].placeholder;
+
+		if (texto_entrada !== '') {
+			audio(`Texto de entrada, ${texto_entrada}`);
+		} else {
+			audio(`Texto de entrada, ${texto_formulario}`);
+		}
 	},
 
 	textarea(elemento) {
+		const texto_entrada = $(elemento)[0].value;
 		const texto_formulario = $(elemento)[0].placeholder;
-		audio(`Caixa de texto, ${texto_formulario}`);
-	},
 
-	iframe(elemento) {
-		const titulo_iframe = $(elemento)[0].title;
-		audio(`${titulo_iframe}`);
+		if (texto_entrada !== '') {
+			audio(`Caixa de texto, ${texto_entrada}`);
+		} else {
+			audio(`Caixa de texto, ${texto_formulario}`);
+		}
 	},
 
 	default(elemento) {
@@ -125,9 +146,9 @@ function existeAudio(elemento) {
 		'ul',
 		'strong',
 		'small',
+		'input',
 		'textarea',
 		'label',
-		'iframe',
 	];
 
 	for (let i = 0; i < lista_tags.length; i += 1) {
@@ -221,12 +242,24 @@ function audio(texto, funcao_retorno=null) {
 }
 
 function tratarEventoLeitor(evt) {
-	if (evt.ctrlKey && evt.which === 39) {
-		moverFoco(1);
-	} else {
-		if (evt.ctrlKey && evt.which === 37) {
-			moverFoco(-1);
+	const controle_leitor = document.getElementById('controle_leitor');
+
+	if (!controle_leitor || controle_leitor.checked) {
+		if (evt.ctrlKey && evt.which === 39) {
+			moverFoco(1);
+		} else {
+			if (evt.ctrlKey && evt.which === 37) {
+				moverFoco(-1);
+			}
 		}
+	} else {
+		const ultimo = document.querySelector('.leitor-selecionar');
+
+		if (ultimo) {
+			ultimo.classList.remove('leitor-selecionar');
+		}
+
+		index_atual = 0;
 	}
 }
 

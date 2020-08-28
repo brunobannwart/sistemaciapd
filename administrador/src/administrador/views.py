@@ -10,28 +10,32 @@ from .backend import LoginBackend
 
 def login_view(request):
 	if request.method == 'POST':
-		form = LoginForm(request.POST)
+		try:
+			form = LoginForm(request.POST)
+	
+			if form.is_valid():
+				data = form.clean_form()
+				login_admin = LoginBackend.authenticate(request, data['email'], data['senha'])
 
-		if form.is_valid():
-			data = form.clean_form()
-			login_admin = LoginBackend.authenticate(request, data['email'], data['senha'])
-
-			if login_admin != None and login_admin != False:
-				login_admin.is_authenticated = True
-				login_admin.save()
-				form = LoginForm()
-				login(request, login_admin, backend='administrador.backend.LoginBackend')
-				return redirect('/cids/')
-			else:
-				if login_admin == False:
-					login_form = request.POST
-					error = 'Senha não confere'
+				if login_admin != None and login_admin != False:
+					login_admin.is_authenticated = True
+					login_admin.save()
+					form = LoginForm()
+					login(request, login_admin, backend='administrador.backend.LoginBackend')
+					return redirect('/cids/')
 				else:
-					login_form = request.POST
-					error = 'Não existe administrador com esse e-mail'
-		else:
+					if login_admin == False:
+						login_form = request.POST
+						error = 'Senha não confere'
+					else:
+						login_form = request.POST
+						error = 'Não existe administrador com esse e-mail'
+			else:
+				login_form = request.POST
+				error = 'Preencher campos de login corretamente'
+		except:
 			login_form = request.POST
-			error = 'Preencher campos de login corretamente'
+			error = 'Não foi possível realizar o login. Tente novamente'
 	else:
 		form = LoginForm()
 		error = None

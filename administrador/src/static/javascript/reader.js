@@ -21,6 +21,7 @@ const mapeamentos = {
 	nav: 'nav',
 	ul: 'ul',
 	table: 'table',
+	tbody: 'tbody',
 	th: 'th',
 	td: 'td',
 	tr: 'tr',
@@ -82,8 +83,21 @@ const narradores = {
 		audio(`Tabela`);
 	},
 
+	tbody(elemento) {
+		const quantidade_linha = $(elemento).children('tr').length;
+		let texto_tabela;
+
+		if (quantidade_linha > 1) {
+			texto_tabela = 'itens';
+		} else {
+			texto_tabela = 'item';
+		}
+
+		audio(`Tabela possui ${quantidade_linha} ${texto_tabela}`);
+	},
+
 	th(elemento) {
-		audio(`Coluna, ${acessibilidade(elemento)}`);
+		audio(`Coluna da tabela, ${acessibilidade(elemento)}`);
 	},
 
 	td(elemento) {
@@ -95,7 +109,16 @@ const narradores = {
 	},
 
 	label(elemento) {
-		audio(`${acessibilidade(elemento)}`);
+		const texto_label = acessibilidade(elemento);
+		let texto_obrigatorio;
+
+		if (texto_label.includes('*')) {
+			texto_obrigatorio = 'Campo obrigatório';
+		} else {
+			texto_obrigatorio = '';
+		}
+
+		audio(`${acessibilidade(elemento)}. ${texto_obrigatorio}`);
 	},
 
 	input(elemento) {
@@ -122,7 +145,7 @@ const narradores = {
 
 	select(elemento) {
 		const titulo = $(elemento)[0].title;
-		audio(`${titulo}. Pressione shift e espaço para selecionar`);
+		audio(`${titulo}. Pressione shift e espaço para selecionar as opções`);
 	},
 
 	option(elemento) {
@@ -172,6 +195,7 @@ function existeAudio(elemento) {
 		'th',
 		'td',
 		'tr',
+		'tbody',
 		'aside',
 		'nav',
 		'a',
@@ -276,12 +300,24 @@ function audio(texto, funcao_retorno=null) {
 }
 
 function tratarEventoLeitor(evt) {
-	if (evt.ctrlKey && evt.which === 39) {
-		moverFoco(1);
-	} else {
-		if (evt.ctrlKey && evt.which === 37) {
-			moverFoco(-1);
+	const controle_leitor = document.getElementById('controle_leitor');
+
+	if (!controle_leitor || controle_leitor.checked) {
+		if (evt.ctrlKey && evt.which === 39) {
+			moverFoco(1);
+		} else {
+			if (evt.ctrlKey && evt.which === 37) {
+				moverFoco(-1);
+			}
 		}
+	} else {
+		const ultimo = document.querySelector('.leitor-selecionar');
+
+		if (ultimo) {
+			ultimo.classList.remove('leitor-selecionar');
+		}
+
+		index_atual = 0;
 	}
 }
 

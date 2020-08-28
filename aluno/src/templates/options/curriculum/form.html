@@ -21,22 +21,22 @@
 		{% csrf_token %}
 		<div class='form-block'>
 			<label for='instituicao_ensino'>Instituições de ensino</label>
-			<textarea id='instituicao_ensino' name='instituicao_ensino' maxlength='255' required placeholder='Preencha com as instituições de ensino frequentadas'>{{ curriculum.instituicao_ensino }}</textarea>
+			<textarea id='instituicao_ensino' name='instituicao_ensino' maxlength='255' placeholder='Preencha com as instituições de ensino frequentadas' onmouseenter='ajudaVoz(`Preencher com as instituições de ensino`)'>{{ curriculum.instituicao_ensino }}</textarea>
 		</div>
 
 		<div class='form-block'>
 			<label for='curso_extra'>Cursos extras</label>
-			<textarea id='curso_extra' name='curso_extra' maxlength='255' required placeholder='Preencha com cursos realizados'>{{ curriculum.curso_extra }}</textarea>
+			<textarea id='curso_extra' name='curso_extra' maxlength='255' placeholder='Preencha com cursos realizados' onmouseenter='ajudaVoz(`Preencher com os cursos`)'>{{ curriculum.curso_extra }}</textarea>
 		</div>
 
 		<div class='form-block'>
 			<label for='empresa'>Empresas trabalhadas</label>
-			<textarea id='empresa' name='empresa' maxlength='255' required placeholder='Preencha com as empresas trabalhadas'>{{ curriculum.empresa }}</textarea>
+			<textarea id='empresa' name='empresa' maxlength='255' placeholder='Preencha com as empresas trabalhadas' onmouseenter='ajudaVoz(`Preencher com as empresas`)'>{{ curriculum.empresa }}</textarea>
 		</div>
 		
 		<div class='form-block'>
 			<label for='cargo'>Cargos ocupados</label>
-			<textarea id='cargo' name='cargo' maxlength='255' required placeholder='Preencha com os cargos ocupados'>{{ curriculum.cargo }}</textarea>
+			<textarea id='cargo' name='cargo' maxlength='255' placeholder='Preencha com os cargos ocupados' onmouseenter='ajudaVoz(`Preencher com os cargos ocupados`)'>{{ curriculum.cargo }}</textarea>
 		</div>
 
 		<button type='submit'>Salvar</button>

@@ -5,7 +5,7 @@
 			<div class='list-content'>
 				<ul>
 					{% for course in course_list %}
-						<li class='list-item'>
+						<li class='list-item' onmouseenter='ajudaVoz(`{{ course.titulo }}`)'>
 							<div class='list-item-img'>
 								<img src='{{ course.arquivo }}' alt='Imagem do curso {{ course.titulo }}' crossorigin/>
 							</div>

@@ -12,28 +12,32 @@ from core_empresa.models import LoginEmpresa
 
 def login_view(request):
 	if request.method == 'POST':
-		form = LoginForm(request.POST)
+		try:
+			form = LoginForm(request.POST)
 
-		if form.is_valid():
-			data = form.clean_form()
-			login_company = LoginBackend.authenticate(request, data['email'], data['senha_hash'])
+			if form.is_valid():
+				data = form.clean_form()
+				login_company = LoginBackend.authenticate(request, data['email'], data['senha_hash'])
 
-			if login_company != None and login_company != False:
-				login_company.is_authenticated = True
-				login_company.save()
-				form = LoginForm()
-				login(request, login_company, backend='empresa.backend.LoginBackend')
-				return redirect('/vagas/')
-			else:
-				if login_company == False: 
-					login_form = request.POST
-					error = 'Senha não confere'
+				if login_company != None and login_company != False:
+					login_company.is_authenticated = True
+					login_company.save()
+					form = LoginForm()
+					login(request, login_company, backend='empresa.backend.LoginBackend')
+					return redirect('/vagas/')
 				else:
-					login_form = request.POST
-					error = 'Não existe empresa com esse e-mail'
-		else:
+					if login_company == False: 
+						login_form = request.POST
+						error = 'Senha não confere'
+					else:
+						login_form = request.POST
+						error = 'Não existe empresa com esse e-mail'
+			else:
+				login_form = request.POST
+				error = 'Preencher campos de login corretamente'
+		except:
 			login_form = request.POST
-			error = 'Preencher campos de login corretamente'
+			error = 'Não foi possível realizar o login. Tente novamente'
 	else:
 		form = LoginForm()
 		error = None
