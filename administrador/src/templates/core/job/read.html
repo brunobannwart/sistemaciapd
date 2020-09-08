@@ -32,7 +32,8 @@
 					id='titulo' 
 					name='titulo' 
 					value='{{ job.titulo }}'
-					readonly 
+					readonly
+					onmouseenter='ajudaVoz(`{{ job.titulo }}`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -43,6 +44,7 @@
 					name='email' 
 					value='{{ job.email }}' 
 					readonly
+					onmouseenter='ajudaVoz(`{{ job.email }}`)'
 				>
 			</div>
 		</div>
@@ -56,11 +58,12 @@
 					name='data_exp'
 					value='{{ job.data_exp|date:"Y-m-d" }}'
 					readonly
+					onmouseenter='ajudaVoz(`{{ job.data_exp }}`)'
 				>
 			</div>
 			<div class='form-block'>
 				<label for='descricao'>Descrição</label>
-				<textarea id='descricao' name='descricao' readonly>{{ job.descricao }}</textarea>
+				<textarea id='descricao' name='descricao' readonly onmouseenter='ajudaVoz(`{{ job.descricao }}`)'>{{ job.descricao }}</textarea>
 			</div>
 		</div>
 	</form>

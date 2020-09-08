@@ -99,15 +99,7 @@
 					{% if student.foto %}
 						<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto'/>
 					{% else %}
-						<input 
-							aria-hidden='true' 
-							type='file' 
-							accept='image/*' 
-							name='foto' 
-							id='foto' 
-							required
-							oninvalid="setCustomValidity('Selecione uma foto')"
-						/>
+						<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto' required />
 					{% endif %}
 				</div>
 			</div>

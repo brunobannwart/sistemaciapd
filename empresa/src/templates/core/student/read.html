@@ -25,7 +25,8 @@
 					id='nome' 
 					name='nome' 
 					value='{{ student.nome }}' 
-					readonly 
+					readonly
+					onmouseenter='ajudaVoz(`{{ student.nome }}`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -36,6 +37,7 @@
 					name='data_nasc'
 					readonly
 					value='{{ student.data_nasc|date:"Y-m-d" }}'
+					onmouseenter='ajudaVoz(`{{ student.data_nasc }}`)'
 				>
 			</div>
 		</div>
@@ -48,7 +50,8 @@
 					id='email' 
 					name='email' 
 					value='{{ student.email }}' 
-					readonly 
+					readonly
+					onmouseenter='ajudaVoz(`{{ student.email }}`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -59,6 +62,7 @@
 					name='cpf' 
 					value='{{ student.cpf }}' 
 					readonly
+					onmouseenter='ajudaVoz(`{{ student.cpf }}`)'
 				>
 			</div>
 		</div>
@@ -71,7 +75,8 @@
 					id='cep' 
 					name='cep' 
 					value='{{ student.cep }}' 
-					readonly 
+					readonly
+					onmouseenter='ajudaVoz(`{{ student.cep }}`)' 
 				>
 			</div>
 			<div class='form-block'>
@@ -81,7 +86,8 @@
 					id='numero' 
 					name='numero'
 					readonly 
-					value='{{ student.numero }}' 
+					value='{{ student.numero }}'
+					onmouseenter='ajudaVoz(`{{ student.numero }}`)' 
 				>
 			</div>
 		</div>
@@ -89,22 +95,22 @@
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='instituicao_ensino'>Instituições de ensino</label>
-				<textarea id='instituicao_ensino' name='instituicao_ensino' readonly>{{ student.instituicao_ensino }}</textarea>
+				<textarea id='instituicao_ensino' name='instituicao_ensino' readonly onmouseenter='ajudaVoz(`{{ student.instituicao_ensino }}`)'>{{ student.instituicao_ensino }}</textarea>
 			</div>
 			<div class='form-block'>
 				<label for='curso_extra'>Cursos extras</label>
-				<textarea id='curso_extra' name='curso_extra' readonly>{{ student.curso_extra }}</textarea>
+				<textarea id='curso_extra' name='curso_extra' readonly onmouseenter='ajudaVoz(`{{ student.curso_extra }}`)'>{{ student.curso_extra }}</textarea>
 			</div>
 		</div>
 
 		<div class='form-group'>
 			<div class='form-block'>
 				<label for='empresa'>Empresas</label>
-				<textarea id='empresa' name='empresa' readonly>{{ student.empresa }}</textarea>
+				<textarea id='empresa' name='empresa' readonly onmouseenter='ajudaVoz(`{{ student.empresa }}`)'>{{ student.empresa }}</textarea>
 			</div>
 			<div class='form-block'>
 				<label for='cargo'>Cargos ocupados</label>
-				<textarea id='cargo' name='cargo' readonly>{{ student.cargo }}</textarea>
+				<textarea id='cargo' name='cargo' readonly onmouseenter='ajudaVoz(`{{ student.cargo }}`)'>{{ student.cargo }}</textarea>
 			</div>
 		</div>
 
@@ -113,13 +119,13 @@
 				<label for='cid'>CID</label>
 				<select id='cid' name='cid' title='Lista de cids do candidato'>
 					{% for cid in student.cid %}
-						<option value='{{ cid.id }}'>{{ cid.codigo }} - {{ cid.descricao }}</option>
+						<option value='{{ cid.id }}' onmouseenter='ajudaVoz(`{{ cid.descricao }}`)'>{{ cid.codigo }} - {{ cid.descricao }}</option>
 					{% endfor %}
 				</select> 
 			</div>
 			<div class='form-block'>
 				<label for='outra_info'>Outras informações</label>
-				<textarea id='outra_info' name='outra_info' readonly>{{ student.outra_info }}</textarea>
+				<textarea id='outra_info' name='outra_info' readonly onmouseenter='ajudaVoz(`{{ student.outra_info }}`)'>{{ student.outra_info }}</textarea>
 			</div>
 		</div>
 	</form>

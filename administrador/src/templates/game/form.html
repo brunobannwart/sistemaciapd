@@ -67,15 +67,7 @@
 					{% if game.arquivo %}
 						<input aria-hidden='true' type='file' accept='image/*' name='arquivo' id='arquivo'/>
 					{% else %}
-						<input 
-							aria-hidden='true' 
-							type='file' 
-							accept='image/*' 
-							name='arquivo' 
-							id='arquivo' 
-							required
-							oninvalid="setCustomValidity('Selecione um logo')"
-						/>
+						<input aria-hidden='true' type='file' accept='image/*' name='arquivo' id='arquivo' required />
 					{% endif %}
 				</div>
 			</div>
