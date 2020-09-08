@@ -4,9 +4,9 @@ from django.db import models
 class Vaga(models.Model):
 	empresa_id 		=	models.IntegerField(verbose_name='ID da empresa')
 	arquivo 		=	models.ImageField(verbose_name='Arquivo', upload_to='logo/vaga', null=False, blank=False)
-	titulo 			= 	models.CharField(verbose_name='Titulo', max_length=45)
+	titulo 			= 	models.CharField(verbose_name='Titulo', max_length=50)
 	data_exp		=	models.DateField(verbose_name='Data de expiração')
-	descricao		=	models.TextField(verbose_name='Descrição', blank=False, null=False, max_length=100)
+	descricao		=	models.TextField(verbose_name='Descrição', blank=False, null=False, max_length=150)
 	created_at		=	models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
 	updated_at		=	models.DateTimeField(verbose_name='Atualizado em', auto_now=True)
 

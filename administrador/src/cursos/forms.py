@@ -2,9 +2,9 @@ from django import forms
 
 # Create your form here.
 class CursoForm(forms.Form):
-	titulo 			= 	forms.CharField(label='Titulo', max_length=45)
+	titulo 			= 	forms.CharField(label='Titulo', max_length=50)
 	data_exp 		=	forms.DateField(label='Data de expiração')
-	descricao		=	forms.CharField(label='Descrição', widget=forms.Textarea, max_length=100)
+	descricao		=	forms.CharField(label='Descrição', widget=forms.Textarea, max_length=150)
 	arquivo			=	forms.ImageField(label='Arquivo')
 
 	def clean_form(self):
@@ -16,9 +16,9 @@ class CursoForm(forms.Form):
 		return { 'arquivo': arquivo, 'titulo': titulo, 'data_exp': data_exp, 'descricao': descricao }
 
 class CursoEditForm(forms.Form):
-	titulo 			= 	forms.CharField(label='Titulo', max_length=45)
+	titulo 			= 	forms.CharField(label='Titulo', max_length=50)
 	data_exp 		=	forms.DateField(label='Data de expiração')
-	descricao		=	forms.CharField(label='Descrição', widget=forms.Textarea, max_length=100)
+	descricao		=	forms.CharField(label='Descrição', widget=forms.Textarea, max_length=150)
 	arquivo			=	forms.ImageField(label='Arquivo', required=False)
 
 	def clean_form(self):

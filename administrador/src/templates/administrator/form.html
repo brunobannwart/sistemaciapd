@@ -68,7 +68,14 @@
 					{% if administrator.foto %}
 						<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto'/>
 					{% else %}
-						<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto' required/>
+						<input 
+							aria-hidden='true' 
+							type='file' 
+							accept='image/*' 
+							name='foto' id='foto' 
+							required
+							oninvalid="setCustomValidity('Selecione uma foto')" 
+						/>
 					{% endif %}
 				</div>
 			</div>
@@ -87,6 +94,8 @@
 					pattern='[a-zA-Zà-úÀ-Ú][a-zA-Zà-úÀ-Ú\s]*' 
 					maxlength='45'
 					value='{{ administrator.nome }}'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencha com apenas caracteres alfabéticos')" 
 					onmouseenter='ajudaVoz(`Preencher nome com apenas letras`)' 
 				>
 			</div>
@@ -99,13 +108,15 @@
 						name='rf'
 						required
 						placeholder='Preencha com o RF'
-						pattern='[0-9]{7,8}'
+						pattern='[0-9]{5,8}'
 						maxlength='8'
-						minlength='7'
+						minlength='5'
 						value='{{ administrator.rf }}'
 						title='Preencha campo com apenas caracteres númericos'
 						readonly
 						onmouseenter='ajudaVoz(`RF não pode ser alterado`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencha com apenas caracteres númericos')" 
 					>
 				{% else %}
 					<input
@@ -120,6 +131,8 @@
 						value='{{ administrator.rf }}'
 						title='Preencha campo com apenas caracteres númericos'
 						onmouseenter='ajudaVoz(`Preencher RF com apenas números`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencha com apenas caracteres númericos')"
 					>
 				{% endif %}
 			</div>
@@ -140,6 +153,8 @@
 						value='{{ administrator.email }}' 
 						readonly
 						onmouseenter='ajudaVoz(`E-mail não pode ser alterado`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencha com o formato padrão de e-mail')"
 					>
 				{% else %}
 					<input 
@@ -152,6 +167,8 @@
 						title='Preencha campo com o formato padrão de e-mail'
 						value='{{ administrator.email }}'
 						onmouseenter='ajudaVoz(`Preencher e-mail com o formato padrão`)' 
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencha com o formato padrão de e-mail')"
 					>
 				{% endif %}
 			</div>
@@ -168,7 +185,9 @@
 						placeholder='Preencha com uma nova senha'
 						title='Preencha campo com no mínimo seis caracteres' 
 						value='{{ administrator.senha }}'
-						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento mínimo 6`)' 
+						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento mínimo 6`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencha com no mínimo 6 caracteres')" 
 					>
 				{% else %}
 					<label for='senha'>Senha *</label>
@@ -183,7 +202,9 @@
 						placeholder='Preencha com a senha'
 						title='Preencha campo com no mínimo seis caracteres' 
 						value='{{ administrator.senha }}'
-						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)' 
+						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencha com no mínimo 6 caracteres')" 
 					>
 				{% endif %}
 			</div>

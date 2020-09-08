@@ -99,6 +99,9 @@ def camera_view(request):
 def readmore_view(request):
 	return render(request, 'login/readmore.html', {})
 
+def contact_view(request):
+	return render(request, 'login/contact.html', {})
+
 def forgot_view(request):
 	return render(request, 'login/forgot.html', {})
 

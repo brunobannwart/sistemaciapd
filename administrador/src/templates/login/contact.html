@@ -1,0 +1,29 @@
+{% extends 'login/index.html' %}
+{% load static %}
+
+{% block login-header %}
+    <img src="{% static 'assets/ciapd.svg' %}" alt='Logo do CIAPD' />
+    <strong>Contato</strong>
+{% endblock %}
+
+{% block login-content %}
+    <div class='content-contact'>
+        <img src="{% static 'assets/developer.jpg' %}" alt='Desenvolvedor do projeto, Bruno Pereira Bannwart' />
+        <p>
+            Projeto de extensão do CIAPD desenvolvido por Bruno Pereira Bannwart,
+            sobre orientação do professor Fernando Ernesto Kintschner.
+        </p>
+        <p>
+            Telefone de contato: (19) 98828-8330
+        </p>
+        <p style='margin-top: -20px;'>
+            E-mail de contato: bbannwart.bb@gmail.com
+        </p>
+        <button 
+            class='login-admin' 
+            onclick="window.location.href=`{% url 'login' %}`" 
+        >
+            Voltar
+        </button>
+    </div>
+{% endblock %}

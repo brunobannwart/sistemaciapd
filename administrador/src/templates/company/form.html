@@ -100,7 +100,15 @@
 						{% if company.logo %}
 							<input aria-hidden='true' type='file' accept='image/*' name='logo' id='logo'/>
 						{% else %}
-							<input aria-hidden='true' type='file' accept='image/*' name='logo' id='logo' required/>
+							<input 
+								aria-hidden='true' 
+								type='file' 
+								accept='image/*' 
+								name='logo' 
+								id='logo' 
+								required
+								oninvalid="setCustomValidity('Selecione um logo')"
+							/>
 						{% endif %}
 					</div>
 				</div>
@@ -142,7 +150,15 @@
 						{% if company.foto %}
 							<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto'/>
 						{% else %}
-							<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto' required/>
+							<input 
+								aria-hidden='true' 
+								type='file' 
+								accept='image/*' 
+								name='foto' 
+								id='foto' 
+								required
+								oninvalid="setCustomValidity('Selecione uma foto')"
+							/>
 						{% endif %}
 					</div>
 				</div>
@@ -160,7 +176,9 @@
 					placeholder='Preencha com a razão social' 
 					maxlength='45'
 					value='{{ company.razao_social }}'
-					onmouseenter='ajudaVoz(`Preencher razão social`)' 
+					onmouseenter='ajudaVoz(`Preencher razão social`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher campo com no máximo 45 caracteres')"  
 				>
 			</div>
 			<div class='form-block'>
@@ -180,6 +198,8 @@
 						value='{{ company.cnpj }}' 
 						readonly 
 						onmouseenter='ajudaVoz(`CNPJ não pode ser alterado`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com o formato padrao de CNPJ')"  
 					>
 				{% else %}
 					<input 
@@ -194,7 +214,9 @@
 						onkeypress="mascaraCNPJ(this)" 
 						onblur="validarCNPJ(this)"
 						value='{{ company.cnpj }}'
-						onmouseenter='ajudaVoz(`Preencher CNPJ no formato padrão`)' 
+						onmouseenter='ajudaVoz(`Preencher CNPJ no formato padrão`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com o formato padrao de CNPJ')" 
 					>
 				{% endif %}
 			</div>
@@ -214,6 +236,8 @@
 					maxlength='45'
 					value='{{ company.nome_contato }}'
 					onmouseenter='ajudaVoz(`Preencher nome com apenas letras`)' 
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher campo com apenas caracteres alfabéticos')"
 				>
 			</div>
 			<div class='form-block'>
@@ -229,7 +253,9 @@
 					title='Preencha campo com o formato padrão de telefone' 
 					onkeypress="mascaraTelefone(this)"
 					value='{{ company.telefone }}'
-					onmouseenter='ajudaVoz(`Preencher telefone no formato padrão`)' 
+					onmouseenter='ajudaVoz(`Preencher telefone no formato padrão`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher com o formato padrao de telefone')" 
 				>
 			</div>
 		</div>
@@ -248,7 +274,9 @@
 						title='Preencha campo com o formato padrão de e-mail'
 						value='{{ company.email }}'
 						readonly
-						onmouseenter='ajudaVoz(`E-mail não pode ser alterado`)' 
+						onmouseenter='ajudaVoz(`E-mail não pode ser alterado`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com o formato padrao de e-mail')" 
 					>
 				{% else %}
 					<input 
@@ -260,7 +288,9 @@
 						placeholder='Preencha com o e-mail'
 						title='Preencha campo com o formato padrão de e-mail'
 						value='{{ company.email }}'
-						onmouseenter='ajudaVoz(`Preencher e-mail no formato padrão`)' 
+						onmouseenter='ajudaVoz(`Preencher e-mail no formato padrão`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com o formato padrao de e-mail')" 
 					>
 				{% endif %}
 			</div>
@@ -277,7 +307,9 @@
 						placeholder='Preencha com uma nova senha'
 						title='Preencha campo com no mínimo seis caracteres'
 						value='{{ company.senha }}'
-						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento minimo 6`)' 
+						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento minimo 6`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com no mínimo 6 caracteres')" 
 					>
 				{% else %}
 					<label for='senha'>Senha *</label>
@@ -292,7 +324,9 @@
 						placeholder='Preencha com a senha'
 						title='Preencha campo com no mínimo seis caracteres'
 						value='{{ company.senha }}'
-						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)' 
+						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com no mínimo 6 caracteres')" 
 					>
 				{% endif %}
 			</div>
@@ -313,7 +347,9 @@
 					onkeypress="mascaraCEP(this)" 
 					onblur="validarCEP(this)" 
 					value='{{ company.cep }}'
-					onmouseenter='ajudaVoz(`Preencher CEP no formato padrão`)' 
+					onmouseenter='ajudaVoz(`Preencher CEP no formato padrão`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher com o formato padrao de CEP')" 
 				>
 			</div>
 			<div class='form-block'>
@@ -328,7 +364,9 @@
 					title='Preencha campo com apenas caracteres númericos' 
 					maxlength='5'
 					value='{{ company.numero }}'
-					onmouseenter='ajudaVoz(`Preencher com apenas números`)' 
+					onmouseenter='ajudaVoz(`Preencher com apenas números`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher campo com apenas caracteres númericos')" 
 				>
 			</div>
 		</div>

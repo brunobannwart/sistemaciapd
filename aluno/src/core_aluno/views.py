@@ -196,7 +196,7 @@ def job_view(request, id=0):
 			if result != None:
 				company_id = result[1]
 				cursor.execute("SELECT razao_social, email FROM empresa WHERE id=%s", [company_id])
-				company = cursos.fetchone()
+				company = cursor.fetchone()
 
 				if company != None:
 					job = {

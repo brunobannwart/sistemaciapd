@@ -67,7 +67,15 @@
 					{% if game.arquivo %}
 						<input aria-hidden='true' type='file' accept='image/*' name='arquivo' id='arquivo'/>
 					{% else %}
-						<input aria-hidden='true' type='file' accept='image/*' name='arquivo' id='arquivo' required/>
+						<input 
+							aria-hidden='true' 
+							type='file' 
+							accept='image/*' 
+							name='arquivo' 
+							id='arquivo' 
+							required
+							oninvalid="setCustomValidity('Selecione um logo')"
+						/>
 					{% endif %}
 				</div>
 			</div>
@@ -82,7 +90,7 @@
 					name='titulo' 
 					required 
 					placeholder='Preencha com o titulo'
-					maxlength='45' 
+					maxlength='50' 
 					value='{{ game.titulo }}'
 					onmouseenter='ajudaVoz(`Preencher com o titulo`)' 
 				>
@@ -98,14 +106,25 @@
 					placeholder='Preencha com a URL'
 					title='Preencha campo com o formato padrão de URL'
 					value='{{ game.url }}'
-					onmouseenter='ajudaVoz(`Preencher URL no formato padrão`)' 
+					onmouseenter='ajudaVoz(`Preencher URL no formato padrão`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher com o formato padrao de URL')" 
 				>
 			</div>
 		</div>
 
 		<div class='form-block' style='margin-top: 15px'>
 			<label for='descricao'>Descrição *</label>
-			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required onmouseenter='ajudaVoz(`Preencher com uma descrição`)'>{{ game.descricao }}</textarea>
+			<textarea 
+				id='descricao' 
+				name='descricao' 
+				placeholder='Preencha com uma descrição' 
+				maxlength='150' 
+				required 
+				onmouseenter='ajudaVoz(`Preencher com uma descrição`)'
+				oninput="setCustomValidity('')" 
+				oninvalid="setCustomValidity('Preencher campo com uma descrição')"
+			>{{ game.descricao }}</textarea>
 		</div>
 
 		<button type='submit'>Salvar</button>

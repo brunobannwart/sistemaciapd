@@ -104,6 +104,9 @@ def camera_view(request):
 def home_view(request):
 	return render(request, 'options/index.html', {})
 
+def contact_view(request):
+	return render(request, 'login/contact.html', {})
+
 def logout_view (request):
 	try:
 		logout_email = request.user.email

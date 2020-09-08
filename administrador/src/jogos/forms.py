@@ -2,9 +2,9 @@ from django import forms
 
 # Create your form here.
 class JogoForm(forms.Form):
-	titulo 			= 	forms.CharField(label='Titulo', max_length=45)
+	titulo 			= 	forms.CharField(label='Titulo', max_length=50)
 	url				=	forms.URLField(label='URL', max_length=100)
-	descricao		=	forms.CharField(label='Descrição', widget=forms.Textarea, max_length=100)
+	descricao		=	forms.CharField(label='Descrição', widget=forms.Textarea, max_length=150)
 	arquivo			=	forms.ImageField(label='Arquivo')
 
 	def clean_form(self):
@@ -16,9 +16,9 @@ class JogoForm(forms.Form):
 		return { 'arquivo': arquivo, 'titulo': titulo, 'url': url, 'descricao': descricao }
 
 class JogoEditForm(forms.Form):
-	titulo 			= 	forms.CharField(label='Titulo', max_length=45)
+	titulo 			= 	forms.CharField(label='Titulo', max_length=50)
 	url				=	forms.URLField(label='URL', max_length=100)
-	descricao		=	forms.CharField(label='Descrição', widget=forms.Textarea, max_length=100)
+	descricao		=	forms.CharField(label='Descrição', widget=forms.Textarea, max_length=150)
 	arquivo			=	forms.ImageField(label='Arquivo', required=False)
 
 	def clean_form(self):

@@ -67,7 +67,15 @@
 					{% if event.arquivo %}
 						<input aria-hidden='true' type='file' accept='image/*' name='arquivo' id='arquivo'/>
 					{% else %}
-						<input aria-hidden='true' type='file' accept='image/*' name='arquivo' id='arquivo' required/>
+						<input 
+							aria-hidden='true' 
+							type='file' 
+							accept='image/*' 
+							name='arquivo' 
+							id='arquivo' 
+							required
+							oninvalid="setCustomValidity('Selecione um logo')"
+						/>
 					{% endif %}
 				</div>
 			</div>
@@ -82,7 +90,7 @@
 					name='titulo' 
 					required 
 					placeholder='Preencha com o titulo'
-					maxlength='45' 
+					maxlength='50' 
 					value='{{ event.titulo }}'
 					onmouseenter='ajudaVoz(`Preencher com o titulo`)' 
 				>
@@ -97,13 +105,22 @@
 					title='Preencha campo com uma data válida' 
 					value='{{ event.data_exp|date:"Y-m-d" }}'
 					onmouseenter='ajudaVoz(`Escolher uma data`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher campo com uma data válida')"
 				>
 			</div>
 		</div>
 
 		<div class='form-block' style='margin-top: 15px'>
 			<label for='descricao'>Descrição *</label>
-			<textarea id='descricao' name='descricao' placeholder='Preencha com uma descrição' maxlength='100' required onmouseenter='ajudaVoz(`Preencher com uma descrição`)'>{{ event.descricao }}</textarea>
+			<textarea 
+				id='descricao' 
+				name='descricao' 
+				placeholder='Preencha com uma descrição' 
+				maxlength='150' 
+				required 
+				onmouseenter='ajudaVoz(`Preencher com uma descrição`)'
+			>{{ event.descricao }}</textarea>
 		</div>
 
 		<button type='submit'>Salvar</button>

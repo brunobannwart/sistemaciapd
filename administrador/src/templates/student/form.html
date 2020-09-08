@@ -99,7 +99,15 @@
 					{% if student.foto %}
 						<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto'/>
 					{% else %}
-						<input aria-hidden='true' type='file' accept='image/*' name='foto' id='foto' required/>
+						<input 
+							aria-hidden='true' 
+							type='file' 
+							accept='image/*' 
+							name='foto' 
+							id='foto' 
+							required
+							oninvalid="setCustomValidity('Selecione uma foto')"
+						/>
 					{% endif %}
 				</div>
 			</div>
@@ -118,7 +126,9 @@
 					maxlength='45' 
 					title='Preencha campo com apenas caracteres alfabéticos'
 					value='{{ student.nome }}'
-					onmouseenter='ajudaVoz(`Preencher nome com apenas letras`)' 
+					onmouseenter='ajudaVoz(`Preencher nome com apenas letras`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher campo com apenas caracteres alfabéticos')" 
 				>
 			</div>
 			<div class='form-block'>
@@ -132,6 +142,8 @@
 					title='Preencha campo com uma data válida' 
 					value='{{ student.data_nasc|date:"Y-m-d" }}'
 					onmouseenter='ajudaVoz(`Escolher uma data`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher campo com uma data válida')"
 				>
 			</div>
 		</div>
@@ -149,7 +161,9 @@
 						title='Preencha campo com o formato padrão de e-mail'
 						value='{{ student.email }}' 
 						readonly 
-						onmouseenter='ajudaVoz(`E-mail não pode ser alterado`)' 
+						onmouseenter='ajudaVoz(`E-mail não pode ser alterado`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com o formato padrão de e-mail')" 
 					>
 				{% else %}
 					<input 
@@ -160,7 +174,9 @@
 						placeholder='Preencha com o e-mail'
 						title='Preencha campo com o formato padrão de e-mail'
 						value='{{ student.email }}'
-						onmouseenter='ajudaVoz(`Preencher e-mail no formato padrão`)' 
+						onmouseenter='ajudaVoz(`Preencher e-mail no formato padrão`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com o formato padrão de e-mail')" 
 					>
 				{% endif %}
 			</div>
@@ -177,7 +193,9 @@
 						title='Preencha campo com no mínimo seis caracteres' 
 						placeholder='Preencha com uma nova senha'
 						value='{{ student.senha }}'
-						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento minimo 6`)'  
+						onmouseenter='ajudaVoz(`Senha será alterada se preencher. Senha com comprimento minimo 6`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com no mínimo 6 caracteres')"  
 					>
 				{% else %}
 					<label for='senha'>Senha *</label>
@@ -192,7 +210,9 @@
 						title='Preencha campo com no mínimo seis caracteres' 
 						placeholder='Preencha com a senha'
 						value='{{ student.senha }}'
-						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)' 
+						onmouseenter='ajudaVoz(`Preencher senha com comprimento mínimo 6`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com no mínimo 6 caracteres')" 
 					>
 				{% endif %}
 			</div>
@@ -215,7 +235,9 @@
 						onblur="validarCPF(this)"
 						value='{{ student.cpf }}'
 						readonly
-						onmouseenter='ajudaVoz(`CPF não pode ser alterado`)'  
+						onmouseenter='ajudaVoz(`CPF não pode ser alterado`)'
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com o formato padrão de CPF')"  
 					>
 				{% else %}
 					<input 
@@ -231,6 +253,8 @@
 						onblur="validarCPF(this)"
 						value='{{ student.cpf }}'
 						onmouseenter='ajudaVoz(`Preencher CPF no formato padrão`)' 
+						oninput="setCustomValidity('')" 
+						oninvalid="setCustomValidity('Preencher com o formato padrão de CPF')"
 					>
 				{% endif %}
 			</div>
@@ -247,7 +271,9 @@
 					maxlength='15'
 					onkeypress="mascaraCelular(this)"
 					value='{{ student.celular }}'
-					onmouseenter='ajudaVoz(`Preencher celular no formato padrão`)' 
+					onmouseenter='ajudaVoz(`Preencher celular no formato padrão`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher com o formato padrão de celular')" 
 				>
 			</div>
 		</div>
@@ -267,7 +293,9 @@
 					onkeypress="mascaraCEP(this)" 
 					onblur="validarCEP(this)" 
 					value='{{ student.cep }}'
-					onmouseenter='ajudaVoz(`Preencher CEP no formato padrão`)' 
+					onmouseenter='ajudaVoz(`Preencher CEP no formato padrão`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher com o formato padrão de CEP')" 
 				>
 			</div>
 			<div class='form-block'>
@@ -282,7 +310,9 @@
 					title='Preencha campo com apenas caracteres númericos' 
 					maxlength='5'
 					value='{{ student.numero }}'
-					onmouseenter='ajudaVoz(`Preencher com apenas números`)' 
+					onmouseenter='ajudaVoz(`Preencher com apenas números`)'
+					oninput="setCustomValidity('')" 
+					oninvalid="setCustomValidity('Preencher campo com apenas caracteres númericos')" 
 				>
 			</div>
 		</div>

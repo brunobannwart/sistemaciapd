@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
 
-from empresa.views import login_view, camera_view, readmore_view, forgot_view, logout_view
+from empresa.views import login_view, camera_view, readmore_view, contact_view, forgot_view, logout_view
 from core_empresa.views import changepassword_view, student_list_view, student_read_view
 from vagas.views import job_list_view, job_form_view, job_delete_view
 
@@ -31,6 +31,7 @@ urlpatterns = [
 	path('camera/', camera_view, name='camera'),
 	path('saibamais/', readmore_view, name='readmore'),
 	path('esquecidados/', forgot_view, name='forgot'),
+	path('contato/', contact_view, name='contact'),
 	
 	path('sair/', logout_view, name='logout'),
 	path('trocarsenha/', changepassword_view, name='changepassword'),
@@ -44,6 +45,7 @@ urlpatterns = [
 	path('candidatos/<int:id>/', student_read_view, name='student-read'),
 
 	re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT }),
+	re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT }),
 ]
 
 if settings.DEBUG:
