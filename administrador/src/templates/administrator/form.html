@@ -288,7 +288,10 @@
 
 	function selecionarAjuda() {
 		if(document.getElementById('ajuda_voz').checked) {
+			document.getElementById('leitor_tela').checked = false;
+			document.getElementById('leitor_tela_hidden').disabled = false;
     		document.getElementById('ajuda_hidden').disabled = true;
+
 		} else {
 			document.getElementById('ajuda_hidden').disabled = false;
 		}
@@ -296,7 +299,10 @@
 
 	function selecionarLeitor() {
 		if(document.getElementById('leitor_tela').checked) {
+			document.getElementById('ajuda_voz').checked = false;
+			document.getElementById('ajuda_hidden').disabled = false;
     		document.getElementById('leitor_tela_hidden').disabled = true;
+
 		} else {
 			document.getElementById('leitor_tela_hidden').disabled = false;
 		}

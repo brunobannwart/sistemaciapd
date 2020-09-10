@@ -8,9 +8,10 @@
  	discovery: https://texttospeech.googleapis.com/$discovery/rest?version=v1
 */
 
-let GoogleAuth, autenticado;
+let GoogleAuth, autenticado, ocupado;
 
 function carregarCliente() {
+	ocupado = false;
 	gapi.load('client:auth2', iniciarCliente);
 }
 
@@ -38,35 +39,43 @@ function atualizarStatus(logado) {
 
 function ajudaVoz(texto) {
 	let bloco_audio = document.getElementById('ajuda_audio');
+
+	if (!ocupado) {
+		ocupado = true;
 		
-	gapi.client.texttospeech.text.synthesize({
-	 	'resource': {
-	 		'input': {
-	 			'text': texto,
-	 		},
-	 		'voice': {
-	 			'languageCode': 'pt-BR',
-	 			'name': 'pt-BR-Standard-A',
-	 			'ssmlGender': 'FEMALE',
-	 		},
-	 		'audioConfig': {
-	 			'audioEncoding': 'MP3',
-	 			'pitch': 0,
-	 			'sampleRateHertz': 0,
-	 			'speakingRate': 0,
-	 			'volumeGainDb': 0,
-	 		},
-	 	},
-	})
-	.then(function(response) {	
-	 	let som = new Audio('data:audio/mp3;base64,' + response.result.audioContent);
-	
-	 	bloco_audio.appendChild(som);
+		gapi.client.texttospeech.text.synthesize({
+		 	'resource': {
+		 		'input': {
+		 			'text': texto,
+		 		},
+		 		'voice': {
+		 			'languageCode': 'pt-BR',
+		 			'name': 'pt-BR-Standard-A',
+		 			'ssmlGender': 'FEMALE',
+		 		},
+		 		'audioConfig': {
+		 			'audioEncoding': 'MP3',
+		 			'pitch': 0,
+		 			'sampleRateHertz': 0,
+		 			'speakingRate': 0,
+		 			'volumeGainDb': 0,
+		 		},
+		 	},
+		})
+		.then(function(response) {	
+		 	let som = new Audio('data:audio/mp3;base64,' + response.result.audioContent);
+		
+		 	bloco_audio.appendChild(som);
 
- 		som.addEventListener('ended', function() {
-	 		bloco_audio.removeChild(som);
-	 	});
+	 		som.addEventListener('ended', function() {
+	 			ocupado = false;
+		 		bloco_audio.removeChild(som);
+		 	});
 
-		som.play();
-	});
+			som.play();
+		})
+		.catch(function(error) {
+			ocupado = false;
+		});
+	}
 }
