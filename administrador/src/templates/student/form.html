@@ -14,7 +14,7 @@
 
 {% block content %}
 {% if error is not None %}
-	<div class='error-overlay'>
+	<div class='error-overlay' onclick="this.style.display='none'">
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
 			<button aria-label='Fechar aviso' class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
@@ -25,7 +25,7 @@
 	</div>
 {% endif %}
 
-<div id='container' class='message-overlay' style='display: none;'>
+<div id='container' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
 	<div class='message-popup' onclick="this.parentElement.style.display='none'">
 		<h2 id='title'></h2>
 		<button aria-label='Fechar aviso' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
@@ -39,7 +39,7 @@
 	</div>
 </div>
 
-<div id='container_document' class='message-overlay' style='display: none;'>
+<div id='container_document' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
 	<div class='message-popup' onclick="this.parentElement.style.display='none'">
 		<h2 id='title_document'></h2>
 		<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>

@@ -96,7 +96,8 @@ def curriculum_list_view(request):
 					'curso_extra': row[3],
 					'empresa': row[4],
 					'cargo': row[5],
-					'liberado': row[6],
+					'laudo_medico': settings.MEDIA_URL + row[6],
+					'liberado': row[7],
 				}
 
 				curriculum_list.append(curriculum)
@@ -152,11 +153,17 @@ def curriculum_read_view(request, id=0):
 						[instituicao, curso, empresa, cargo, status_liberado, id]
 					)
 
-					return redirect('/curriculos/')
+				form = CurriculumForm()
+				error = None
+				return redirect('/curriculos/')
 			else:
 				curriculum = request.POST
+				error = 'Alguns campos não foram preenchidos corretamente'
 
 		else:
+			form = CurriculumForm()
+			error = None
+
 			with connection.cursor() as cursor:
 				cursor.execute("SELECT * FROM curriculo WHERE id=%s", [id])
 				result = cursor.fetchone()
@@ -172,7 +179,8 @@ def curriculum_read_view(request, id=0):
 							'curso_extra': result[3],
 							'empresa': result[4],
 							'cargo': result[5],
-							'liberado': result[6],
+							'laudo_medico': settings.MEDIA_URL + result[6],
+							'liberado': result[7],
 						}
 					except:
 						return redirect('/curriculos/')
@@ -180,7 +188,8 @@ def curriculum_read_view(request, id=0):
 					return redirect('/curriculos/')
 		
 		context = {
-			'curriculum': curriculum
+			'curriculum': curriculum,
+			'error': error
 		}
 
 		return render(request, 'core/curriculum/read.html', context)

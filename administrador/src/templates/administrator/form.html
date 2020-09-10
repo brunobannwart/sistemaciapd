@@ -15,7 +15,7 @@
 {% block content %}
 
 {% if error is not None %}
-	<div class='error-overlay'>
+	<div class='error-overlay' onclick="this.style.display='none'">
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
 			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>

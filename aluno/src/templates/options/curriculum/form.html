@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if error is not None %}
-	<div class='error-overlay'>
+	<div class='error-overlay' onclick="this.style.display='none'">
 		<div class='error-popup' onclick="this.parentElement.style.display='none'">
 			<h2>Aviso</h2>
 			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
@@ -17,7 +17,7 @@
 	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'home' %}`" aria-label='retornar'>
 		<i class='fas fa-arrow-circle-left'></i>
 	</button>
-	<form autocomplete='off' method='post' action='.'>
+	<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 		{% csrf_token %}
 		<div class='form-block'>
 			<label for='instituicao_ensino'>Instituições de ensino</label>
@@ -39,10 +39,52 @@
 			<textarea id='cargo' name='cargo' maxlength='255' placeholder='Preencha com os cargos ocupados' onmouseenter='ajudaVoz(`Preencher com os cargos ocupados`)'>{{ curriculum.cargo }}</textarea>
 		</div>
 
+		<div class='form-file-block'>
+			<label for='laudo_botao'>Laudo médico</label>
+
+			<div class='form-file'>
+				<button 
+					id='laudo_botao'
+					type='button' 
+					class='file'
+					onclick='selecionarArquivo()'
+					onmouseenter='ajudaVoz(`Escolher laudo médico`)'
+				>
+					Selecionar laudo médico
+				</button>
+				<p id='mensagem'></p>
+			</div>
+
+			<div class='input-file-hidden'>
+				<input type='file' accept='image/*, application/pdf' id='laudo_medico' name='laudo_medico' />
+			</div>
+		</div>
+
 		<button type='submit'>Salvar</button>
 	</form>
 </div>
 <script>
+	const input = document.getElementById('laudo_medico');
+	const mensagem = document.getElementById('mensagem');
+
+	window.onload = function() {
+		mensagem.innerHTML = 'Por favor, enviar laudo médico o mais rápido possível.';
+	}
+
+	input.addEventListener('change', function() {
+		const arquivo = this.files[0];
+
+		if (arquivo) {
+			mensagem.innerHTML = arquivo.name;
+		} else {
+			mensagem.innerHTML = 'Por favor, enviar laudo médico o mais rápido possível.';
+		}
+	});
+
+	function selecionarArquivo() {
+		input.click();
+	}
+
 	$("textarea").keydown(function(evento) {
 		let texto_entrada = evento.key;
 

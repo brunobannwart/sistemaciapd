@@ -7,15 +7,17 @@ from .forms import CurriculoForm
 @login_required(login_url='login')
 def curriculum_form_view(request):
 	if request.method == 'POST':
-		form = CurriculoForm(request.POST)
+		form = CurriculoForm(request.POST, request.FILES or None)
 
 		if form.is_valid():
 			data = form.clean_form()
 			try:
-				if data['instituicao_ensino'] != '' or data['curso_extra'] != '' or data['empresa'] != '' or data['cargo'] != '':
+				if data['instituicao_ensino'] != '' or data['curso_extra'] != '' or data['empresa'] != '' or data['cargo'] != '' or data['laudo_medico']:
 					curriculum = Curriculo.objects.create(aluno_id=request.user.id, instituicao_ensino=data['instituicao_ensino'], 
-									curso_extra=data['curso_extra'], empresa=data['empresa'], cargo=data['cargo'])
+									curso_extra=data['curso_extra'], empresa=data['empresa'], 
+									cargo=data['cargo'], laudo_medico=data['laudo_medico'])
 					curriculum.save()
+
 				return redirect('/inicio/')
 			except:
 				curriculum = request.POST
