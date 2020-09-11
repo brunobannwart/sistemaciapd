@@ -28,28 +28,28 @@
             <nav class='header-options'>
                 <ul>
                     <li>
-                        <a href="{% url 'curriculum-form' %}" aria-label='currículo'>Curriculo</a>
+                        <a href="{% url 'curriculum-form' %}" aria-label='currículo' onmouseenter='ajudaVoz(`Acessar currículo`)'>Curriculo</a>
                     </li>
                     <li>
-                        <a href="{% url 'job-list' %}" aria-label='empregos'>Empregos</a>
+                        <a href="{% url 'job-list' %}" aria-label='empregos' onmouseenter='ajudaVoz(`Acessar empregos`)'>Empregos</a>
                     </li>
                     <li>
-                        <a href="{% url 'course-list' %}" aria-label='cursos'>Cursos</a>
+                        <a href="{% url 'course-list' %}" aria-label='cursos' onmouseenter='ajudaVoz(`Acessar cursos`)'>Cursos</a>
                     </li>
                     <li>
-                        <a href="{% url 'event-list' %}" aria-label='eventos'>Eventos</a>
+                        <a href="{% url 'event-list' %}" aria-label='eventos' onmouseenter='ajudaVoz(`Acessar eventos`)'>Eventos</a>
                     </li>
                     <li>
-                        <a href="{% url 'game-list' %}" aria-label='jogos'>
+                        <a href="{% url 'game-list' %}" aria-label='jogos' onmouseenter='ajudaVoz(`Acessar jogos`)'>
                             Jogos
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'videolesson-list' %}" aria-label='video-aulas'>
+                        <a href="{% url 'videolesson-list' %}" aria-label='video-aulas' onmouseenter='ajudaVoz(`Acessar video-aulas`)'>
                             Video-aulas
                         </a>
                     </li>
-                    <button class='header-button' onclick="window.location.href=`{% url 'logout' %}`">
+                    <button class='header-button' onclick="window.location.href=`{% url 'logout' %}`" onmouseenter='ajudaVoz(`Sair`)'>
                         Sair
                     </button>
                 </ul>

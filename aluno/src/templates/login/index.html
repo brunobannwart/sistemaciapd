@@ -13,7 +13,7 @@
 <body>
     <div class='background'>
         {% if error is not None %}
-            <div class='login-error-overlay'>
+            <div class='login-error-overlay' onclick="this.style.display='none'">
                 <div class='login-error-popup' onclick="this.parentElement.style.display='none'">
                     <h2>Aviso</h2>
                     <button class='login-error-close' style='border: 0; background-color: transparent;'>&times;</button>

@@ -3,11 +3,11 @@
 {% block header %}
 	{% if request.user.is_authenticated %}
         <div class='page-info'>
-			<h3> Currículo {{ curriculum.id }} </h3>
+			<h3> Currículo do {{ curriculum.nome }} </h3>
 		</div>
 	{% else %}
 		<div class='page-info-anonymous'>
-			<h3> Currículo {{ curriculum.id }} </h3>
+			<h3> Currículo do {{ curriculum.nome }} </h3>
 		</div>
 	{% endif %}
 {% endblock %}
@@ -17,8 +17,10 @@
 		<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'curriculum-list' %}`" aria-label='retornar'>
 			<i class='fas fa-arrow-circle-left'></i>
 		</button>
-		<form autocomplete='off' method='post' action='.'>
+		<form autocomplete='off' method='post' action='.' enctype='multipart/form-data'>
 			{% csrf_token %}
+			<input name='aluno_id' type='hidden' aria-hidden='true' style='display: none;' value='{{ curriculum.aluno_id }}' />
+
 			<div class='form-group' style='margin-top: 30px;'>
 				<div class='form-block'>
 					<label for='nome'>Nome</label>
@@ -55,9 +57,27 @@
 			<div class='form-group'>
 				<div class='form-block'>
 					<label for='laudo_botao'>Laudo médico</label>
+
+					<div style='display: flex; flex-direction: row; align-items: center;'>
+						<button
+							type='button' 
+							id='laudo_botao'
+							onclick='selecionarArquivo()'
+							onmouseenter='ajudaVoz(`Escolher novo laudo médico`)'
+							style='display: flex; flex-direction: column; align-items: center; justify-content: center; width: 13.15em; height: 47px; border: 1px solid #FFF;
+									border-radius: 0px; color: #FFF; background-color: #52A641; cursor: pointer; transition: all 0.5s; font-size: 18px; margin-top: 10px; margin-right: 15px; padding: 0.88em 1.56em;'
+						>
+							Selecionar novo laudo
+						</button>
+						<p id='mensagem' style='font-size: 14px; font-weight: bold; font-style: italic; color: #D44646;'></p>
+					</div>
+
+					<div style='width: 0; height: 0; overflow: hidden;'>
+						<input id='novo_laudo_medico' name='novo_laudo_medico' type='file' accept='image/*, application/pdf' aria-hidden='true'/>
+					</div>
 				</div>
 				{% if curriculum.link_laudo is not None %}
-					<div class='form-block'>
+					<div class='form-block' style='margin-top: 20px;'>
 						<a class='download' href='{{ curriculum.link_laudo }}' download>Baixar laudo médico atual</a>
 					</div>
 				{% endif %}
@@ -89,13 +109,29 @@
 		</form>
 	</div>
 	<script>
+		const input = document.getElementById('novo_laudo_medico');
+		const mensagem = document.getElementById('mensagem');
 		const label_liberar = document.getElementById('label_liberar_curriculo');
+
+		input.addEventListener('change', function() {
+			const arquivo = this.files[0];
+
+			if (arquivo) {
+				mensagem.innerHTML = arquivo.name;
+			} else {
+				mensagem.innerHTML = '';
+			}
+		});
 
 		label_liberar.addEventListener('keyup', function(evento) {
   			if (evento.keyCode === 13) {
     			document.getElementById('liberado').click();
   			}
 		});
+
+		function selecionarArquivo() {
+			input.click();
+		}
 
 		function liberar() {
 			if(document.getElementById('liberado').checked) {

@@ -5,6 +5,7 @@ from django.db import connection
 from .forms import CurriculumForm
 from alunos.models import Aluno
 from empresas.models import Empresa
+#import os
 
 # Create your views here.
 @login_required(login_url='login')
@@ -122,6 +123,25 @@ def curriculum_read_view(request, id=0):
 				else:
 					status_liberado = False
 
+				if 'novo_laudo_medico' in request.FILES:
+					file = request.FILES['novo_laudo_medico']
+					filename = file.name
+					
+					filepath = 'curriculo/' + str(data['aluno_id']) + '/' + filename
+					write = settings.MEDIA_ROOT + '/' + filepath
+
+					with open(write, 'wb+') as destination:
+						for chunk in file.chunks():
+							destination.write(chunk)
+
+					laudo_path = filepath
+
+					# if data['laudo_medico'] != '':
+					# 	os.remove(settings.MEDIA_ROOT + '/' + data['laudo_medico'])
+
+				else:
+					laudo_path = data['laudo_medico']
+
 				if status_liberado:
 					try:
 						update_student = Aluno.objects.get(email=data['email'])
@@ -138,8 +158,8 @@ def curriculum_read_view(request, id=0):
 						if data['cargo'] != '':
 							update_student.cargo = data['cargo']
 
-						if data['laudo_medico'] != '':	# CORRIGIR LÓGICA
-							update_student.laudo_medico = data['laudo_medico']
+						if laudo_path != '':	
+							update_student.laudo_medico = laudo_path
 							
 						update_student.save()
 					except:
@@ -152,8 +172,8 @@ def curriculum_read_view(request, id=0):
 					cargo = data['cargo']
 					
 					cursor.execute(
-						"UPDATE curriculo SET instituicao_ensino=%s, curso_extra=%s, empresa=%s, cargo=%s, liberado=%s WHERE id=%s", 
-						[instituicao, curso, empresa, cargo, status_liberado, id]
+						"UPDATE curriculo SET instituicao_ensino=%s, curso_extra=%s, empresa=%s, cargo=%s, laudo_medico=%s, liberado=%s WHERE id=%s", 
+						[instituicao, curso, empresa, cargo, laudo_path, status_liberado, id]
 					)
 
 				form = CurriculumForm()
@@ -182,6 +202,7 @@ def curriculum_read_view(request, id=0):
 
 						curriculum = {
 							'id': result[0],
+							'aluno_id': result[1],
 							'nome': student.nome,
 							'email': student.email,
 							'instituicao_ensino': result[2],

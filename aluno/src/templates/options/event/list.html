@@ -16,7 +16,7 @@
 								</header>
 								<div class='list-item-container-content'>
 									<p>{{ event.descricao }}</p>
-									<button class='list-item-button' onclick="window.location.href=`{% url 'event' event.id %}`">
+									<button class='list-item-button' onclick="window.location.href=`{% url 'event' event.id %}`" onmouseenter='ajudaVoz(`{{ event.titulo }}`>
 										Acessar
 									</button>
 								</div>

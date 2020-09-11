@@ -188,6 +188,19 @@
   display: block;
 }
 
+.form form .form-block a.download:link, a.download:visited {
+  background-color: #f44336;
+  color: #FFF;
+  padding: 0.88em 1.56em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.form form .form-block a.download:active, a.download:hover {
+  background-color: red;
+}
+
 .form form .form-block-checkbox label.checkbox-label {
   display: block;
   position: relative;

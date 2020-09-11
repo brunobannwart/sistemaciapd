@@ -109,6 +109,20 @@
     display: block;
 }
 
+.form form .form-block a.download:link, a.download:visited {
+  margin-top: 10px;
+  background-color: #4054C2;
+  color: #FFF;
+  padding: 0.88em 1.56em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.form form .form-block a.download:active, a.download:hover {
+  background-color: #4D65E9;
+}
+
 .form form input[type='text'], input[type='date'], input[type='email'], input[type='password'], textarea, select {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;

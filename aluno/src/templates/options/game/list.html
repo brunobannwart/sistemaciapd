@@ -15,7 +15,7 @@
 								</header>
 								<div class='list-item-container-content'>
 									<p>{{ game.descricao }}</p>
-									<button class='list-item-button' onclick="window.location.href=`{% url 'game' game.id %}`">
+									<button class='list-item-button' onclick="window.location.href=`{% url 'game' game.id %}`" onmouseenter='ajudaVoz(`{{ game.titulo }}`>
 										Acessar
 									</button>
 								</div>
