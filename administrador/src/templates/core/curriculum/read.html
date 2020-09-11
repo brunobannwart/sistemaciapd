@@ -12,6 +12,18 @@
 	{% endif %}
 {% endblock %}
 
+{% if error is not None %}
+	<div class='error-overlay' onclick="this.style.display='none'">
+		<div class='error-popup' onclick="this.parentElement.style.display='none'">
+			<h2>Aviso</h2>
+			<button class='error-close' style='border: 0; background-color: transparent;'>&times;</button>
+			<div class='error-content'>
+				<p>{{ error }}</p>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
 {% block content %}
 	<div class='form'>
 		<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'curriculum-list' %}`" aria-label='retornar'>
