@@ -12,7 +12,7 @@ def job_list_view(request):
 	job_list = []
 	
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM vaga WHERE data_exp >= CURDATE()")
+		cursor.execute("SELECT * FROM vaga WHERE data_exp >= CURDATE() ORDER BY titulo ASC")
 		results = cursor.fetchall()
 
 		for row in results:
@@ -78,7 +78,7 @@ def curriculum_list_view(request):
 	curriculum_list = []
 	
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM curriculo")
+		cursor.execute("SELECT * FROM curriculo ORDER BY created_at DESC")
 		results = cursor.fetchall()
 	
 		for row in results:
@@ -96,7 +96,7 @@ def curriculum_list_view(request):
 					'curso_extra': row[3],
 					'empresa': row[4],
 					'cargo': row[5],
-					'laudo_medico': settings.MEDIA_URL + row[6],
+					'laudo_medico': row[6],
 					'liberado': row[7],
 				}
 
@@ -112,7 +112,7 @@ def curriculum_list_view(request):
 def curriculum_read_view(request, id=0):
 	if id != 0:
 		if request.method == 'POST':
-			form = CurriculumForm(request.POST)
+			form = CurriculumForm(request.POST, request.FILES or None)
 
 			if form.is_valid():
 				data = form.clean_form()
@@ -137,6 +137,9 @@ def curriculum_read_view(request, id=0):
 
 						if data['cargo'] != '':
 							update_student.cargo = data['cargo']
+
+						if data['laudo_medico'] != '':	# CORRIGIR LÓGICA
+							update_student.laudo_medico = data['laudo_medico']
 							
 						update_student.save()
 					except:
@@ -171,6 +174,12 @@ def curriculum_read_view(request, id=0):
 				if result != None:
 					try:
 						student = Aluno.objects.get(id=result[1])
+
+						if result[6] != '':
+							link_laudo = settings.MEDIA_URL + result[6]
+						else:
+							link_laudo = None
+
 						curriculum = {
 							'id': result[0],
 							'nome': student.nome,
@@ -179,7 +188,8 @@ def curriculum_read_view(request, id=0):
 							'curso_extra': result[3],
 							'empresa': result[4],
 							'cargo': result[5],
-							'laudo_medico': settings.MEDIA_URL + result[6],
+							'laudo_medico': result[6],
+							'link_laudo': link_laudo,
 							'liberado': result[7],
 						}
 					except:

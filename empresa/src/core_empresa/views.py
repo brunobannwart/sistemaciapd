@@ -58,7 +58,7 @@ def student_list_view(request):
 	student_list = []
 	
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM aluno")
+		cursor.execute("SELECT * FROM aluno ORDER BY nome ASC")
 		results = cursor.fetchall()
 
 		for row in results:
@@ -77,6 +77,7 @@ def student_list_view(request):
 				'curso_extra': row[14],
 				'empresa': row[15],
 				'cargo': row[16],
+				'laudo_medico': row[17],
 			}
 			student_list.append(student)
 	
@@ -113,6 +114,11 @@ def student_read_view(request, id=0):
 
 						cids.append(cid)
 
+				if result[17] != '':
+					link_laudo = settings.MEDIA_URL + result[17]
+				else:
+					link_laudo = None
+
 				student = {
 					'id': result[0],
 					'foto':	settings.MEDIA_URL + result[1],
@@ -128,6 +134,7 @@ def student_read_view(request, id=0):
 					'curso_extra': result[14],
 					'empresa': result[15],
 					'cargo': result[16],
+					'laudo_medico': link_laudo,
 				}
 		
 				context = {

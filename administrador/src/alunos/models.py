@@ -21,10 +21,11 @@ class Aluno(models.Model):
 	leitor_tela			=	models.BooleanField(verbose_name='Leitor de tela', default=False)
 	outra_info			=	models.TextField(verbose_name='Outras Informações', blank=True, null=False, max_length=100)
 	
-	instituicao_ensino 	= 	models.TextField(verbose_name='Instituições de ensino', max_length=100, blank=True, null=False)
-	curso_extra 		=	models.TextField(verbose_name='Cursos extras', max_length=100, blank=True, null=False)
-	empresa 			=	models.TextField(verbose_name='Empresas', max_length=100, blank=True, null=False)
-	cargo				=	models.TextField(verbose_name='Cargos ocupados', max_length=100, blank=True, null=False)
+	instituicao_ensino 	= 	models.TextField(verbose_name='Instituições de ensino', max_length=255, blank=True, null=False)
+	curso_extra 		=	models.TextField(verbose_name='Cursos extras', max_length=255, blank=True, null=False)
+	empresa 			=	models.TextField(verbose_name='Empresas', max_length=255, blank=True, null=False)
+	cargo				=	models.TextField(verbose_name='Cargos ocupados', max_length=255, blank=True, null=False)
+	laudo_medico 		=	models.CharField(verbose_name='Laudo médico', max_length=100, blank=True, null=False)
 	
 	cod_treino 			=	models.IntegerField(verbose_name='ID do treino facial', null=True)
 	created_at			=	models.DateTimeField(verbose_name='Criado em', auto_now_add=True)

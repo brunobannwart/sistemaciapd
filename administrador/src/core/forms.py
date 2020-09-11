@@ -9,6 +9,7 @@ class CurriculumForm(forms.Form):
 	empresa 			=	forms.CharField(label='Empresas', max_length=255, required=False)
 	cargo 				=	forms.CharField(label='Cargos', max_length=255, required=False)
 	liberado			=	forms.CharField(label='Liberado', max_length=3) 
+	laudo_medico 		=	forms.CharField(label='Laudo médico', max_length=100, required=False)
 
 	def clean_form(self):
 		email 			=	self.cleaned_data.get('email')
@@ -17,6 +18,7 @@ class CurriculumForm(forms.Form):
 		empresas 		=	self.cleaned_data.get('empresa')
 		cargos 			= 	self.cleaned_data.get('cargo')
 		status 			= 	self.cleaned_data.get('liberado')
+		laudo 			=	self.cleaned_data.get('laudo_medico')
 
 		return {
 			'email': email,
@@ -25,4 +27,5 @@ class CurriculumForm(forms.Form):
 			'empresa': empresas,
 			'cargo': cargos,
 			'liberado': status,
+			'laudo_medico': laudo,
 		}

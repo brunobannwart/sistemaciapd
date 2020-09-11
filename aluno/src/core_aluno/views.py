@@ -10,7 +10,7 @@ def course_list_view(request):
 	course_list = []
 
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM curso WHERE data_exp >= CURDATE()")
+		cursor.execute("SELECT * FROM curso WHERE data_exp >= CURDATE() ORDER BY titulo ASC")
 		results = cursor.fetchall()
 
 		for row in results:
@@ -60,7 +60,7 @@ def event_list_view(request):
 	event_list = []
 	
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM evento WHERE data_exp >= CURDATE()")
+		cursor.execute("SELECT * FROM evento WHERE data_exp >= CURDATE() ORDER BY titulo ASC")
 		results = cursor.fetchall()
 
 		for row in results:
@@ -110,7 +110,7 @@ def game_list_view(request):
 	game_list = []
 	
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM jogo")
+		cursor.execute("SELECT * FROM jogo ORDER BY titulo ASC")
 		results = cursor.fetchall()
 		
 		for row in results:
@@ -159,7 +159,7 @@ def job_list_view(request):
 	job_list = []
 
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM vaga WHERE data_exp >= CURDATE()")
+		cursor.execute("SELECT * FROM vaga WHERE data_exp >= CURDATE() ORDER BY titulo ASC")
 		results = cursor.fetchall()
 
 		for row in results:
@@ -226,7 +226,7 @@ def videolesson_list_view(request):
 	videolesson_list = []
 
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM videoaula")
+		cursor.execute("SELECT * FROM videoaula ORDER BY titulo ASC")
 		results = cursor.fetchall()
 		
 		for row in results:

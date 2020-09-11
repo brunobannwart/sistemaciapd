@@ -128,6 +128,13 @@
 				<textarea id='outra_info' name='outra_info' readonly onmouseenter='ajudaVoz(`{{ student.outra_info }}`)'>{{ student.outra_info }}</textarea>
 			</div>
 		</div>
+
+		{% if student.laudo_medico is not None %}
+			<div class='form-group'>
+				<label for='laudo_medico'>Laudo médico</label>
+				<a href='{{ student.laudo_medico }}' download>Baixar laudo médico</a>
+			</div>
+		{% endif %}
 	</form>
 </div>
 {% endblock %}
