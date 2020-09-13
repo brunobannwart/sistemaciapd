@@ -5,7 +5,7 @@ from django.db import connection
 from .forms import CurriculumForm
 from alunos.models import Aluno
 from empresas.models import Empresa
-#import os
+import os
 
 # Create your views here.
 @login_required(login_url='login')
@@ -136,8 +136,9 @@ def curriculum_read_view(request, id=0):
 
 					laudo_path = filepath
 
-					# if data['laudo_medico'] != '':
-					# 	os.remove(settings.MEDIA_ROOT + '/' + data['laudo_medico'])
+					if data['laudo_medico'] != '':
+						if os.path.exists(settings.MEDIA_ROOT + '/' + data['laudo_medico']):
+							os.remove(settings.MEDIA_ROOT + '/' + data['laudo_medico'])
 
 				else:
 					laudo_path = data['laudo_medico']

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang='pt'>
+<head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <title>{{ student.nome }}</title>
+    <style type='text/css'>
+        @page {
+            size: a4 portrait;
+            @frame content_frame {
+                left: 0pt; 
+                width: 620pt; 
+                top: 0pt; 
+                height: 877pt;
+            }
+            @frame footer {
+                -pdf-frame-content: footer;
+                left: 275pt;
+                top: 825pt;
+                width: 512pt;
+                height: 30pt;
+            }
+        }
+    </style>
+    <style type='text/css'>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1 {
+            font-size: 20px;
+            text-align: center;
+            padding-bottom: -15px;
+            padding-top: 20px;
+        }
+        .header-img {
+            padding-top: 10px;
+            padding-bottom: 15px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .header-img img {
+            width: 195px;
+            height: 195px;
+        }
+        .wrapper-contact {
+            justify-content: left;
+            align-items: left;
+            text-align: left;
+            padding-left: 15px;
+        }
+        .wrapper-contact label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .wrapper-contact .wrapper-contact-field {
+            padding-left: 35px;
+            padding-bottom: 10px;
+        }
+        .wrapper-contact .wrapper-contact-field label {
+            font-size: 14px;
+            font-weight: normal;
+        }
+        .wrapper-school {
+            justify-content: left;
+            align-items: left;
+            text-align: left;
+            font-size: 14px;
+            padding-left: 15px;
+            padding-top: 20px;
+        }
+        .wrapper-school label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .wrapper-school .wrapper-school-field {
+            padding-top: 0;
+            padding-left: 35px;
+            padding-bottom: 10px;
+        }
+        .wrapper-school .wrapper-school-field label {
+            font-size: 14px;
+            font-weight: normal;
+        }
+        .wrapper-cids {
+            justify-content: left;
+            align-items: left;
+            text-align: left;
+            font-size: 14px;
+            padding-left: 15px;
+            padding-top: 20px;
+        }
+        .wrapper-cids label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .wrapper-cids .wrapper-cids-field {
+            padding-top: 0;
+            padding-left: 35px;
+            padding-bottom: 10px;
+        }
+        .wrapper-cids .wrapper-cids-field label {
+            font-size: 14px;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class='container-pdf'>
+        <header>
+            <h1>Ficha do candidato</h1>
+            <hr>
+            <div class='header-img'>
+                <img src='{{ student.foto }}' />
+            </div>
+        </header>
+
+        <div class='wrapper-contact'>
+            <label>Dados básicos</label>
+
+            <div class='wrapper-contact-field'>
+                <label>
+                    Nome: {{ student.nome }}
+                </label>
+            </div>
+            <div class='wrapper-contact-field'>
+                <label>
+                    Data de nascimento: {{ student.data_nasc }}
+                </label>
+            </div>
+            <div class='wrapper-contact-field'>
+                <label>
+                    E-mail: {{ student.email }}
+                </label>
+            </div>
+            <div class='wrapper-contact-field'>
+                <label>
+                    Celular: {{ student.celular }}
+                </label>
+            </div>
+
+            <div class='wrapper-contact-field'>
+                <label>
+                    CEP: {{ student.cep }}
+                </label>
+            </div>
+
+            <div class='wrapper-contact-field'>
+                <label>
+                    Numero da residência: {{ student.numero }}
+                </label>
+            </div>
+            {% if student.outra_info != '' %}
+                <div class='wrapper-contact-field'>
+                    <label>
+                        Outras informações: {{ student.outra_info }}
+                    </label>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class='wrapper-school'>
+            <label>Currículo</label>
+            <div class='wrapper-school-field'>
+                <label>
+                    Instituições de ensino: {{ student.instituicao_ensino }}
+                </label>
+            </div>
+            <div class='wrapper-school-field'>
+                <label>
+                    Cursos extras: {{ student.curso_extra }}
+                </label>
+            </div>
+            <div class='wrapper-school-field'>
+                <label>
+                    Empresas trabalhadas: {{ student.empresa }}
+                </label>
+            </div>
+            <div class='wrapper-school-field'>
+                <label>
+                    Cargos ocupados: {{ student.cargo }}
+                </label>
+            </div>
+        </div>
+
+        {% if student.cid|length > 0 %}
+            <div class='wrapper-cids'>
+                <label>CIDs</label>
+                {% for cid in student.cid %}
+                        <div class='wrapper-cids-field'>
+                        <label>
+                            {{ cid.codigo }} - {{ cid.descricao }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div id='footer'>
+            Página <pdf:pagenumber> de <pdf:pagecount>
+        </div>
+    </div>
+</body>
+</html>

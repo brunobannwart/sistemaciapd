@@ -6,7 +6,7 @@
 			<div class='list-content'>
 				<ul>
 					{% for event in event_list %}
-						<li class='list-item' onmouseenter='ajudaVoz(`{{ event.titulo }}`)'>
+						<li class='list-item'>
 							<div class='list-item-img'>
 								<img src='{{ event.arquivo }}' alt='Imagem do evento {{ event.titulo }}' crossorigin/>
 							</div>
@@ -16,7 +16,7 @@
 								</header>
 								<div class='list-item-container-content'>
 									<p>{{ event.descricao }}</p>
-									<button class='list-item-button' onclick="window.location.href=`{% url 'event' event.id %}`" onmouseenter='ajudaVoz(`{{ event.titulo }}`>
+									<button class='list-item-button' onclick="window.location.href=`{% url 'event' event.id %}`" onmouseenter='ajudaVoz(`Acessar {{ event.titulo }}`)'>
 										Acessar
 									</button>
 								</div>

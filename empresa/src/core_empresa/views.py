@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db import connection
 from .forms import ChangePasswordForm
+from .utils import render_to_pdf
 
 # Create your views here.
 @login_required(login_url='login')
@@ -142,6 +144,72 @@ def student_read_view(request, id=0):
 				}
 
 				return render(request, 'core/student/read.html', context)
+			else:
+				return redirect('/candidatos/')
+	else:
+		return redirect('/candidatos/')
+
+@login_required(login_url='login')
+def student_pdf_view(request, id=0):		
+	if id != 0:
+		with connection.cursor() as cursor:
+			cursor.execute("SELECT * FROM aluno WHERE id=%s", [id])
+			result = cursor.fetchone()
+
+			if result != None:
+				cursor.execute("SELECT * FROM aluno_cid WHERE aluno_id=%s", [id])
+				results_alunos_cids = cursor.fetchall()
+				cids = []
+
+				for result_aluno_cid in results_alunos_cids:
+					cid_id = result_aluno_cid[2]
+
+					cursor.execute("SELECT * FROM cid WHERE id=%s", [cid_id])
+					result_cid = cursor.fetchone()
+
+					if result_cid != None:
+						cid = {
+							'id': result_cid[0],
+							'codigo': result_cid[1],
+							'descricao': result_cid[2],
+						}
+
+						cids.append(cid)
+
+				student = {
+					'id': result[0],
+					'foto':	settings.MEDIA_ROOT + '/' + result[1],
+					'nome': result[2],
+					'data_nasc': result[3],
+					'email': result[4],
+					'cpf': result[6],
+					'celular': result[7],
+					'cep': result[8],
+					'numero': result[9],
+					'cid': cids,
+					'outra_info': result[12],
+					'instituicao_ensino': result[13],
+					'curso_extra': result[14],
+					'empresa': result[15],
+					'cargo': result[16],
+				}
+		
+				context = {
+					'student': student
+				}
+
+				pdf = render_to_pdf('core/student/pdf.html', context)
+
+				if pdf:
+					response = HttpResponse(pdf, content_type='application/pdf')
+					filename = result[2].replace(' ', '_').lower() + '.pdf'
+					content = 'inline; filename=%s' % (filename)
+					response['Content-Disposition'] = content
+					return response
+				else:
+					return redirect('/candidatos/{0}'.format(id))
+
+				return pdf
 			else:
 				return redirect('/candidatos/')
 	else:

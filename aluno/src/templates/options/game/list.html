@@ -5,7 +5,7 @@
 			<div class='list-content'>
 				<ul>
 					{% for game in game_list %}
-						<li class='list-item' onmouseenter='ajudaVoz(`{{ game.titulo }}`)'>
+						<li class='list-item'>
 							<div class='list-item-img'>
 								<img src='{{ game.arquivo }}' alt='Imagem do jogo {{ game.titulo }}' crossorigin/>
 							</div>
@@ -15,7 +15,7 @@
 								</header>
 								<div class='list-item-container-content'>
 									<p>{{ game.descricao }}</p>
-									<button class='list-item-button' onclick="window.location.href=`{% url 'game' game.id %}`" onmouseenter='ajudaVoz(`{{ game.titulo }}`>
+									<button class='list-item-button' onclick="window.location.href=`{% url 'game' game.id %}`" onmouseenter='ajudaVoz(`Acessar {{ game.titulo }}`)'>
 										Acessar
 									</button>
 								</div>

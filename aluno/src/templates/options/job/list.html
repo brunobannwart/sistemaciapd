@@ -16,7 +16,7 @@
 								</header>
 								<div class='list-item-container-content'>
 									<p>{{ job.descricao }}</p>
-									<button class='list-item-button' onclick="window.location.href=`{% url 'job' job.id %}`" onmouseenter='ajudaVoz(`{{ job.titulo }}`>
+									<button class='list-item-button' onclick="window.location.href=`{% url 'job' job.id %}`" onmouseenter='ajudaVoz(`Acessar {{ job.titulo }}`)'>
 										Acessar
 									</button>
 								</div>

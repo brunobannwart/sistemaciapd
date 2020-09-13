@@ -129,14 +129,18 @@
 			</div>
 		</div>
 
-		{% if student.laudo_medico is not None %}
-			<div class='form-group'>
+		<div class='form-group'>
+			<div class='form-block'>
+				<label for='pdf'>PDF</label>
+				<a class='pdf' href="{% url 'student-pdf' student.id %}" onmouseenter='ajudaVoz(`Gerar PDF do candidato {{ student.nome }}`)'>Gerar PDF</a>
+			</div>
+			{% if student.laudo_medico is not None %}
 				<div class='form-block'>
 					<label for='laudo_medico'>Laudo médico</label>
 					<a class='download' href='{{ student.laudo_medico }}' download onmouseenter='ajudaVoz(`Baixar laudo médico`)'>Baixar laudo médico</a>
 				</div>
-			</div>
-		{% endif %}
+			{% endif %}
+		</div>
 	</form>
 </div>
 {% endblock %}

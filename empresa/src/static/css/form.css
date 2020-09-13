@@ -123,6 +123,20 @@
   background-color: #4D65E9;
 }
 
+.form form .form-block a.pdf:link, a.pdf:visited {
+  margin-top: 10px;
+  background-color: #11C78D;
+  color: #FFF;
+  padding: 0.88em 1.56em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.form form .form-block a.pdf:active, a.pdf:hover {
+  background-color: #14D99A;
+}
+
 .form form input[type='text'], input[type='date'], input[type='email'], input[type='password'], textarea, select {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
