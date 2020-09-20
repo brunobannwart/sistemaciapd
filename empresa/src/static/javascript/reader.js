@@ -328,7 +328,7 @@ function tratarEventoLeitor(evt) {
 
 			} else {
 				if (evt.which === 9) {
-					moverFoco(document.activeElement);
+					moverFoco(obterElementoAtivo());
 				}
 			}
 		}
