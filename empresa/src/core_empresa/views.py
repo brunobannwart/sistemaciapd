@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -8,6 +10,7 @@ from .utils import render_to_pdf
 
 # Create your views here.
 @login_required(login_url='login')
+@csrf_protect
 def changepassword_view(request):
 	if request.method == 'POST':
 		form = ChangePasswordForm(request.POST)
@@ -53,6 +56,7 @@ def changepassword_view(request):
 		'error': error
 	}
 
+	context.update(csrf(request))
 	return render(request, 'core/company/password.html', context)
 
 @login_required(login_url='login')

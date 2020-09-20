@@ -94,5 +94,11 @@
             }
         }
     });
+
+    $('form').on('submit', function() {
+        $('button[type="submit"]').attr('disabled', true);
+        $('button[type="button"]').attr('disabled', true);
+        return true;
+    });
 </script>
 </html>

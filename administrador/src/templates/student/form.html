@@ -25,29 +25,33 @@
 	</div>
 {% endif %}
 
-<div id='container' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
-	<div class='message-popup' onclick="this.parentElement.style.display='none'">
-		<h2 id='title'></h2>
-		<button aria-label='Fechar aviso' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
-		<div class='message-content'>
-			<p id='address'></p>
-			<p id='district'></p>
-			<p id='city'></p>
-			<p id='uf'></p>
-			<p id='error'></p>		
+{% if request.user.leitor_tela is not True %}
+	<div id='container' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
+		<div class='message-popup' onclick="this.parentElement.style.display='none'">
+			<h2 id='title'></h2>
+			<button aria-label='Fechar aviso' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
+			<div class='message-content'>
+				<p id='address'></p>
+				<p id='district'></p>
+				<p id='city'></p>
+				<p id='uf'></p>
+				<p id='error'></p>		
+			</div>
 		</div>
 	</div>
-</div>
 
-<div id='container_document' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
-	<div class='message-popup' onclick="this.parentElement.style.display='none'">
-		<h2 id='title_document'></h2>
-		<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
-		<div class='message-content'>
-			<p id='message_document'></p>		
+	<div id='container_document' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
+		<div class='message-popup' onclick="this.parentElement.style.display='none'">
+			<h2 id='title_document'></h2>
+			<button class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
+			<div class='message-content'>
+				<p id='message_document'></p>		
+			</div>
 		</div>
 	</div>
-</div>
+{% else %}
+	<span id='container_leitor' style='visibility: none; display: none;'></span>
+{% endif %}
 
 <div class='form'>
 	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'student-list' %}`" aria-label='retornar'>
@@ -363,7 +367,7 @@
 			</div>
 		</div>
 
-		<button type='submit'>Salvar</button>
+		<button id='botao_submit' type='submit'>Salvar</button>
 	</form>
 </div>
 <script>

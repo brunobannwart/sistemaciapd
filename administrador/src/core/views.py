@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db import connection
@@ -110,6 +112,7 @@ def curriculum_list_view(request):
 	return render(request, 'core/curriculum/list.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def curriculum_read_view(request, id=0):
 	if id != 0:
 		if request.method == 'POST':
@@ -224,11 +227,13 @@ def curriculum_read_view(request, id=0):
 			'error': error
 		}
 
+		context.update(csrf(request))
 		return render(request, 'core/curriculum/read.html', context)
 	else:
 		return redirect('/curriculos/')
 
 @login_required(login_url='login')
+@csrf_protect
 def curriculum_delete_view(request, id=0):
 	if request.method == 'POST':
 		if id != 0:

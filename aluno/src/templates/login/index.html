@@ -36,9 +36,9 @@
                     <form autocomplete='off' action='.' method='post'>
                         {% csrf_token %}
                         <label for='email'>E-mail *</label>
-                        <input type='email' id='email' name='email' class='email' required placeholder='Digite seu email' value='{{ login.email }}' />
+                        <input type='email' id='email' name='email' class='email' placeholder='Digite seu email' value='{{ login.email }}' />
                         <label for='senha'>Senha *</label>
-                        <input type='password' id='senha' name='senha' class='password' required placeholder='Digite sua senha' maxlength='50' value='{{ login.senha }}' /> 
+                        <input type='password' id='senha' name='senha' class='password' placeholder='Digite sua senha' maxlength='50' value='{{ login.senha }}' /> 
 
                         <div class='checkbox'>
                             <label id='label_controle' for='controle_leitor' class='checkbox-label'>Leitor de tela
@@ -79,6 +79,12 @@
                 audio(`${texto_entrada}`);
             }
         }
+    });
+
+    $('form').on('submit', function() {
+        $('button[type="submit"]').attr('disabled', true);
+        $('button[type="button"]').attr('disabled', true);
+        return true;
     });
 </script>
 </html>

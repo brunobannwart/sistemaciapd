@@ -415,5 +415,9 @@
 }
 
 .form form button[type='submit']:hover {
-    background-color: #6931ca;
+  background-color: #6931ca;
+}
+
+.form form button[type='submit']:disabled {
+  background-color: #843dff;
 }

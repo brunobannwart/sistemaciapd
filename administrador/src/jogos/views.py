@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .models import Jogo
 from .forms import JogoForm, JogoEditForm
@@ -13,6 +15,7 @@ def game_list_view(request):
 	return render(request, 'game/list.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def game_form_view(request, id=0): 
 	if request.method == 'POST':
 		if id == 0:
@@ -73,9 +76,11 @@ def game_form_view(request, id=0):
 		'error': error
 	}
 
+	context.update(csrf(request))
 	return render(request, 'game/form.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def game_delete_view(request, id=0):
 	if request.method == 'POST':
 		try:

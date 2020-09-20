@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 import os, requests, json
 from .models import Administrador
@@ -14,6 +16,7 @@ def admin_list_view(request):
 	return render(request, 'administrator/list.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def admin_form_view(request, id=0):
 	os.environ['NO_PROXY'] = '127.0.0.1'
 	
@@ -115,9 +118,11 @@ def admin_form_view(request, id=0):
 		'edit': edit
 	}
 
+	context.update(csrf(request))
 	return render(request, 'administrator/form.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def admin_delete_view(request, id=0):
 	if request.method == 'POST':
 		try:

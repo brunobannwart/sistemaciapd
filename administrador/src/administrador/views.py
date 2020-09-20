@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import login, logout
 import os, requests, io
 from regex import subf
@@ -8,6 +10,7 @@ from .forms import LoginForm
 from administradores.models import Administrador
 from .backend import LoginBackend
 
+@csrf_protect
 def login_view(request):
 	if request.method == 'POST':
 		try:
@@ -50,6 +53,7 @@ def login_view(request):
 		'error': error,
 	}
 
+	context.update(csrf(request))
 	return render(request, 'login/index.html', context)
 
 def camera_view(request):

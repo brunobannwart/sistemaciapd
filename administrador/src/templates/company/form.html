@@ -25,29 +25,33 @@
 	</div>
 {% endif %}
 
-<div id='container' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
-	<div class='message-popup' onclick="this.parentElement.style.display='none'">
-		<h2 id='title'></h2>
-		<button aria-label='Fechar mensagem' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
-		<div class='message-content'>
-			<p id='address'></p>
-			<p id='district'></p>
-			<p id='city'></p>
-			<p id='uf'></p>
-			<p id='error'></p>		
+{% if request.user.leitor_tela is not True %}
+	<div id='container' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
+		<div class='message-popup' onclick="this.parentElement.style.display='none'">
+			<h2 id='title'></h2>
+			<button aria-label='Fechar mensagem' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
+			<div class='message-content'>
+				<p id='address'></p>
+				<p id='district'></p>
+				<p id='city'></p>
+				<p id='uf'></p>
+				<p id='error'></p>		
+			</div>
 		</div>
 	</div>
-</div>
 
-<div id='container_document' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
-	<div class='message-popup' onclick="this.parentElement.style.display='none'">
-		<h2 id='title_document'></h2>
-		<button aria-label='Fechar mensagem' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
-		<div class='message-content'>
-			<p id='message_document'></p>		
+	<div id='container_document' class='message-overlay' style='display: none;' onclick="this.style.display='none'">
+		<div class='message-popup' onclick="this.parentElement.style.display='none'">
+			<h2 id='title_document'></h2>
+			<button aria-label='Fechar mensagem' class='message-close' style='border: 0; background-color: transparent;'>&times;</button>
+			<div class='message-content'>
+				<p id='message_document'></p>		
+			</div>
 		</div>
 	</div>
-</div>
+{% else %}
+	<span id='container_leitor' style='visibility: none; display: none;'></span>
+{% endif %}
 
 <div class='form' style='overflow-y: hidden;'>
 	<button class='form-button-return' style='border: 0; background-color: transparent;' onclick="window.location.href=`{% url 'company-list' %}`" aria-label='retornar'>
@@ -196,7 +200,7 @@
 						pattern='[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[-][0-9]{2}'
 						title='Preencha campo com o formato padrão de CNPJ'  
 						onkeypress="mascaraCNPJ(this)" 
-						onblur="validarCNPJ(this)"
+						onblur="await validarCNPJ(this)"
 						value='{{ company.cnpj }}'
 						onmouseenter='ajudaVoz(`Preencher CNPJ no formato padrão`)'
 						oninput="setCustomValidity('')" 
@@ -329,7 +333,7 @@
 					title='Preencha campo com o formato padrão de CEP' 
 					pattern='[0-9]{2}[\.][0-9]{3}[-][0-9]{3}' 
 					onkeypress="mascaraCEP(this)" 
-					onblur="validarCEP(this)" 
+					onblur="await validarCEP(this)" 
 					value='{{ company.cep }}'
 					onmouseenter='ajudaVoz(`Preencher CEP no formato padrão`)'
 					oninput="setCustomValidity('')" 
@@ -394,7 +398,7 @@
 			</div>
 		</div>
 
-		<button type='submit'>Salvar</button>
+		<button id='botao_submit' type='submit'>Salvar</button>
 	</form>
 </div>
 <script>

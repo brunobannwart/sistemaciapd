@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .models import Evento
 from .forms import EventoForm, EventoEditForm
@@ -13,6 +15,7 @@ def event_list_view(request):
 	return render(request, 'event/list.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def event_form_view(request, id=0): 
 	if request.method == 'POST':
 		if id == 0:
@@ -72,9 +75,12 @@ def event_form_view(request, id=0):
 		'event': event,
 		'error': error
 	} 
+
+	context.update(csrf(request))
 	return render(request, 'event/form.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def event_delete_view(request, id=0):
 	if request.method == 'POST':
 		try:

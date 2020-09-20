@@ -227,6 +227,14 @@ body, input, button {
     background: #e70000;
 }
 
+.content button[type='submit']:disabled {
+    background: #fb0202;
+}
+
+.content button[type='button']:disabled {
+    background: #fb0202;
+}
+
 .content .help {
     display: flex;
     flex-direction: column;

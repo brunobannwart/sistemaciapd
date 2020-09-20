@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 import os, requests, json
 from .models import Aluno
@@ -15,6 +17,7 @@ def student_list_view(request):
 	return render(request, 'student/list.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def student_form_view(request, id=0):
 	os.environ['NO_PROXY'] = '127.0.0.1'
 
@@ -134,9 +137,11 @@ def student_form_view(request, id=0):
 		'cid_list': Cid.objects.all(),
 	}
 
+	context.update(csrf(request))
 	return render(request, 'student/form.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def student_delete_view(request, id=0):
 	if request.method == 'POST':
 		try:

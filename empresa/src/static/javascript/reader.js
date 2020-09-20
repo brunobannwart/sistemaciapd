@@ -228,6 +228,14 @@ function moverFoco(offset) {
 		ultimo.classList.remove('leitor-selecionar');
 	}
 
+	if (offset instanceof HTMLElement) {
+		index_atual = lista_elementos.findIndex(function(elemento) {
+			return elemento === offset;
+		});
+
+		return focarElemento(offset);
+	}
+
 	index_atual = index_atual + offset;
 
 	if (index_atual < 0) {
@@ -251,6 +259,14 @@ function focarElemento(elemento) {
 	elemento.focus();
 
 	anunciarElemento(elemento);
+}
+
+function obterElementoAtivo() {
+	if (document.activeElement && document.activeElement !== document.body) {
+		return document.activeElement;
+	}
+
+	return lista_elementos[0];
 }
 
 function anunciarElemento(elemento) {
@@ -305,9 +321,15 @@ function tratarEventoLeitor(evt) {
 	if (!controle_leitor || controle_leitor.checked) {
 		if (evt.ctrlKey && evt.which === 39) {
 			moverFoco(1);
+
 		} else {
 			if (evt.ctrlKey && evt.which === 37) {
 				moverFoco(-1);
+
+			} else {
+				if (evt.which === 9) {
+					moverFoco(document.activeElement);
+				}
 			}
 		}
 	} else {

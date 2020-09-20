@@ -1,5 +1,7 @@
 # from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import login, logout
 from django.db import connection
 import os, requests, io
@@ -10,6 +12,7 @@ from .forms import LoginForm
 from .backend import LoginBackend
 from core_empresa.models import LoginEmpresa
 
+@csrf_protect
 def login_view(request):
 	if request.method == 'POST':
 		try:
@@ -51,6 +54,8 @@ def login_view(request):
 		'login': login_form,
 		'error': error,
 	}
+
+	context.update(csrf(request))
 	return render(request, 'login/index.html', context)
 
 def camera_view(request):

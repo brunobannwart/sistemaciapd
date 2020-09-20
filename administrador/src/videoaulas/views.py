@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .models import Videoaula
 from .forms import VideoaulaForm, VideoaulaEditForm
@@ -13,6 +15,7 @@ def videolesson_list_view(request):
 	return render(request, "videolesson/list.html", context)
 
 @login_required(login_url='login')
+@csrf_protect
 def videolesson_form_view(request, id=0): 
 	if request.method == 'POST':
 		if id == 0:
@@ -73,9 +76,11 @@ def videolesson_form_view(request, id=0):
 		'error': error
 	}
 
+	context.update(csrf(request))
 	return render(request, "videolesson/form.html", context)
 
 @login_required(login_url='login')
+@csrf_protect
 def videolesson_delete_view(request, id=0):
 	if request.method == 'POST':
 		try:

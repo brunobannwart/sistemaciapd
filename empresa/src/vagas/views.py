@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .models import Vaga
 from .forms import VagaForm, VagaEditForm
@@ -13,6 +15,7 @@ def job_list_view(request):
 	return render(request, 'job/list.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def job_form_view(request, id=0): 
 	if request.method == 'POST':
 		if id == 0:
@@ -73,9 +76,12 @@ def job_form_view(request, id=0):
 		'job': job,
 		'error': error
 	} 
+
+	context.update(csrf(request))
 	return render(request, 'job/form.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def job_delete_view(request, id=0):
 	if request.method == 'POST':
 		try:

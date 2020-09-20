@@ -92,5 +92,10 @@
 			audio(`${texto_entrada}`);
 		}
 	});
+
+	$('form').on('submit', function() {
+        $('button[type="submit"]').attr('disabled', true);
+        return true;
+    });
 </script>
 {% endblock %}

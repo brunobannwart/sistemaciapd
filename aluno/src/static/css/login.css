@@ -245,7 +245,15 @@ body, input, button {
 }
 
 .content button.login-student:hover {
-    background: #0053DB;
+  background: #0053DB;
+}
+
+.content button[type='submit']:disabled {
+  background: #0966ff;
+}
+
+.content button[type='button']:disabled {
+  background: #0966ff;
 }
 
 .content-contact > img {

@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .models import Curriculo
 from .forms import CurriculoForm
 
 # Create your views here.
 @login_required(login_url='login')
+@csrf_protect
 def curriculum_form_view(request):
 	if request.method == 'POST':
 		form = CurriculoForm(request.POST, request.FILES or None)
@@ -41,4 +44,5 @@ def curriculum_form_view(request):
 		'error': error
 	}
 
+	context.update(csrf(request))
 	return render(request, 'options/curriculum/form.html', context)
