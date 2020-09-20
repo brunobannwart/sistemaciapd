@@ -457,6 +457,7 @@ function validarFormularioEstudante() {
 function exibirValidarFormularioEstudante() {
 	const cpf = document.forms['formulario_estudante']['cpf_valido'].value;
 	const cep = document.forms['formulario_estudante']['cep_valido'].value;
+	const botao_submit = document.getElementById('botao_submit');
 
 	const bloco = document.getElementById('container_document');
 	const titulo = document.getElementById('title_document');
@@ -467,6 +468,7 @@ function exibirValidarFormularioEstudante() {
 	mensagem.style.display = 'none';
 
 	if (cpf == 'sim' && cep == 'sim') {
+		botao_submit.disabled = true;
 		return true;
 
 	} else {
@@ -494,6 +496,7 @@ function exibirValidarFormularioEstudante() {
 			}
 		}
 
+		botao_submit.disabled = false;
 		return false;
 	}
 }
@@ -501,9 +504,11 @@ function exibirValidarFormularioEstudante() {
 function informarValidarFormularioEstudante() {
 	const cpf = document.forms['formulario_estudante']['cpf_valido'].value;
 	const cep = document.forms['formulario_estudante']['cep_valido'].value;
+	const botao_submit = document.getElementById('botao_submit');
 
 	if (cpf == 'sim' && cep == 'sim') {
 		audio('Formulário validado');
+		botao_submit.disabled = true;
 		return true;
 
 	} else {
@@ -519,6 +524,7 @@ function informarValidarFormularioEstudante() {
 			}
 		}
 
+		botao_submit.disabled = false;
 		return false;
 	}
 }
@@ -539,6 +545,7 @@ function validarFormularioEmpresa() {
 function exibirValidarFormularioEmpresa() {
 	const cnpj = document.forms['formulario_empresa']['cnpj_valido'].value;
 	const cep = document.forms['formulario_empresa']['cep_valido'].value;
+	const botao_submit = document.getElementById('botao_submit');
 
 	const bloco = document.getElementById('container_document');
 	const titulo = document.getElementById('title_document');
@@ -549,6 +556,7 @@ function exibirValidarFormularioEmpresa() {
 	mensagem.style.display = 'none';
 
 	if (cnpj == 'sim' && cep == 'sim') {
+		botao_submit.disabled = true;
 		return true;
 
 	} else {
@@ -576,6 +584,7 @@ function exibirValidarFormularioEmpresa() {
 			}
 		}
 
+		botao_submit.disabled = false;
 		return false;
 	}
 }

@@ -200,7 +200,7 @@
 						pattern='[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[-][0-9]{2}'
 						title='Preencha campo com o formato padrão de CNPJ'  
 						onkeypress="mascaraCNPJ(this)" 
-						onblur="await validarCNPJ(this)"
+						onblur="validarCNPJ(this)"
 						value='{{ company.cnpj }}'
 						onmouseenter='ajudaVoz(`Preencher CNPJ no formato padrão`)'
 						oninput="setCustomValidity('')" 
@@ -333,7 +333,7 @@
 					title='Preencha campo com o formato padrão de CEP' 
 					pattern='[0-9]{2}[\.][0-9]{3}[-][0-9]{3}' 
 					onkeypress="mascaraCEP(this)" 
-					onblur="await validarCEP(this)" 
+					onblur="validarCEP(this)" 
 					value='{{ company.cep }}'
 					onmouseenter='ajudaVoz(`Preencher CEP no formato padrão`)'
 					oninput="setCustomValidity('')" 
