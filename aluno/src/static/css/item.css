@@ -1,5 +1,5 @@
 .main .item {
-	width: 1200px;
+	width: 75.000em;
 	max-width: 100%;
     margin: 0px auto;
     background-color: #FFFFFF; 
@@ -13,8 +13,8 @@
 	border: 1px solid #FFF;
 	background-color: #FFF;
 	border-radius: 0.75em;
-	margin-top: 10px; 
-	margin-left: 10px;
+	margin-top: 0.625em; 
+	margin-left: 0.625em;
 }
 
 .main .item i:hover {
@@ -34,19 +34,19 @@
     font-size: 1.75em;
     color: #333;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 0.625em;
 }
 
 .main .item header p {
 	display: block;
 	font-size: 1.25em;
 	color: #333;
-	margin-bottom: 10px;
+	margin-bottom: 0.625em;
 }
 
 .main .item .wrapper-content {
 	position: relative;
-	padding-top: 25px;
+	padding-top: 1.563em;
 	padding-bottom: 56.25%;
 	height: 0px;
 }
@@ -75,7 +75,7 @@
 }
 
 .main .item .wrapper-button button {
-	height: 42px;
+	height: 2.625em;
 	width: 100%;
 	background-color: #7159C1;
 	font-size: 1em;
@@ -91,8 +91,8 @@
 	justify-content: center;
 	width: 40em;
 	height: 18em;
-	padding-left: 40px;
-	padding-right: 40px;
+	padding-left: 2.500em;
+	padding-right: 2.500em;
 }
 
 .main .item .item-image img {
@@ -105,18 +105,18 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin: 10px auto;
-	padding-left: 40px;
-	padding-right: 40px;
-	padding-bottom: 20px;
+	margin: 0.625em auto;
+	padding-left: 2.500em;
+	padding-right: 2.500em;
+	padding-bottom: 1.250em;
 }
 
 .main .item .item-content p {
 	color: #666;
-    font-size: 16px;
-    line-height: 20px;
-    margin-top: 15px;
-    margin-bottom: 10px;
+    font-size: 1em;
+    line-height: 1.250em;
+    margin-top: 0.938em;
+    margin-bottom: 0.625em;
     text-align: justify;
 }
 
@@ -124,9 +124,9 @@
 	margin: 1em auto 0;
 	border: 1px solid #333;
   	width: 35em;
-  	height: 42px;
-  	padding: 0 20px;
-  	font-size: 16px;
+  	height: 2.625em;
+  	padding: 0 1.250em;
+  	font-size: 1em;
   	font-weight: bold;
  	background-color: #FFF;
   	color: #333;

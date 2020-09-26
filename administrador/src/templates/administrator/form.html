@@ -109,7 +109,7 @@
 						readonly
 						onmouseenter='ajudaVoz(`RF não pode ser alterado`)'
 						oninput="setCustomValidity('')" 
-						oninvalid="setCustomValidity('Preencha com apenas caracteres númericos')" 
+						oninvalid="setCustomValidity('Preencha com apenas caracteres númericos, minimo 5')" 
 					>
 				{% else %}
 					<input
@@ -123,9 +123,9 @@
 						minlength='5'
 						value='{{ administrator.rf }}'
 						title='Preencha campo com apenas caracteres númericos'
-						onmouseenter='ajudaVoz(`Preencher RF com apenas números`)'
+						onmouseenter='ajudaVoz(`Preencher RF com apenas números, minimo 5`)'
 						oninput="setCustomValidity('')" 
-						oninvalid="setCustomValidity('Preencha com apenas caracteres númericos')"
+						oninvalid="setCustomValidity('Preencha com apenas caracteres númericos, minimo 5')"
 					>
 				{% endif %}
 			</div>

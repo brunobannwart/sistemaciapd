@@ -9,10 +9,10 @@
 }
 
 .error-overlay .error-popup {
-  margin: 70px auto;
-  padding: 20px;
+  margin: 4.375em auto;
+  padding: 1.250em;
   background: #fff;
-  border-radius: 5px;
+  border-radius: 0.313em;
   width: 30%;
   position: relative;
   transition: all 5s ease-in-out;
@@ -24,7 +24,7 @@
   text-align: center;
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
-  margin-bottom: 15px;
+  margin-bottom: 0.938em;
   font-weight: bold;
 }
 
@@ -65,8 +65,8 @@
 }
 
 .message-overlay .message-popup {
-  margin: 70px auto;
-  padding: 20px;
+  margin: 4.375em auto;
+  padding: 1.250em;
   background: #fff;
   border-radius: 5px;
   width: 30%;
@@ -80,7 +80,7 @@
   text-align: center;
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
-  margin-bottom: 15px;
+  margin-bottom: 0.938em;
   font-weight: bold;
 }
 
@@ -122,11 +122,11 @@
 
 .form {
 	font-family: arial, sans;
-	width: 1500px;
+	width: 93.750em;
 	max-width: 100%;
-	padding: 30px;
+	padding: 1.875em;
 	background: #FFFFFF;
-	margin: 40px auto;
+	margin: 2.500em auto;
 	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
 	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
 	-webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -135,7 +135,7 @@
 .form .form-button-return {
 	float: left;
 	margin-top: -1em;
-	margin-bottom: 20px;
+	margin-bottom: 1.250em;
 }
 
 .form .form-button-return i {
@@ -150,18 +150,18 @@
 }
 
 .form form .form-block + .form-block {
-    margin-top: 15px;
+    margin-top: 0.938em;
 }
 
 .form form .form-group {
-    margin-top: 15px;
+    margin-top: 0.938em;
     display: grid;
-    gap: 50px;
+    gap: 3.125em;
     grid-template-columns: 1fr 1fr;
 }
 
 .form form .form-group-checkbox {
-  margin-top: 15px;
+  margin-top: 0.938em;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -178,7 +178,7 @@
 .form form .form-block-checkbox {
   display: flex;
   flex-direction: row;
-  padding-right: 20px;
+  padding-right: 1.250em;
 }
 
 .form form .form-block label {
@@ -204,8 +204,8 @@
 .form form .form-block-checkbox label.checkbox-label {
   display: block;
   position: relative;
-  padding-left: 27px;
-  margin-bottom: 12px;
+  padding-left: 1.688em;
+  margin-bottom: 0.750em;
   cursor: pointer;
   font-size: 1em;
   -webkit-user-select: none;
@@ -226,8 +226,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 20px;
-  width: 20px;
+  height: 1.250em;
+  width: 1.250em;
   background-color: #EEE;
   border-radius: 50%;
 }
@@ -246,8 +246,8 @@
   display: none;
   left: 5px;
   top: 2px;
-  width: 5px;
-  height: 10px;
+  width: 0.313em;
+  height: 0.625em;
   border: solid white;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
@@ -266,13 +266,13 @@
 	outline: none;
 	display: block;
 	width: 100%;
-	padding: 7px;
+	padding: 0.438em;
 	border: none;
 	border-bottom: 1px solid #ddd;
 	background: transparent;
-	margin-bottom: 10px;
+	margin-bottom: 0.625em;
 	font: 1em Arial, Helvetica, sans-serif;
-	height: 45px;
+	height: 2.813em;
 }
 
 .form form select[multiple] {
@@ -282,13 +282,13 @@
   outline: none;
   display: block;
   width: 100%;
-  padding: 7px;
+  padding: 0.438em;
   border: none;
   border-bottom: 1px solid #ddd;
   background: transparent;
-  margin-bottom: 10px;
+  margin-bottom: 0.625em;
   font: 1em Arial, Helvetica, sans-serif;
-  height: 45px;
+  height: 2.813em;
   -moz-appearance: menulist;
   -webkit-appearance: menulist;
   appearance: menulist;
@@ -337,17 +337,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 185px;
-  height: 45px;
+  width: 11.563em;
+  height: 2.813em;
   border: 1px solid #333;
-  border-radius: 10px;
+  border-radius: 0.625em;
   color: #333;
   background-color: #FFF;
   cursor: pointer;
   transition: all 0.5s;
-  font-size: 18px;
-  margin-left: 15px;
-  margin-top: 10px;
+  font-size: 1.125em;
+  margin-left: 0.938em;
+  margin-top: 0.625em;
 }
 
 .form form .form-file-block .form-file button.file:hover {
@@ -378,8 +378,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-	width: 90px;
-  height: 90px;
+	width: 5.625em;
+  height: 5.625em;
   border: 2px solid #444;
   border-radius: 50%;
 	background-color: #FFF;
@@ -398,7 +398,7 @@
 }
 
 .form form button[type='submit'] {
-	margin: 30px auto 0;
+	margin: 1.875em auto 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -411,7 +411,7 @@
   transition: background-color 0.5s;
   background-color: #7d40e7;
   border-radius: 2px;
-  padding: 15px 20px;
+  padding: 0.938em 1.250em;
 }
 
 .form form button[type='submit']:hover {

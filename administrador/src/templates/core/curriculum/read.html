@@ -33,7 +33,7 @@
 			{% csrf_token %}
 			<input name='aluno_id' type='hidden' aria-hidden='true' style='display: none;' value='{{ curriculum.aluno_id }}' />
 
-			<div class='form-group' style='margin-top: 30px;'>
+			<div class='form-group' style='margin-top: 1.875em;'>
 				<div class='form-block'>
 					<label for='nome'>Nome</label>
 					<input type='text' id='nome' name='nome' readonly value='{{ curriculum.nome }}'>
@@ -76,12 +76,12 @@
 							id='laudo_botao'
 							onclick='selecionarArquivo()'
 							onmouseenter='ajudaVoz(`Escolher novo laudo médico`)'
-							style='display: flex; flex-direction: column; align-items: center; justify-content: center; width: 13.15em; height: 47px; border: 1px solid #FFF;
-									border-radius: 0px; color: #FFF; background-color: #52A641; cursor: pointer; transition: all 0.5s; font-size: 18px; margin-top: 10px; margin-right: 15px; padding: 0.88em 1.56em;'
+							style='display: flex; flex-direction: column; align-items: center; justify-content: center; width: 13.15em; height: 2.938em; border: 1px solid #FFF;
+									border-radius: 0px; color: #FFF; background-color: #52A641; cursor: pointer; transition: all 0.5s; font-size: 1.125em; margin-top: 0.625em; margin-right: 0.938em; padding: 0.88em 1.56em;'
 						>
 							Selecionar novo laudo
 						</button>
-						<p id='mensagem' style='font-size: 14px; font-weight: bold; font-style: italic; color: #D44646;'></p>
+						<p id='mensagem' style='font-size: 0.875em; font-weight: bold; font-style: italic; color: #D44646;'></p>
 					</div>
 
 					<div style='width: 0; height: 0; overflow: hidden;'>
@@ -89,7 +89,7 @@
 					</div>
 				</div>
 				{% if curriculum.link_laudo is not None %}
-					<div class='form-block' style='margin-top: 20px;'>
+					<div class='form-block' style='margin-top: 1.250em;'>
 						<a class='download' href='{{ curriculum.link_laudo }}' download>Baixar laudo médico atual</a>
 					</div>
 				{% endif %}

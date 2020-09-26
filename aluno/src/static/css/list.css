@@ -19,16 +19,16 @@
 .main .content {
 	flex: 1;
 	font-family: arial, sans;
-  width: 2000px;
+  width: 125.000em;
   max-width: 100%;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 30px;
+  padding-left: 1.875em;
+  padding-right: 1.875em;
+  padding-bottom: 1.875em;
   margin: 0px auto;
 }
 
 .main .content .list .list-content {
-	height: 500px;
+	height: 31.250em;
 	width: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -37,7 +37,7 @@
 .main .content .list .list-content ul {
 	display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 40px;
+  gap: 2.500em;
   list-style: none;
 }
 
@@ -49,7 +49,7 @@
 
 .main .content .list .list-content ul li.list-item {
 	background-color: #FFF;
-  box-shadow: 0 0 14px rgb(0, 0, 0, 0.02);
+  box-shadow: 0 0 0.875em rgb(0, 0, 0, 0.02);
   border-radius: 2px;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .main .content .list .list-content ul li.list-item .list-item-container {
-  padding: 20px;
+  padding: 1.250em;
 }
 
 .main .content .list .list-content ul li.list-item .list-item-container header {
@@ -78,21 +78,21 @@
   font-size: 1.25em;
   color: #333;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 0.625em;
 }
 
 .main .content .list .list-content ul li.list-item .list-item-container-content p {
-  font-size: 16px;
-  line-height: 30px;
-  margin-bottom: 10px;
+  font-size: 1em;
+  line-height: 1.875em;
+  margin-bottom: 0.625em;
 }
 
 .main .content .list .list-content ul li.list-item .list-item-container-content button.list-item-button {
   border: 1px solid #333;
   width: 100%;
-  height: 42px;
-  padding: 0 20px;
-  font-size: 16px;
+  height: 2.625em;
+  padding: 0 1.250em;
+  font-size: 1em;
   font-weight: bold;
   background: #FFF;
   color: #333;

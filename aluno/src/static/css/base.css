@@ -66,10 +66,10 @@ body {
 .header header .header-options ul button.header-button {
     display: inline;
     border: 1px solid #0053DB;
-    border-radius: 12px;
+    border-radius: 0.625em;
     background-color: transparent;
     width: 9em;
-    padding: 8px 15px;
+    padding: 0.500em 0.938em;
     font-size: 1em;
     font-family: Arial, Helvetica, sans-serif;
     color: #333;
@@ -78,7 +78,7 @@ body {
 
 .header header .header-options ul button.header-button:hover {
     background-color: #0053DB;
-    border-radius: 12px;
+    border-radius: 0.625em;
     color: #FFF;
     font-weight: bold;
     cursor: pointer;
@@ -94,10 +94,10 @@ body {
 
 .main .list {
     font-family: arial, sans;
-    width: 1200px;
+    width: 75.000em;
     max-width: 100%;
-    padding: 30px;
-    margin: 20px auto;
+    padding: 1.875em;
+    margin: 1.250em auto;
 }
 
 .main .list nav {
@@ -107,7 +107,7 @@ body {
 .main .list nav ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 2.500em;
     list-style: none;
 }
 
@@ -121,8 +121,8 @@ body {
     background-color: #FFF;
     box-shadow: 0 0 14px rgb(0, 0, 0, 0.02);
     border-radius: 2px;
-    padding: 20px;
-    height: 100px;
+    padding: 1.250em;
+    height: 6.250em;
     display: flex;
     flex-direction: column;
     align-items: center;

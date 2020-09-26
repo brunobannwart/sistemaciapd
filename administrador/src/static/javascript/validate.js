@@ -163,7 +163,6 @@ function exibirResultadoCPF(cpf_entrada) {
 			}
 
 			resultado = (soma * 10) % 11;
-			//resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 
 			if (resultado != digitos.charAt(0)) {
 				controle = 0;
@@ -176,7 +175,6 @@ function exibirResultadoCPF(cpf_entrada) {
 					soma += numeros.charAt(11 - i) * i;
 				}
 
-				//resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 				resultado = (soma * 10) % 11;
 
 				if (resultado != digitos.charAt(1)) {
@@ -256,11 +254,10 @@ function informarResultadoCPF(cpf_entrada) {
 
 		if (!controle) {
 			audio('CPF inválido');
-
 			cpf_valido.value = 'nao';
+
 		} else {
 			audio('CPF válido');
-
 			cpf_valido.value = 'sim';
 		}
 	}
@@ -431,11 +428,10 @@ function informarResultadoCNPJ(cnpj_entrada) {
 
 		if (!controle) {
 			audio('CNPJ inválido');
-
 			cnpj_valido.value = 'nao';
+
 		} else {
 			audio('CNPJ válido');
-			
 			cnpj_valido.value = 'sim';
 		}
 	}
@@ -592,8 +588,10 @@ function exibirValidarFormularioEmpresa() {
 function informarValidarFormularioEmpresa() {
 	const cnpj = document.forms['formulario_empresa']['cnpj_valido'].value;
 	const cep = document.forms['formulario_empresa']['cep_valido'].value;
+	const botao_submit = document.getElementById('botao_submit');
 
 	if (cnpj == 'sim' && cep == 'sim') {
+		botao_submit.disabled = true;
 		return true;
 
 	} else {
@@ -609,6 +607,7 @@ function informarValidarFormularioEmpresa() {
 			}
 		}
 
+		botao_submit.disabled = false;
 		return false;
 	}
 }

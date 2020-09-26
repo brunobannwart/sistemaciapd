@@ -23,7 +23,7 @@ body {
 
 /* Header Style */
  .header header {
-    margin-left: 255px;
+    margin-left: 15.938em;
     background-color: #222;
     width: 100%;
     height: 7.5em;
@@ -50,7 +50,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: -255px;
+    margin-left: -15.938em;
     color: #FFF;
     font-size: 1.1em;
     margin-top: -2em;
@@ -67,10 +67,10 @@ body {
 
 .container .navbar {
     position: fixed;
-    width: 255px;
+    width: 15.938em;
     height: 100%;
     background: #D10000;
-    padding: 30px 0;
+    padding: 1.875em 0;
     top: 0%;
 }
 
@@ -80,7 +80,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 0.938em;
 }
 
 .container .navbar .container-home > img {
@@ -92,7 +92,7 @@ body {
     display: block;
     font-size: 1.1em;
     font-family: Arial, Helvetica, sans-serif;
-    margin-top: 15px;
+    margin-top: 0.938em;
 }
 
 /* List Options Style */
@@ -105,12 +105,12 @@ body {
 .container .navbar .container-options strong {
     font-size: 1.15em;
     color: #FFF;
-    padding: 15px;
-    margin-bottom: 10px
+    padding: 0.938em;
+    margin-bottom: 0.625em;
 }
 .container .navbar .container-options ul li {
-    margin-top: 10px;
-    padding: 15px;
+    margin-top: 0.625em;
+    padding: 0.938em;
 }
 
 .container .navbar .container-options ul li a{
@@ -131,8 +131,8 @@ body {
 /* List Actions Style */
 
 .container .navbar .container-actions ul li {
-    margin-top: 10px;
-    padding: 15px;
+    margin-top: 0.625em;
+    padding: 0.938em;
 }
 
 .container .navbar .container-actions ul li a{
@@ -153,7 +153,7 @@ body {
 /* Main Style */
 
 .container .main {
-    margin-left: 255px;
+    margin-left: 15.938em;
     height: 100%;
     width: 100%;
     float: left;
