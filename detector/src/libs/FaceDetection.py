@@ -48,13 +48,13 @@ class FaceDetection:
 		else:
 			id_ = 1
 
-		image = Image.open(filepath).convert("L")
-		image_array = np.array(image, "uint8")
-		image_array = cv2.equalizeHist(image_array)
-		facelist = self.classifier.detectMultiScale(image_array, scaleFactor=1.1, minNeighbors=5)
+		img = cv2.imread(filepath)
+		gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		gray_img = cv2.equalizeHist(gray_img)
+		facelist = self.classifier.detectMultiScale(gray_img, scaleFactor=1.1, minNeighbors=5)
 
-		for (x,y,w,h) in facelist:
-			roi = image_array[y:y+h, x:x+w]
+		for (x, y, w, h) in facelist:
+			roi = gray_img[y: y+h, x: x+w]
 			train.append(roi)
 			labels.append(id_)
 
@@ -103,18 +103,25 @@ class FaceDetection:
 	def findMatches(self, filepath, filegroup):
 		matches = []
 
-		image = Image.open(filepath).convert("L")
-		image_array = np.array(image, "uint8")
-		image_array = cv2.equalizeHist(image_array)
-		facelist = self.classifier.detectMultiScale(image_array, scaleFactor=1.1, minNeighbors=5)
+		img = cv2.imread(filepath)
+		gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		gray_img = cv2.equalizeHist(gray_img)
+		facelist = self.classifier.detectMultiScale(gray_img, scaleFactor=1.1, minNeighbors=5)
 
-		for (x,y,w,h) in facelist:
-			roi = image_array[y:y+h, x:x+w]
+		for (x, y, w, h) in facelist:
+			roi = gray_img[y: y+h, x: x+w]
+			
 			id, conf = self.facerecognizer.predict(roi)
 
-			if conf >= 70.0:
+			print('ID treino: ', id)
+			print('Confiabilidade: ', conf)
+
+			if conf >= 45 and conf <= 85:
 				for known in self.known:
 					if known.getFaceID() == id:
+						print('Grupo: ', known.getGroup())
+
 						if known.getGroup() == filegroup:
 							matches.append(known.parseData())
+
 		return matches
