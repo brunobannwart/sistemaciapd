@@ -75,10 +75,17 @@ def company_form_view(request, id=0):
 								responseJSON = response.json()
 								update_company.removePicture()
 								update_company.foto = data['foto']
+								update_company.nome_contato = data['nome_contato']
 								update_company.cod_treino = responseJSON['treino']
 								
 						except Exception as e:
-							print(e)
+							pass
+					else:
+						if 'foto' in request.FILES:
+							update_company.removePicture()
+							update_company.foto = data['foto']
+						else:
+							update_company.nome_contato = data['nome_contato']
 				
 					if 'logo' in request.FILES:
 						update_company.removeLogo()
@@ -88,7 +95,6 @@ def company_form_view(request, id=0):
 						update_company.senha_hash = data['senha']
 				
 					update_company.razao_social = data['razao_social']
-					update_company.nome_contato = data['nome_contato']
 					update_company.telefone = data['telefone']
 					update_company.cep = data['cep']
 					update_company.numero = data['numero']
@@ -106,6 +112,7 @@ def company_form_view(request, id=0):
 	else:
 		form = EmpresaForm()
 		error = None 
+		
 		if id == 0:
 			company = {
 				'logo': None,
