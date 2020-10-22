@@ -34,7 +34,7 @@ from jogos.views import game_list_view, game_form_view, game_delete_view
 from videoaulas.views import videolesson_list_view, videolesson_form_view, videolesson_delete_view
 
 urlpatterns = [
-	path('ciapd/', admin.site.urls),
+	path('vitalita/', admin.site.urls),
 
 	path('', login_view, name='login'),
 	path('camera/', camera_view, name='camera'),
